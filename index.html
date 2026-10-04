@@ -17,6 +17,27 @@
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
 }
+  .card.fx-hit{animation:hitpulse .6s ease-out}
+.card.fx-miss{animation:shake .45s ease-in-out}
+@keyframes hitpulse{0%{box-shadow:0 0 0 0 color-mix(in srgb, var(--pc) 50%, transparent);transform:scale(1)}30%{transform:scale(1.025)}100%{box-shadow:0 0 0 24px transparent;transform:scale(1)}}
+@keyframes shake{20%{transform:translateX(-9px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}}
+.spark{position:absolute;left:50%;top:46%;width:9px;height:9px;border-radius:2px;background:var(--pc);pointer-events:none;z-index:2;animation:spark .75s cubic-bezier(.15,.7,.3,1) forwards}
+.spark.round{border-radius:50%}
+@keyframes spark{to{transform:translate(var(--dx),var(--dy)) rotate(var(--r));opacity:0}}
+.word .art{display:inline-block;animation:artin .35s cubic-bezier(.2,.9,.3,1.4)}
+@keyframes artin{from{transform:translateY(10px) scale(.6);opacity:0}to{transform:none;opacity:1}}
+#flame{display:inline-block;margin-left:3px;transform-origin:50% 90%;animation:flicker 1s ease-in-out infinite alternate}
+#flame[hidden]{display:none}
+@keyframes flicker{from{transform:scale(1) rotate(-4deg)}to{transform:scale(1.15) rotate(4deg)}}
+.combo{position:fixed;left:50%;top:38%;z-index:40;transform:translate(-50%,-50%);font-family:var(--display);font-weight:800;font-size:clamp(34px,10vw,56px);color:var(--pc);text-shadow:0 6px 24px color-mix(in srgb, var(--pc) 40%, transparent);pointer-events:none;animation:combo 1s ease-out forwards;white-space:nowrap}
+@keyframes combo{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}70%{opacity:1;transform:translate(-50%,-55%) scale(1)}100%{opacity:0;transform:translate(-50%,-75%) scale(.95)}}
+.share-modal .box{max-width:400px;text-align:center}
+.share-modal img{width:100%;border-radius:14px;box-shadow:0 10px 30px -12px rgba(0,0,0,.35);margin-bottom:12px}
+.share-modal .hint{font-size:12px;color:var(--muted);margin:8px 0 0}
+.share-modal .acts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.share-modal .acts button{border-radius:12px;padding:12px;font-weight:700;font-size:15px;border:1.5px solid var(--ink);background:none}
+.share-modal .acts .fill{background:var(--ink);color:var(--bg)}
+.share-modal .close{margin-top:8px;background:none;border:0;color:var(--muted);font-size:14px;padding:8px}
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --bg:#121722; --surface:#1B2230; --ink:#E8ECF3; --muted:#98A2B5; --line:#2C3546;
@@ -429,7 +450,7 @@ html,body{overflow-x:hidden}
     <button class="back" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>돌아가기</button>
     <div class="top">
       <span id="count">1 / 20</span>
-      <span>연속 <strong id="streak">0</strong></span>
+      <span>연속 <strong id="streak">0</strong><span id="flame" hidden>🔥</span></span>
       <span>점수 <strong id="score">0</strong></span>
     </div>
     <div class="bar"><i id="barFill"></i></div>
@@ -675,7 +696,8 @@ html,body{overflow-x:hidden}
     </div>
     <div id="wrongWrap"></div>
     <div class="stack">
-      <button class="primary" id="retryWrong">틀린 단어만 다시 풀기</button>
+      <button class="primary" id="shareCardBtn">결과 카드 만들기</button>
+<button class="secondary" id="retryWrong">틀린 단어만 다시 풀기</button>
       <button class="secondary" id="backToSrc" style="display:none"></button>
       <button class="secondary" id="again">처음으로 돌아가기</button>
     </div>
@@ -692,6 +714,14 @@ html,body{overflow-x:hidden}
     <div class="item"><i style="background:var(--die)">!</i><div><b>로그인을 하지 않으면 데이터가 저장되지 않습니다.</b><span>로그인 전 기록은 이 브라우저에 임시로만 남아 언제든 사라질 수 있어요.</span></div></div>
     <div class="item"><i style="background:var(--der)">30</i><div><b>코드로 로그인한 경우, 30일 동안 접속하지 않으면 탈퇴 절차가 진행됩니다.</b><span>탈퇴되면 코드와 기록이 모두 삭제돼요. Google 로그인은 해당되지 않아요.</span></div></div>
     <div class="acts"><button class="fill" id="noticeLogin">로그인하기</button><button id="noticeOk">확인</button></div>
+  </div>
+</div>
+  <div class="modal share-modal" id="shareModal" hidden role="dialog" aria-modal="true" aria-label="결과 카드">
+  <div class="box">
+    <img id="shareImg" alt="게임 결과 카드">
+    <div class="acts"><button class="fill" id="shareSave">이미지 저장</button><button id="shareSend">공유하기</button></div>
+    <p class="hint">저장이 안 되면 이미지를 길게 눌러 저장해 주세요.</p>
+    <button class="close" id="shareClose">닫기</button>
   </div>
 </div>
 <div class="findbar" id="findbar" hidden>
@@ -1131,6 +1161,7 @@ function renderQuestion(){
   document.querySelectorAll("#answers button").forEach(b => { b.className = b.dataset.a; b.disabled = false; });
   $("feedback").innerHTML = "";
   $("dunnoBtn").disabled = false;
+    $("flame").hidden = streak < 5;
   syncFavBtn();
 }
 function syncFavBtn(){
@@ -1175,6 +1206,7 @@ function answer(choice){
   });
   $("answers").classList.add("done");
   $("card").classList.add(it.a);
+    playFx(ok, it.a);
   $("word").innerHTML = `<span class="art ${it.a}">${it.a}</span>${esc(it.w)}`;
   $("hint").textContent = hintAfter(it);
   $("dunnoBtn").disabled = true;
@@ -1208,7 +1240,7 @@ document.addEventListener("keydown", e => {
   else if(!answered && e.key === "4") answer(null);
   else if(answered && (e.key === "Enter" || e.key === " ")){ e.preventDefault(); next(); }
 });
-
+let lastResult = null;
 function finish(){
   $("barFill").style.width = "100%";
   const acc = Math.round(correct/deck.length*100);
@@ -1236,6 +1268,7 @@ function finish(){
   const SRC = { favs: "즐겨찾기로 돌아가기", wrongs: "오답노트로 돌아가기", words: "수록된 단어로 돌아가기" };
   $("backToSrc").style.display = SRC[cameFrom] ? "block" : "none";
   $("backToSrc").textContent = SRC[cameFrom] || "";
+   lastResult = { score, n: deck.length, c: correct, k: maxStreak, t: Date.now() };
   show("result");
 }
 $("backToSrc").addEventListener("click", () => show(cameFrom));
@@ -1699,6 +1732,97 @@ $("findNext").addEventListener("click", () => gotoHit(hitIdx + 1));
 $("findPrev").addEventListener("click", () => gotoHit(hitIdx - 1));
 $("findClose").addEventListener("click", closeFind);
 updateFab();
+</script>
+  <script>
+/* ---------- 게임 연출 ---------- */
+const REDUCE = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+function playFx(ok, a){
+  const card = $("card");
+  card.style.setProperty("--pc", `var(--${ok ? a : "die"})`);
+  card.classList.remove("fx-hit","fx-miss"); void card.offsetWidth;
+  card.classList.add(ok ? "fx-hit" : "fx-miss");
+  $("flame").hidden = streak < 5;
+  if(!ok){ if(navigator.vibrate) try{ navigator.vibrate(40); }catch(e){} return; }
+  if(REDUCE) return;
+  const n = streak >= 10 ? 28 : streak >= 5 ? 20 : 12;
+  for(let i = 0; i < n; i++){
+    const s = document.createElement("i");
+    s.className = "spark" + (i % 3 ? "" : " round");
+    const ang = Math.random() * Math.PI * 2, dist = 70 + Math.random() * (streak >= 5 ? 140 : 90);
+    s.style.setProperty("--dx", `${Math.cos(ang) * dist}px`);
+    s.style.setProperty("--dy", `${Math.sin(ang) * dist}px`);
+    s.style.setProperty("--r", `${Math.random() * 540 - 270}deg`);
+    card.appendChild(s);
+    setTimeout(() => s.remove(), 900);
+  }
+  if(streak >= 3 && (streak === 3 || streak % 5 === 0)){
+    const c = document.createElement("div");
+    c.className = "combo"; c.style.setProperty("--pc", `var(--${a})`);
+    c.textContent = streak >= 5 ? `${streak} COMBO 🔥` : `${streak} COMBO`;
+    document.body.appendChild(c); setTimeout(() => c.remove(), 1000);
+  }
+}
+
+/* ---------- 결과 카드 ---------- */
+let cardBlob = null;
+async function drawResultCard(r){
+  try{ await Promise.all([document.fonts.load('800 120px "Bricolage Grotesque"'), document.fonts.load('700 40px "IBM Plex Sans KR"')]); }catch(e){}
+  const W = 1080, H = 1350, cv = document.createElement("canvas"); cv.width = W; cv.height = H;
+  const x = cv.getContext("2d");
+  const D = "'Bricolage Grotesque', Arial, sans-serif", K = "'IBM Plex Sans KR', 'Apple SD Gothic Neo', sans-serif";
+  const g = x.createLinearGradient(0, 0, W, H); g.addColorStop(0, "#FFFFFF"); g.addColorStop(1, "#ECEFF5"); x.fillStyle = g; x.fillRect(0, 0, W, H);
+  [["#2457D6", 120, 260], ["#D2303D", 980, 560], ["#17905A", 260, 1180]].forEach(([c, cx, cy]) => {
+    const rg = x.createRadialGradient(cx, cy, 0, cx, cy, 520); rg.addColorStop(0, c + "38"); rg.addColorStop(1, c + "00");
+    x.fillStyle = rg; x.fillRect(0, 0, W, H);
+  });
+  ["#141414", "#DD0000", "#FFCE00"].forEach((c, i) => { x.fillStyle = c; x.fillRect(0, i * 16, W, 16); });
+  if("letterSpacing" in x) x.letterSpacing = "10px";
+  x.fillStyle = "#5B6578"; x.font = `700 28px ${D}`; x.fillText("DEUTSCHE ARTIKEL", 90, 150);
+  if("letterSpacing" in x) x.letterSpacing = "0px";
+  x.font = `800 128px ${D}`; let px = 84;
+  [["der", "#2457D6"], ["die", "#D2303D"], ["das", "#17905A"]].forEach(([w, c]) => { x.fillStyle = c; x.fillText(w, px, 290); px += x.measureText(w).width + 36; });
+  x.fillStyle = "#172033"; x.font = `700 44px ${K}`; x.fillText("오늘의 결과", 90, 450);
+  x.font = `800 300px ${D}`; const sw = x.measureText(String(r.score)).width;
+  x.fillText(String(r.score), 80, 720); x.font = `700 64px ${K}`; x.fillStyle = "#5B6578"; x.fillText("점", 80 + sw + 18, 720);
+  const acc = Math.round(r.c / r.n * 100);
+  [["정답률", acc + "%"], ["맞힌 문제", `${r.c} / ${r.n}`], ["최고 연속", String(r.k)]].forEach(([lab, val], i) => {
+    const bx = 90 + i * 310, by = 800, bw = 280, bh = 190;
+    x.fillStyle = "rgba(255,255,255,.85)"; x.strokeStyle = "#D5DBE5"; x.lineWidth = 3;
+    x.beginPath(); if(x.roundRect) x.roundRect(bx, by, bw, bh, 28); else x.rect(bx, by, bw, bh); x.fill(); x.stroke();
+    x.fillStyle = "#5B6578"; x.font = `500 32px ${K}`; x.fillText(lab, bx + 30, by + 62);
+    x.fillStyle = "#172033"; x.font = `800 68px ${D}`; x.fillText(val, bx + 30, by + 150);
+  });
+  const d = new Date(r.t), p2 = n => String(n).padStart(2, "0");
+  const who = codeHash && codeName ? `${codeName} · ` : "";
+  x.fillStyle = "#172033"; x.font = `700 36px ${K}`; x.fillText(`${who}${d.getFullYear()}.${p2(d.getMonth()+1)}.${p2(d.getDate())}`, 90, 1150);
+  x.fillStyle = "#5B6578"; x.font = `500 30px ${K}`; x.fillText("독일어 관사 트레이너", 90, 1205);
+  x.font = `600 28px ${D}`; x.fillText(location.host + location.pathname.replace(/index\.html$/, ""), 90, 1255);
+  return new Promise(res => cv.toBlob(b => res(b), "image/png"));
+}
+$("shareCardBtn").addEventListener("click", async () => {
+  if(!lastResult) return;
+  const btn = $("shareCardBtn"); btn.disabled = true; btn.textContent = "카드 만드는 중…";
+  try{
+    cardBlob = await drawResultCard(lastResult);
+    $("shareImg").src = URL.createObjectURL(cardBlob);
+    const file = new File([cardBlob], "der-die-das.png", { type: "image/png" });
+    $("shareSend").hidden = !(navigator.canShare && navigator.canShare({ files: [file] }));
+    $("shareModal").querySelector(".acts").style.gridTemplateColumns = $("shareSend").hidden ? "1fr" : "1fr 1fr";
+    $("shareModal").hidden = false;
+  }catch(e){}
+  btn.disabled = false; btn.textContent = "결과 카드 만들기";
+});
+$("shareSave").addEventListener("click", () => {
+  if(!cardBlob) return;
+  const a = document.createElement("a"); a.href = URL.createObjectURL(cardBlob);
+  a.download = "der-die-das-result.png"; document.body.appendChild(a); a.click(); a.remove();
+});
+$("shareSend").addEventListener("click", async () => {
+  if(!cardBlob) return;
+  try{ await navigator.share({ files: [new File([cardBlob], "der-die-das.png", { type: "image/png" })], title: "der die das 결과" }); }catch(e){}
+});
+$("shareClose").addEventListener("click", () => { $("shareModal").hidden = true; });
+$("shareModal").addEventListener("click", e => { if(e.target.id === "shareModal") $("shareModal").hidden = true; });
 </script>
   <script>
 /* ---------- 다크 모드 전환 버튼 ---------- */
