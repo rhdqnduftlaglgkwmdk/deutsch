@@ -1761,7 +1761,7 @@ function playFx(ok, a){
     document.querySelectorAll(".combo").forEach(el => el.remove());
     const c = document.createElement("div");
     c.className = "combo"; c.style.setProperty("--pc", `var(--${a})`);
-    c.textContent = combo >= 5 ? `${combo} COMBO 🔥` : `${combo} COMBO`;
+    c.textContent = combo >= 3 ? `${combo} COMBO 🔥` : `${combo} COMBO`;
     document.body.appendChild(c); setTimeout(() => c.remove(), 1000);
   }
 }
