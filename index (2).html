@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>der die das — 독일어 관사 맞히기</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF1F5; --surface:#FFFFFF; --ink:#172033; --muted:#5B6578; --line:#D5DBE5;
+  --der:#2457D6; --die:#D2303D; --das:#17905A; --on-accent:#FFFFFF;
+  --display:"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --body:"IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121722; --surface:#1B2230; --ink:#E8ECF3; --muted:#98A2B5; --line:#2C3546;
+    --der:#6E95FF; --die:#FF6B74; --das:#3FCB8A; --on-accent:#0E131C;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121722; --surface:#1B2230; --ink:#E8ECF3; --muted:#98A2B5; --line:#2C3546;
+  --der:#6E95FF; --die:#FF6B74; --das:#3FCB8A; --on-accent:#0E131C;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.wrap{max-width:640px;margin:0 auto;padding:28px 20px 40px}
+.screen{display:none}
+.screen.on{display:block}
+
+.back{display:inline-flex;align-items:center;gap:6px;background:none;border:1.5px solid var(--line);border-radius:999px;padding:6px 14px 6px 10px;font-size:14px;color:var(--ink);margin-bottom:16px}
+.back:hover{border-color:var(--muted)}
+.back svg{width:16px;height:16px}
+
+/* start */
+.logo{font-family:var(--display);font-weight:800;font-size:clamp(64px,18vw,124px);line-height:.88;letter-spacing:-.04em;margin:24px 0 20px}
+.logo span{display:block}
+.logo .a{color:var(--der)} .logo .b{color:var(--die);padding-left:.5em} .logo .c{color:var(--das);padding-left:1em}
+.lead{font-size:17px;max-width:30em;margin:0 0 24px}
+.lead small{display:block;color:var(--muted);font-size:14px;margin-top:6px}
+.opt-title{font-size:14px;color:var(--muted);margin:0 0 8px}
+.choose{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.choose button{background:var(--surface);border:1.5px solid var(--line);border-radius:999px;padding:8px 16px;font-size:15px}
+.choose button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.primary{display:block;width:100%;border:0;border-radius:14px;background:var(--ink);color:var(--bg);font-size:18px;font-weight:700;padding:16px}
+.secondary{display:block;width:100%;border:1.5px solid var(--ink);border-radius:14px;background:none;font-size:17px;font-weight:700;padding:14px}
+.stack{display:grid;gap:10px;margin-top:6px}
+.best{color:var(--muted);font-size:14px;margin-top:14px}
+.legend{display:flex;gap:18px;margin-top:32px;padding-top:18px;border-top:1px solid var(--line);font-size:14px;color:var(--muted);flex-wrap:wrap}
+.legend b{font-family:var(--display);font-size:16px}
+
+/* game */
+.top{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;color:var(--muted);gap:12px}
+.top strong{color:var(--ink);font-size:16px}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:10px 0 28px}
+.bar i{display:block;height:100%;width:0;background:var(--ink);transition:width .3s}
+.card{background:var(--surface);border-radius:22px;padding:34px 24px 26px;text-align:center;border:1.5px solid var(--line);transition:border-color .2s}
+.card.der{border-color:var(--der)} .card.die{border-color:var(--die)} .card.das{border-color:var(--das)}
+.meaning{color:var(--muted);font-size:16px;margin:0;min-height:1.6em}
+.meaning.none{font-size:14px;opacity:.7}
+.word{font-family:var(--display);font-weight:800;font-size:clamp(36px,11vw,68px);line-height:1.05;letter-spacing:-.02em;margin:8px 0 6px;overflow-wrap:anywhere}
+.word .art{margin-right:.25em}
+.art.der{color:var(--der)} .art.die{color:var(--die)} .art.das{color:var(--das)}
+.tools{display:flex;justify-content:center;gap:8px;margin-top:10px}
+.ghost{background:none;border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px;color:var(--muted)}
+.ghost:hover{color:var(--ink);border-color:var(--muted)}
+.ghost:disabled{opacity:.5;cursor:default}
+.hint{min-height:1.6em;margin:14px 0 0;font-size:15px}
+.answers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.answers button{border:0;border-radius:16px;padding:20px 0;font-family:var(--display);font-weight:800;font-size:clamp(24px,7vw,32px);color:var(--on-accent);transition:transform .1s, opacity .2s}
+.answers button:active{transform:scale(.96)}
+.answers button kbd{display:block;font-family:var(--body);font-size:12px;font-weight:500;opacity:.75}
+.answers .der{background:var(--der)} .answers .die{background:var(--die)} .answers .das{background:var(--das)}
+.answers.done button{opacity:.25}
+.answers.done button.right{opacity:1}
+.answers.done button.picked:not(.right){opacity:.6;text-decoration:line-through}
+.feedback{min-height:56px;margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.feedback p{margin:0;font-weight:700;font-size:17px}
+.feedback .next{border:0;border-radius:12px;background:var(--ink);color:var(--bg);padding:12px 20px;font-weight:700;white-space:nowrap}
+.streak-pop{animation:pop .4s ease-out}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.35)}100%{transform:scale(1)}}
+
+/* words */
+.words-head h2{font-family:var(--display);font-size:clamp(34px,9vw,48px);letter-spacing:-.02em;line-height:1.05;margin:0 0 4px}
+.words-head p{margin:0 0 16px;color:var(--muted);font-size:15px}
+.gender-key{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.gender-key div{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:10px 12px;border-top-width:5px}
+.gender-key b{display:block;font-family:var(--display);font-size:22px;line-height:1.15}
+.gender-key span{font-size:13px;color:var(--muted)}
+.dist{display:flex;height:8px;border-radius:4px;overflow:hidden;margin-bottom:18px}
+.dist i{display:block;height:100%}
+.dist-legend{display:flex;gap:14px;font-size:13px;color:var(--muted);margin-bottom:18px;flex-wrap:wrap}
+.dist-legend b{font-family:var(--display)}
+.search{width:100%;border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:12px 14px;font-size:16px;margin-bottom:10px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:none;padding:6px 13px;font-size:14px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg button[data-f="der"][aria-pressed="true"]{background:var(--der);color:var(--on-accent)}
+.seg button[data-f="die"][aria-pressed="true"]{background:var(--die);color:var(--on-accent)}
+.seg button[data-f="das"][aria-pressed="true"]{background:var(--das);color:var(--on-accent)}
+.check{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--muted);cursor:pointer}
+.check input{width:16px;height:16px;accent-color:var(--ink)}
+select{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:14px}
+.result-line{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px;color:var(--muted);margin:14px 0 8px}
+.mini{border:0;background:var(--ink);color:var(--bg);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;white-space:nowrap}
+.mini:disabled{opacity:.35;cursor:default}
+.list{list-style:none;padding:0;margin:0;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;overflow:hidden}
+.list li{border-top:1px solid var(--line)}
+.list li:first-child{border-top:0}
+.list li{display:flex;align-items:stretch}
+.list .row{display:flex;flex:1;min-width:0;justify-content:space-between;align-items:baseline;gap:12px;background:none;border:0;padding:10px 16px;text-align:left}
+.list .row:hover{background:color-mix(in srgb, var(--ink) 4%, transparent)}
+.list .w{font-family:var(--display);font-weight:700;font-size:18px;overflow-wrap:anywhere}
+.list .w .art{display:inline-block;min-width:2.3em}
+.list .m{color:var(--muted);font-size:14px;text-align:right;flex-shrink:0;max-width:45%}
+.list .m.none{opacity:.55}
+.empty{padding:28px 16px;text-align:center;color:var(--muted)}
+.more{margin-top:12px}
+.credit{font-size:12px;color:var(--muted);margin-top:28px;line-height:1.6}
+
+/* result */
+.big{font-family:var(--display);font-weight:800;font-size:clamp(72px,22vw,128px);line-height:1;letter-spacing:-.04em;margin:20px 0 4px}
+.sub{color:var(--muted);margin:0 0 24px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px}
+.stats div{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:12px}
+.stats b{display:block;font-family:var(--display);font-size:26px}
+.stats span{font-size:13px;color:var(--muted)}
+h3{font-size:18px;margin:0 0 10px}
+.wrong{list-style:none;padding:0;margin:0 0 24px;background:var(--surface);border:1.5px solid var(--line);border-radius:14px}
+.wrong li{display:flex;justify-content:space-between;gap:12px;padding:10px 16px;border-top:1px solid var(--line)}
+.wrong li:first-child{border-top:0}
+.wrong .w{font-family:var(--display);font-weight:700;font-size:18px}
+.wrong .m{color:var(--muted);font-size:14px;text-align:right}
+.perfect{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:16px;margin:0 0 24px}
+
+
+#start.on{display:flex;flex-direction:column;min-height:calc(100svh - 68px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
+.section-label{font-size:14px;color:var(--muted);margin:30px 0 10px}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:14px 16px;text-align:left;display:flex;flex-direction:column;gap:2px}
+.tile:hover{border-color:var(--muted)}
+.tile b{font-size:16px}
+.tile span{font-size:13px;color:var(--muted);line-height:1.45}
+.tile .glyph{font-family:var(--display);font-weight:800;font-size:22px;line-height:1.1;margin-bottom:4px;color:var(--ink)}
+.signature{margin-top:auto;padding-top:48px;text-align:center;color:var(--muted);font-size:14px;letter-spacing:.02em}
+
+/* study pages */
+.page-head h2{font-family:var(--display);font-size:clamp(34px,9vw,48px);letter-spacing:-.02em;line-height:1.05;margin:0 0 6px}
+.page-head p{margin:0 0 18px;color:var(--muted);font-size:15px}
+.toc{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:22px}
+.toc a{font-size:13px;text-decoration:none;color:var(--ink);border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px}
+.toc a:hover{border-color:var(--muted)}
+.block{background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:20px 18px;margin-bottom:16px;scroll-margin-top:calc(16px + env(safe-area-inset-top,0px))}
+.block h3{font-size:19px;margin:0 0 6px}
+.block > p{margin:0 0 12px;font-size:15px}
+.block .note{font-size:14px;color:var(--muted);margin:10px 0 0}
+.tbl{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:420px}
+th,td{text-align:left;padding:8px 8px;border-top:1px solid var(--line);vertical-align:top}
+thead th{border-top:0;color:var(--muted);font-weight:500;font-size:13px;white-space:nowrap}
+td.de,th.de{font-family:var(--display);font-weight:700;font-size:15px;white-space:nowrap}
+.k{font-weight:700}
+.say{background:none;border:1.5px solid var(--line);border-radius:999px;padding:2px 10px;margin:2px 4px 2px 0;font-size:13px;white-space:nowrap}
+.say:hover{border-color:var(--muted)}
+.say b{font-family:var(--display);font-size:14px}
+.ex{background:color-mix(in srgb, var(--ink) 5%, transparent);border-radius:12px;padding:10px 12px;margin:8px 0 0;font-size:14px}
+.ex .de{font-family:var(--display);font-weight:700;font-size:15px}
+.mark{color:var(--die);font-weight:700}
+.der-c{color:var(--der)} .die-c{color:var(--die)} .das-c{color:var(--das)}
+
+/* letter */
+.letter{background:var(--surface);border:1.5px solid var(--line);border-radius:20px;padding:30px 24px;margin-top:4px}
+.letter h2{font-family:var(--display);font-size:clamp(30px,8vw,40px);letter-spacing:-.02em;margin:0 0 20px;line-height:1.1}
+.letter p{margin:0 0 16px;font-size:16px;line-height:1.85}
+.letter .sign{text-align:right;margin:28px 0 0;color:var(--muted);font-size:15px;line-height:1.7}
+
+
+.menu3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.menu .full{grid-column:1/-1}
+.tile .cnt{font-family:var(--display);font-weight:800;font-size:22px;line-height:1.1;margin-bottom:4px;color:var(--ink)}
+.star{background:none;border:0;padding:0 14px;font-size:20px;line-height:1;color:var(--line);flex-shrink:0}
+.star.on{color:#E8A317}
+.star:hover{color:#E8A317}
+.card{position:relative}
+.fav-btn{position:absolute;top:12px;right:12px;background:none;border:0;font-size:26px;line-height:1;color:var(--line);padding:6px}
+.fav-btn.on{color:#E8A317}
+.dunno{display:block;width:100%;margin-top:10px;background:none;border:1.5px dashed var(--muted);border-radius:14px;padding:12px;font-size:15px;color:var(--muted)}
+.dunno:hover:not(:disabled){color:var(--ink);border-color:var(--ink)}
+.dunno:disabled{opacity:.35;cursor:default}
+.dunno kbd{font-family:var(--body);font-size:12px;opacity:.7;margin-left:6px}
+.pagebar{display:flex;gap:10px;align-items:center;justify-content:space-between;margin:0 0 12px}
+.pagebar span{font-size:14px;color:var(--muted)}
+.list .sub-m{display:block;font-size:12px;color:var(--muted);font-family:var(--body);font-weight:400}
+.emptybox{background:var(--surface);border:1.5px dashed var(--line);border-radius:14px;padding:28px 18px;text-align:center;color:var(--muted);font-size:15px}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.summary div{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:12px}
+.summary b{display:block;font-family:var(--display);font-size:24px}
+.summary span{font-size:13px;color:var(--muted)}
+.chartbox{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:14px 14px 8px;margin-bottom:22px}
+.chartbox p{margin:0 0 6px;font-size:14px;color:var(--muted)}
+.chartbox svg{display:block;width:100%;height:auto}
+.day{margin-bottom:18px}
+.day-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px;flex-wrap:wrap}
+.day-head h3{margin:0;font-size:17px}
+.day-head span{font-size:13px;color:var(--muted)}
+.day .tbl table{min-width:0}
+.day table{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;overflow:hidden;border-collapse:separate;border-spacing:0}
+.day td,.day th{padding:8px 12px}
+.danger{background:none;border:1.5px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13px;color:var(--muted);margin-top:8px}
+.danger.armed{border-color:var(--die);color:var(--die)}
+
+
+.flag-hero{position:relative;margin:-28px calc(50% - 50vw) 8px;width:100vw;height:clamp(130px,30vw,230px);overflow:hidden;background:var(--bg)}
+.flag-hero svg{display:block;width:100%;height:100%}
+.flag-hero::after{content:"";position:absolute;inset:auto 0 0 0;height:40%;background:linear-gradient(to bottom,transparent,var(--bg));pointer-events:none}
+.flag-cap{position:absolute;right:max(20px,calc(50vw - 300px));bottom:14px;z-index:1;font-family:var(--display);font-weight:800;font-size:clamp(13px,3vw,16px);letter-spacing:.32em;text-transform:uppercase;color:var(--ink)}
+
+
+.acct{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:10px 12px 10px 14px;margin-top:22px;font-size:14px}
+.acct p{margin:0;color:var(--muted);line-height:1.45}
+.acct p b{color:var(--ink)}
+.acct .mini{flex-shrink:0}
+.acct.master{border-color:var(--die)}
+.field{display:block;margin-bottom:12px}
+.field span{display:block;font-size:14px;color:var(--muted);margin-bottom:5px}
+.field input{width:100%;border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:12px 14px;font-size:16px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1.5px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:16px;background:var(--surface)}
+.tabs button{border:0;background:none;padding:10px;font-size:15px;font-weight:500}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.msg{min-height:1.6em;margin:10px 0 0;font-size:15px;font-weight:700}
+.msg.err{color:var(--die)} .msg.ok{color:var(--das)}
+.panel{background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:20px 18px}
+.panel .note{font-size:13px;color:var(--muted);margin:14px 0 0;line-height:1.6}
+.players{display:grid;gap:10px}
+.player{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;overflow:hidden}
+.player summary{list-style:none;cursor:pointer;padding:12px 14px;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.player summary::-webkit-details-marker{display:none}
+.player summary b{font-size:16px}
+.player summary span{font-size:13px;color:var(--muted)}
+.player[open] summary{border-bottom:1px solid var(--line)}
+.player .inner{padding:14px;background:var(--bg)}
+.player .inner .summary div,.player .inner .chartbox,.player .inner .day table{background:var(--surface)}
+.badge{display:inline-block;font-size:12px;font-weight:700;color:var(--on-accent);background:var(--die);border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:middle}
+
+
+.fab{position:fixed;right:max(16px, calc(50vw - 360px));bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:10px;z-index:20}
+.fab button{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center;box-shadow:0 6px 18px -6px rgba(0,0,0,.35);transition:opacity .2s, transform .2s}
+.fab button:hover{border-color:var(--muted)}
+.fab button[hidden]{display:none}
+.fab svg{width:22px;height:22px}
+.fab .fab-search{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.findbar{position:fixed;left:0;right:0;top:0;z-index:30;padding:calc(10px + env(safe-area-inset-top,0px)) 12px 10px;background:color-mix(in srgb, var(--bg) 92%, transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.findbar[hidden]{display:none}
+.findbar .in{max-width:640px;margin:0 auto;display:flex;gap:6px;align-items:center}
+.findbar input{flex:1;min-width:0;border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 12px;font-size:16px}
+.findbar .cnt-f{font-size:13px;color:var(--muted);white-space:nowrap;min-width:3.5em;text-align:center}
+.findbar button{width:40px;height:40px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);display:grid;place-items:center;flex-shrink:0}
+.findbar button svg{width:18px;height:18px}
+.findbar button:disabled{opacity:.35}
+mark.hl{background:#FFCE00;color:#111;border-radius:3px;padding:0 1px}
+mark.hl.cur{background:#DD0000;color:#fff}
+
+
+html,body{overflow-x:hidden}
+@supports (overflow:clip){html,body{overflow-x:clip}}
+.backup{margin-top:16px}
+.backup h3{font-size:17px;margin:0 0 6px}
+.backup > p{margin:0 0 12px;font-size:14px;color:var(--muted);line-height:1.6}
+.backup textarea{width:100%;min-height:96px;border:1.5px solid var(--line);background:var(--bg);border-radius:12px;padding:10px 12px;font-size:13px;font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all;resize:vertical;color:var(--ink)}
+.backup .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 0}
+.backup .row2 button{border:1.5px solid var(--ink);background:none;border-radius:12px;padding:11px;font-weight:700;font-size:15px}
+.backup .row2 button.fill{background:var(--ink);color:var(--bg)}
+.nologin{background:color-mix(in srgb, var(--der) 10%, var(--surface));border:1.5px solid var(--der);border-radius:14px;padding:12px 14px;font-size:14px;margin-bottom:14px;line-height:1.6}
+@media (max-width:420px){
+  .wrap{padding-left:16px;padding-right:16px}
+  .acct{flex-wrap:wrap}
+  .acct .mini{width:100%;padding:10px}
+  .menu3{gap:8px}
+  .tile{padding:12px}
+  .tile span{font-size:12px}
+  .stats b,.summary b{font-size:21px}
+  .answers{gap:8px}
+  .answers button{padding:18px 0}
+  .feedback{flex-wrap:wrap}
+  .feedback .next{width:100%}
+  .fab{right:12px;gap:8px}
+  .fab button{width:44px;height:44px}
+}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <!-- 시작 -->
+  <section class="screen on" id="start">
+    <div class="flag-hero" aria-hidden="true">
+      <svg id="flagSvg" viewBox="0 0 900 270" preserveAspectRatio="none">
+        <path id="fs0" fill="#141414"/><path id="fs1" fill="#DD0000"/><path id="fs2" fill="#FFCE00"/>
+        <g id="fShade"></g>
+      </svg>
+      <span class="flag-cap">Deutsch lernen</span>
+    </div>
+    <h1 class="logo" aria-label="der die das"><span class="a">der</span><span class="b">die</span><span class="c">das</span></h1>
+    <p class="lead">독일어 명사는 모두 성별이 있어요. 단어를 보고 알맞은 관사를 골라 보세요.
+      <small>연속으로 맞히면 보너스 점수가 붙어요. 키보드 1·2·3으로도 고를 수 있어요.</small></p>
+    <p class="opt-title">문제 수</p>
+    <div class="choose" id="sizeChoose" role="group" aria-label="문제 수">
+      <button data-n="10" aria-pressed="false">10문제</button>
+      <button data-n="20" aria-pressed="true">20문제</button>
+      <button data-n="50" aria-pressed="false">50문제</button>
+    </div>
+    <button class="primary" id="startBtn">게임 시작</button>
+    <p class="best" id="bestLine"></p>
+    <div class="acct" id="acct"></div>
+    <p class="section-label">내 학습</p>
+    <div class="menu3">
+      <button class="tile" data-go="favs"><span class="cnt" id="cFav">0</span><b>즐겨찾기</b><span>별표한 단어</span></button>
+      <button class="tile" data-go="wrongs"><span class="cnt" id="cWrong">0</span><b>오답노트</b><span>틀린 단어 자동 저장</span></button>
+      <button class="tile" data-go="records"><span class="cnt" id="cRec">0</span><b>기록</b><span>날짜별 점수</span></button>
+    </div>
+    <p class="section-label">더 공부하기</p>
+    <div class="menu">
+      <button class="tile" data-go="words"><span class="glyph">Aa</span><b>수록된 단어</b><span id="tileCount">명사를 관사와 뜻과 함께</span></button>
+      <button class="tile" data-go="pron"><span class="glyph">ei · ie</span><b>발음 정리</b><span>철자별 읽는 법 총정리</span></button>
+      <button class="tile" data-go="gram"><span class="glyph">§</span><b>문법 정리</b><span>격변화, 동사, 어순 표</span></button>
+      <button class="tile full" data-go="info"><span class="glyph">i</span><b>Information</b><span>만든 사람의 편지</span></button>
+    </div>
+    <p class="signature">202111590 김정호</p>
+  </section>
+
+  <!-- 게임 -->
+  <section class="screen" id="game">
+    <button class="back" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>돌아가기</button>
+    <div class="top">
+      <span id="count">1 / 20</span>
+      <span>연속 <strong id="streak">0</strong></span>
+      <span>점수 <strong id="score">0</strong></span>
+    </div>
+    <div class="bar"><i id="barFill"></i></div>
+    <div class="card" id="card">
+      <button class="fav-btn" id="favBtn" aria-label="즐겨찾기" aria-pressed="false">★</button>
+      <p class="meaning" id="meaning"></p>
+      <div class="word" id="word"></div>
+      <div class="tools">
+        <button class="ghost" id="speakBtn">🔊 발음 듣기</button>
+        <button class="ghost" id="hintBtn">💡 힌트</button>
+      </div>
+      <p class="hint" id="hint"></p>
+    </div>
+    <div class="answers" id="answers">
+      <button class="der" data-a="der">der<kbd>1</kbd></button>
+      <button class="die" data-a="die">die<kbd>2</kbd></button>
+      <button class="das" data-a="das">das<kbd>3</kbd></button>
+    </div>
+    <button class="dunno" id="dunnoBtn">모르겠어요<kbd>4</kbd></button>
+    <div class="feedback" id="feedback"></div>
+  </section>
+
+  <!-- 수록된 단어 -->
+  <section class="screen" id="words">
+    <button class="back" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>돌아가기</button>
+    <div class="words-head">
+      <h2>수록된 단어</h2>
+      <p id="wordsIntro"></p>
+    </div>
+    <div class="gender-key" id="distLegend"></div>
+    <div class="dist" id="dist" aria-hidden="true"></div>
+    <input class="search" id="search" type="search" placeholder="독일어 또는 한국어로 검색" autocomplete="off">
+    <div class="filters">
+      <div class="seg" role="group" aria-label="관사 필터">
+        <button data-f="all" aria-pressed="true">전체</button>
+        <button data-f="der" aria-pressed="false">der</button>
+        <button data-f="die" aria-pressed="false">die</button>
+        <button data-f="das" aria-pressed="false">das</button>
+      </div>
+      <select id="sort" aria-label="정렬">
+        <option value="freq">자주 쓰는 순</option>
+        <option value="abc">알파벳순</option>
+      </select>
+    </div>
+    <div class="result-line">
+      <span id="resultCount"></span>
+      <button class="mini" id="quizList">이 목록으로 퀴즈 풀기</button>
+    </div>
+    <ul class="list" id="list"></ul>
+    <button class="secondary more" id="moreBtn">더 보기</button>
+    <p class="credit">단어를 누르면 발음을 들을 수 있어요. 성(관사) 정보는 위키낱말사전 기반 german-nouns 데이터(CC BY-SA 4.0), 한국어 뜻 일부는 Gabriel Reimers의 Koreanisch-Deutsch CSV-Wortlisten(CC BY-NC-SA 4.0)을 사용했어요. 빈도 순위는 OpenSubtitles 기반 FrequencyWords 목록을 참고했어요.</p>
+  </section>
+
+
+  <section class="screen" id="pron">
+    <button class="back" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>돌아가기</button>
+    <div class="page-head"><h2>발음 정리</h2>
+      <p>독일어는 철자대로 읽는 언어예요. 아래 규칙만 알면 처음 보는 단어도 대부분 읽을 수 있어요. 한글 표기는 대략적인 소리이고, 예시를 누르면 실제 발음을 들을 수 있어요.</p></div>
+    <nav class="toc"><a href="#p1">기본 모음</a><a href="#p2">길게와 짧게</a><a href="#p3">이중모음</a><a href="#p4">자음</a><a href="#p5">r과 -er</a><a href="#p6">끝소리 규칙</a><a href="#p7">강세</a></nav>
+    <div class="block" id="p1"><h3>기본 모음과 움라우트</h3><p>모음 위 점 두 개(¨)를 움라우트라고 해요. 입 모양과 혀 위치를 섞어서 내는 소리예요.</p>
+      <div class="tbl"><table><thead><tr><th>철자</th><th>발음</th><th>예시 (누르면 발음)</th></tr></thead><tbody><tr><td class="de">a</td><td>아</td><td><button class="say" data-say="Mann"><b>Mann</b> 만</button><button class="say" data-say="Name"><b>Name</b> 나메</button></td></tr><tr><td class="de">e</td><td>에 (약하게 끝나면 '으'에 가까움)</td><td><button class="say" data-say="Bett"><b>Bett</b> 베트</button><button class="say" data-say="Name"><b>Name</b> 나메</button></td></tr><tr><td class="de">i</td><td>이</td><td><button class="say" data-say="Kind"><b>Kind</b> 킨트</button></td></tr><tr><td class="de">o</td><td>오</td><td><button class="say" data-say="Sonne"><b>Sonne</b> 존네</button><button class="say" data-say="Brot"><b>Brot</b> 브로트</button></td></tr><tr><td class="de">u</td><td>우</td><td><button class="say" data-say="Hund"><b>Hund</b> 훈트</button><button class="say" data-say="Schule"><b>Schule</b> 슐레</button></td></tr><tr><td class="de">ä</td><td>에</td><td><button class="say" data-say="Käse"><b>Käse</b> 케제</button><button class="say" data-say="Hände"><b>Hände</b> 헨데</button></td></tr><tr><td class="de">ö</td><td>외 (입술은 '오', 혀는 '에')</td><td><button class="say" data-say="schön"><b>schön</b> 쇤</button><button class="say" data-say="Löffel"><b>Löffel</b> 뢰펠</button></td></tr><tr><td class="de">ü</td><td>위 (입술은 '우', 혀는 '이')</td><td><button class="say" data-say="Tür"><b>Tür</b> 튀어</button><button class="say" data-say="müde"><b>müde</b> 뮈데</button></td></tr></tbody></table></div></div>
+    <div class="block" id="p2"><h3>모음을 길게 읽을 때, 짧게 읽을 때</h3><p>같은 모음이라도 길이가 다르면 뜻이 달라져요. 뒤에 오는 글자를 보면 길이를 알 수 있어요.</p>
+      <div class="tbl"><table><thead><tr><th>모양</th><th>규칙</th><th>예시</th></tr></thead><tbody><tr><td class="de">모음 + h</td><td>h는 소리 내지 않고 앞 모음을 길게</td><td><button class="say" data-say="Bahn"><b>Bahn</b> 바안</button><button class="say" data-say="Uhr"><b>Uhr</b> 우어</button><button class="say" data-say="sehen"><b>sehen</b> 제엔</button></td></tr><tr><td class="de">aa · ee · oo</td><td>같은 모음 두 개는 길게</td><td><button class="say" data-say="Tee"><b>Tee</b> 테에</button><button class="say" data-say="Boot"><b>Boot</b> 보오트</button></td></tr><tr><td class="de">모음 + 자음 하나</td><td>대개 길게</td><td><button class="say" data-say="Tag"><b>Tag</b> 타악</button><button class="say" data-say="gut"><b>gut</b> 구우트</button></td></tr><tr><td class="de">모음 + 자음 두 개 이상</td><td>짧게</td><td><button class="say" data-say="Mann"><b>Mann</b> 만</button><button class="say" data-say="Bett"><b>Bett</b> 베트</button><button class="say" data-say="Kopf"><b>Kopf</b> 코프f</button></td></tr></tbody></table></div>
+      <p class="note">비교해 보세요: <button class="say" data-say="Staat"><b>Staat</b> 슈타─트 (국가)</button> <button class="say" data-say="Stadt"><b>Stadt</b> 슈타트 (도시)</button></p></div>
+    <div class="block" id="p3"><h3>이중모음</h3><p>가장 많이 틀리는 부분이에요. <span class="k">ei는 '아이', ie는 '이─'</span>로 읽어요. 뒤에 오는 글자를 읽는다고 기억하면 쉬워요(ie → e가 아니라 i를 길게).</p>
+      <div class="tbl"><table><thead><tr><th>철자</th><th>발음</th><th>예시 (누르면 발음)</th></tr></thead><tbody><tr><td class="de">ei · ai</td><td>아이</td><td><button class="say" data-say="Ei"><b>Ei</b> 아이</button><button class="say" data-say="mein"><b>mein</b> 마인</button><button class="say" data-say="Mai"><b>Mai</b> 마이</button></td></tr><tr><td class="de">ie</td><td>이─ (긴 '이')</td><td><button class="say" data-say="Liebe"><b>Liebe</b> 리─베</button><button class="say" data-say="vier"><b>vier</b> 피─어</button></td></tr><tr><td class="de">eu · äu</td><td>오이</td><td><button class="say" data-say="heute"><b>heute</b> 호이테</button><button class="say" data-say="Häuser"><b>Häuser</b> 호이저</button></td></tr><tr><td class="de">au</td><td>아우</td><td><button class="say" data-say="Haus"><b>Haus</b> 하우스</button><button class="say" data-say="Frau"><b>Frau</b> 프라우</button></td></tr></tbody></table></div>
+      <p class="note">헷갈리는 짝: <button class="say" data-say="Wein"><b>Wein</b> 바인 (와인)</button> <button class="say" data-say="Wien"><b>Wien</b> 비─인 (빈, 도시)</button></p></div>
+    <div class="block" id="p4"><h3>자음</h3><p>영어와 소리가 다른 자음 위주로 정리했어요. 특히 w, v, z, s는 영어와 반대로 읽는다고 생각하면 돼요.</p>
+      <div class="tbl"><table><thead><tr><th>철자</th><th>발음</th><th>예시 (누르면 발음)</th></tr></thead><tbody><tr><td class="de">w</td><td>ㅂ (영어 v 소리)</td><td><button class="say" data-say="Wasser"><b>Wasser</b> 바서</button><button class="say" data-say="wie"><b>wie</b> 비─</button></td></tr><tr><td class="de">v</td><td>ㅍ (영어 f 소리), 외래어는 ㅂ</td><td><button class="say" data-say="Vater"><b>Vater</b> 파터</button><button class="say" data-say="Vase"><b>Vase</b> 바제</button></td></tr><tr><td class="de">z · tz</td><td>ㅊ (ts)</td><td><button class="say" data-say="Zeit"><b>Zeit</b> 차이트</button><button class="say" data-say="Katze"><b>Katze</b> 카체</button></td></tr><tr><td class="de">s (모음 앞)</td><td>ㅈ (영어 z 소리)</td><td><button class="say" data-say="Sonne"><b>Sonne</b> 존네</button><button class="say" data-say="Rose"><b>Rose</b> 로제</button></td></tr><tr><td class="de">s (끝) · ss · ß</td><td>ㅅ</td><td><button class="say" data-say="Haus"><b>Haus</b> 하우스</button><button class="say" data-say="Straße"><b>Straße</b> 슈트라세</button></td></tr><tr><td class="de">sch</td><td>슈</td><td><button class="say" data-say="Schule"><b>Schule</b> 슐레</button><button class="say" data-say="Tisch"><b>Tisch</b> 티쉬</button></td></tr><tr><td class="de">sp · st (단어 처음)</td><td>슈프 · 슈트</td><td><button class="say" data-say="Sport"><b>Sport</b> 슈포르트</button><button class="say" data-say="Stadt"><b>Stadt</b> 슈타트</button></td></tr><tr><td class="de">j</td><td>이 (영어 y 소리)</td><td><button class="say" data-say="ja"><b>ja</b> 야</button><button class="say" data-say="Junge"><b>Junge</b> 융에</button></td></tr><tr><td class="de">ch (a·o·u·au 뒤)</td><td>목 안쪽에서 긁는 ㅎ</td><td><button class="say" data-say="Bach"><b>Bach</b> 바흐</button><button class="say" data-say="Buch"><b>Buch</b> 부흐</button></td></tr><tr><td class="de">ch (e·i·ä·ö·ü·자음 뒤)</td><td>혀를 입천장에 붙여 내는 '히'</td><td><button class="say" data-say="ich"><b>ich</b> 이히</button><button class="say" data-say="Milch"><b>Milch</b> 밀히</button></td></tr><tr><td class="de">-ig (단어 끝)</td><td>이히</td><td><button class="say" data-say="König"><b>König</b> 쾨니히</button><button class="say" data-say="billig"><b>billig</b> 빌리히</button></td></tr><tr><td class="de">chs</td><td>크스</td><td><button class="say" data-say="sechs"><b>sechs</b> 젝스</button><button class="say" data-say="Fuchs"><b>Fuchs</b> 푹스</button></td></tr><tr><td class="de">qu</td><td>크v</td><td><button class="say" data-say="Quelle"><b>Quelle</b> 크벨레</button></td></tr><tr><td class="de">pf</td><td>프f (입술을 붙였다 떼며)</td><td><button class="say" data-say="Apfel"><b>Apfel</b> 압펠</button><button class="say" data-say="Kopf"><b>Kopf</b> 코프f</button></td></tr><tr><td class="de">tsch</td><td>치</td><td><button class="say" data-say="Deutsch"><b>Deutsch</b> 도이치</button></td></tr><tr><td class="de">ng</td><td>받침 ㅇ (g 소리 없음)</td><td><button class="say" data-say="Hunger"><b>Hunger</b> 훙어</button><button class="say" data-say="lang"><b>lang</b> 랑</button></td></tr><tr><td class="de">h (단어 처음)</td><td>ㅎ</td><td><button class="say" data-say="Hand"><b>Hand</b> 한트</button></td></tr></tbody></table></div></div>
+    <div class="block" id="p5"><h3>r과 -er 읽는 법</h3><p>r은 위치에 따라 소리가 달라져요. 모음 앞에서는 자음으로 분명히 소리 나고, 모음 뒤나 음절 끝에서는 약한 모음 '어/아'로 바뀌어요.</p>
+      <div class="tbl"><table><thead><tr><th>위치</th><th>발음</th><th>예시</th></tr></thead><tbody><tr><td class="de">r (모음 앞)</td><td>목젖을 떠는 ㄹ, 가볍게 'ㅎ'처럼 들리기도 함</td><td><button class="say" data-say="rot"><b>rot</b> 로트</button><button class="say" data-say="Brot"><b>Brot</b> 브로트</button></td></tr><tr><td class="de">r (모음 뒤, 음절 끝)</td><td>약한 '어/아'로 녹아듦</td><td><button class="say" data-say="Tür"><b>Tür</b> 튀어</button><button class="say" data-say="Uhr"><b>Uhr</b> 우어</button><button class="say" data-say="hier"><b>hier</b> 히─어</button></td></tr><tr><td class="de">-er (단어 끝, 강세 없음)</td><td>어</td><td><button class="say" data-say="Lehrer"><b>Lehrer</b> 레─러</button><button class="say" data-say="Vater"><b>Vater</b> 파─터</button><button class="say" data-say="Fenster"><b>Fenster</b> 펜스터</button></td></tr><tr><td class="de">er- · ver- · zer- (접두사)</td><td>에어 · 페어 · 체어</td><td><button class="say" data-say="verstehen"><b>verstehen</b> 페어슈테─엔</button><button class="say" data-say="erzählen"><b>erzählen</b> 에어첼─렌</button></td></tr><tr><td class="de">er (단어 자체, 강세 있음)</td><td>에─어</td><td><button class="say" data-say="er"><b>er</b> 에─어</button><button class="say" data-say="wer"><b>wer</b> 베─어</button></td></tr></tbody></table></div>
+      <p class="note">정리하면, 강세 없는 단어 끝 -er은 '어', 접두사나 강세 있는 er은 '에어'예요.</p></div>
+    <div class="block" id="p6"><h3>끝소리 규칙</h3><p>b, d, g가 단어나 음절 끝에 오면 힘을 빼서 p, t, k처럼 소리 나요. 복수형처럼 뒤에 모음이 붙으면 원래 소리로 돌아와요.</p>
+      <div class="tbl"><table><thead><tr><th>변화</th><th>소리</th><th>예시</th></tr></thead><tbody><tr><td class="de">b → p</td><td>받침에서 터지지 않는 ㅂ/ㅍ</td><td><button class="say" data-say="ab"><b>ab</b> 압</button><button class="say" data-say="halb"><b>halb</b> 할프</button></td></tr><tr><td class="de">d → t</td><td>받침 ㅌ/ㅅ</td><td><button class="say" data-say="Hund"><b>Hund</b> 훈트</button><button class="say" data-say="Kind"><b>Kind</b> 킨트</button></td></tr><tr><td class="de">g → k</td><td>받침 ㄱ/ㅋ</td><td><button class="say" data-say="Tag"><b>Tag</b> 타크</button><button class="say" data-say="Zug"><b>Zug</b> 추크</button></td></tr></tbody></table></div>
+      <p class="note">비교: <button class="say" data-say="Hund"><b>Hund</b> 훈트</button> → <button class="say" data-say="Hunde"><b>Hunde</b> 훈데</button></p></div>
+    <div class="block" id="p7"><h3>강세</h3><p>독일어 고유어는 대부분 <span class="k">첫 음절</span>에 강세가 와요(<button class="say" data-say="Vater"><b>Vater</b></button> <button class="say" data-say="Kinder"><b>Kinder</b></button>). 다만 몇 가지 예외가 있어요.</p>
+      <div class="tbl"><table><thead><tr><th>경우</th><th>강세 위치</th><th>예시</th></tr></thead><tbody>
+        <tr><td>분리 접두사 (an-, auf-, aus- 등)</td><td>접두사에 강세</td><td><button class="say" data-say="anrufen"><b>anrufen</b> 안루펜</button></td></tr>
+        <tr><td>비분리 접두사 (be-, ge-, ver-, er- 등)</td><td>접두사 뒤 어간에 강세</td><td><button class="say" data-say="verstehen"><b>verstehen</b> 페어슈테─엔</button></td></tr>
+        <tr><td>외래어 어미 -ion, -tät, -ie, -ei</td><td>마지막 음절에 강세</td><td><button class="say" data-say="Information"><b>Information</b></button> <button class="say" data-say="Universität"><b>Universität</b></button></td></tr>
+      </tbody></table></div></div>
+  </section>
+
+  <section class="screen" id="gram">
+    <button class="back" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>돌아가기</button>
+    <div class="page-head"><h2>문법 정리</h2>
+      <p>독일어 기초 문법의 핵심 개념을 표로 모았어요. 위에서부터 차례로 보면 문장 하나를 만드는 데 필요한 순서대로 이어져요.</p></div>
+    <nav class="toc"><a href="#g1">명사의 성</a><a href="#g2">관사 격변화</a><a href="#g3">인칭대명사</a><a href="#g4">동사 현재형</a><a href="#g5">불규칙 동사</a><a href="#g6">화법조동사</a><a href="#g7">분리동사</a><a href="#g8">현재완료</a><a href="#g9">전치사와 격</a><a href="#g10">어순</a><a href="#g11">복수형</a><a href="#g12">의문사</a></nav>
+
+    <div class="block" id="g1"><h3>명사의 성 (Genus)</h3>
+      <p>모든 명사는 남성, 여성, 중성 중 하나의 성을 가지고, 성에 따라 관사가 달라져요. 명사는 문장 어디에 있든 첫 글자를 대문자로 써요. 성은 뜻과 꼭 일치하지 않기 때문에 <span class="k">단어를 외울 때 관사와 함께</span> 외우는 것이 가장 좋아요.</p>
+      <div class="tbl"><table><thead><tr><th>성</th><th>정관사</th><th>예시</th></tr></thead><tbody><tr><td class="de">남성 (Maskulinum)</td><td><span class='der-c'>der</span></td><td>der Mann, der Tisch</td></tr><tr><td class="de">여성 (Femininum)</td><td><span class='die-c'>die</span></td><td>die Frau, die Zeitung</td></tr><tr><td class="de">중성 (Neutrum)</td><td><span class='das-c'>das</span></td><td>das Kind, das Mädchen</td></tr><tr><td class="de">복수 (Plural)</td><td>die</td><td>die Männer, die Kinder</td></tr></tbody></table></div>
+      <p class="note">어미로 성을 짐작하는 규칙은 관사 게임의 힌트에서 연습할 수 있어요. 예: -ung, -heit, -keit → die / -chen, -lein → das / -ismus, -ling → der</p></div>
+
+    <div class="block" id="g2"><h3>관사의 격변화</h3>
+      <p>독일어에는 문장 속 역할을 나타내는 4개의 격이 있고, 관사의 모양이 격에 따라 바뀌어요. 한국어의 조사(은/는, 의, 에게, 을/를)를 관사가 대신한다고 생각하면 이해가 쉬워요.</p>
+      <p class="k">정관사 (the)</p>
+      <div class="tbl"><table><thead><tr><th>격</th><th>남성</th><th>여성</th><th>중성</th><th>복수</th></tr></thead><tbody><tr><td class="de">1격 (주격, ~은/는)</td><td><span class="de der-c">der</span></td><td><span class="de die-c">die</span></td><td><span class="de das-c">das</span></td><td><span class="de ">die</span></td></tr><tr><td class="de">2격 (소유격, ~의)</td><td><span class="de der-c">des</span></td><td><span class="de die-c">der</span></td><td><span class="de das-c">des</span></td><td><span class="de ">der</span></td></tr><tr><td class="de">3격 (여격, ~에게)</td><td><span class="de der-c">dem</span></td><td><span class="de die-c">der</span></td><td><span class="de das-c">dem</span></td><td><span class="de ">den</span></td></tr><tr><td class="de">4격 (목적격, ~을/를)</td><td><span class="de der-c">den</span></td><td><span class="de die-c">die</span></td><td><span class="de das-c">das</span></td><td><span class="de ">die</span></td></tr></tbody></table></div>
+      <p class="k" style="margin-top:14px">부정관사 (a / an)</p>
+      <div class="tbl"><table><thead><tr><th>격</th><th>남성</th><th>여성</th><th>중성</th><th>복수</th></tr></thead><tbody><tr><td class="de">1격</td><td><span class="de der-c">ein</span></td><td><span class="de die-c">eine</span></td><td><span class="de das-c">ein</span></td><td><span class="de ">—</span></td></tr><tr><td class="de">2격</td><td><span class="de der-c">eines</span></td><td><span class="de die-c">einer</span></td><td><span class="de das-c">eines</span></td><td><span class="de ">—</span></td></tr><tr><td class="de">3격</td><td><span class="de der-c">einem</span></td><td><span class="de die-c">einer</span></td><td><span class="de das-c">einem</span></td><td><span class="de ">—</span></td></tr><tr><td class="de">4격</td><td><span class="de der-c">einen</span></td><td><span class="de die-c">eine</span></td><td><span class="de das-c">ein</span></td><td><span class="de ">—</span></td></tr></tbody></table></div>
+      <p class="note">부정관사 ein은 복수형이 없어요. 부정어 kein과 소유관사 mein(나의), dein(너의), sein(그의), ihr(그녀의), unser(우리의)도 ein과 같은 어미로 변하고, 복수는 keine, meine처럼 -e가 붙어요.</p>
+      <div class="ex"><span class="de">Der Mann gibt dem Kind den Ball.</span><br>그 남자는(1격) 아이에게(3격) 공을(4격) 준다.</div></div>
+
+    <div class="block" id="g3"><h3>인칭대명사</h3>
+      <div class="tbl"><table><thead><tr><th>1격 (~은/는)</th><th>3격 (~에게)</th><th>4격 (~을/를)</th></tr></thead><tbody><tr><td class="de">ich (나)</td><td>mir</td><td>mich</td></tr><tr><td class="de">du (너)</td><td>dir</td><td>dich</td></tr><tr><td class="de">er (그)</td><td>ihm</td><td>ihn</td></tr><tr><td class="de">sie (그녀)</td><td>ihr</td><td>sie</td></tr><tr><td class="de">es (그것)</td><td>ihm</td><td>es</td></tr><tr><td class="de">wir (우리)</td><td>uns</td><td>uns</td></tr><tr><td class="de">ihr (너희)</td><td>euch</td><td>euch</td></tr><tr><td class="de">sie (그들)</td><td>ihnen</td><td>sie</td></tr><tr><td class="de">Sie (당신, 존칭)</td><td>Ihnen</td><td>Sie</td></tr></tbody></table></div>
+      <p class="note">sie는 '그녀'와 '그들', 대문자 Sie는 '당신(존칭)'이에요. 동사 모양으로 구분해요(sie ist / sie sind).</p></div>
+
+    <div class="block" id="g4"><h3>동사의 현재형 인칭변화</h3>
+      <p>동사의 원형은 대부분 -en으로 끝나요. -en을 떼어 낸 어간에 주어에 맞는 어미(-e, -st, -t, -en, -t, -en)를 붙여요. sein, haben, werden은 가장 많이 쓰이면서 불규칙하니 따로 외워 두세요.</p>
+      <div class="tbl"><table><thead><tr><th>주어</th><th>machen (규칙)</th><th>sein (~이다)</th><th>haben (가지다)</th><th>werden (되다)</th></tr></thead><tbody><tr><td class="de">ich</td><td>mache</td><td>bin</td><td>habe</td><td>werde</td></tr><tr><td class="de">du</td><td>machst</td><td>bist</td><td>hast</td><td>wirst</td></tr><tr><td class="de">er · sie · es</td><td>macht</td><td>ist</td><td>hat</td><td>wird</td></tr><tr><td class="de">wir</td><td>machen</td><td>sind</td><td>haben</td><td>werden</td></tr><tr><td class="de">ihr</td><td>macht</td><td>seid</td><td>habt</td><td>werdet</td></tr><tr><td class="de">sie · Sie</td><td>machen</td><td>sind</td><td>haben</td><td>werden</td></tr></tbody></table></div></div>
+
+    <div class="block" id="g5"><h3>주요 불규칙(강변화) 동사</h3>
+      <p>불규칙 동사는 과거형과 과거분사에서 어간 모음이 바뀌고, 일부는 현재형 du와 er에서도 모음이 바뀌어요(e → i/ie, a → ä). 과거분사 앞의 ist / hat은 현재완료에서 쓰는 조동사예요.</p>
+      <div class="tbl"><table><thead><tr><th>원형</th><th>현재 (er)</th><th>과거</th><th>현재완료</th><th>뜻</th></tr></thead><tbody><tr><td class="de">sein</td><td>ist</td><td>war</td><td>ist gewesen</td><td>~이다, 있다</td></tr><tr><td class="de">haben</td><td>hat</td><td>hatte</td><td>hat gehabt</td><td>가지다</td></tr><tr><td class="de">werden</td><td>wird</td><td>wurde</td><td>ist geworden</td><td>되다</td></tr><tr><td class="de">gehen</td><td>geht</td><td>ging</td><td>ist gegangen</td><td>가다</td></tr><tr><td class="de">kommen</td><td>kommt</td><td>kam</td><td>ist gekommen</td><td>오다</td></tr><tr><td class="de">fahren</td><td>fährt</td><td>fuhr</td><td>ist gefahren</td><td>(타고) 가다</td></tr><tr><td class="de">laufen</td><td>läuft</td><td>lief</td><td>ist gelaufen</td><td>달리다, 걷다</td></tr><tr><td class="de">bleiben</td><td>bleibt</td><td>blieb</td><td>ist geblieben</td><td>머무르다</td></tr><tr><td class="de">sterben</td><td>stirbt</td><td>starb</td><td>ist gestorben</td><td>죽다</td></tr><tr><td class="de">sehen</td><td>sieht</td><td>sah</td><td>hat gesehen</td><td>보다</td></tr><tr><td class="de">lesen</td><td>liest</td><td>las</td><td>hat gelesen</td><td>읽다</td></tr><tr><td class="de">essen</td><td>isst</td><td>aß</td><td>hat gegessen</td><td>먹다</td></tr><tr><td class="de">geben</td><td>gibt</td><td>gab</td><td>hat gegeben</td><td>주다</td></tr><tr><td class="de">nehmen</td><td>nimmt</td><td>nahm</td><td>hat genommen</td><td>잡다, 타다</td></tr><tr><td class="de">sprechen</td><td>spricht</td><td>sprach</td><td>hat gesprochen</td><td>말하다</td></tr><tr><td class="de">helfen</td><td>hilft</td><td>half</td><td>hat geholfen</td><td>돕다</td></tr><tr><td class="de">treffen</td><td>trifft</td><td>traf</td><td>hat getroffen</td><td>만나다</td></tr><tr><td class="de">vergessen</td><td>vergisst</td><td>vergaß</td><td>hat vergessen</td><td>잊다</td></tr><tr><td class="de">schlafen</td><td>schläft</td><td>schlief</td><td>hat geschlafen</td><td>자다</td></tr><tr><td class="de">tragen</td><td>trägt</td><td>trug</td><td>hat getragen</td><td>나르다, 입다</td></tr><tr><td class="de">trinken</td><td>trinkt</td><td>trank</td><td>hat getrunken</td><td>마시다</td></tr><tr><td class="de">finden</td><td>findet</td><td>fand</td><td>hat gefunden</td><td>찾다, 여기다</td></tr><tr><td class="de">schreiben</td><td>schreibt</td><td>schrieb</td><td>hat geschrieben</td><td>쓰다</td></tr><tr><td class="de">sitzen</td><td>sitzt</td><td>saß</td><td>hat gesessen</td><td>앉아 있다</td></tr><tr><td class="de">stehen</td><td>steht</td><td>stand</td><td>hat gestanden</td><td>서 있다</td></tr><tr><td class="de">liegen</td><td>liegt</td><td>lag</td><td>hat gelegen</td><td>놓여 있다</td></tr><tr><td class="de">verstehen</td><td>versteht</td><td>verstand</td><td>hat verstanden</td><td>이해하다</td></tr><tr><td class="de">denken</td><td>denkt</td><td>dachte</td><td>hat gedacht</td><td>생각하다</td></tr><tr><td class="de">bringen</td><td>bringt</td><td>brachte</td><td>hat gebracht</td><td>가져오다</td></tr><tr><td class="de">wissen</td><td>weiß</td><td>wusste</td><td>hat gewusst</td><td>알다</td></tr></tbody></table></div>
+      <p class="note">denken, bringen, wissen은 어간 모음이 바뀌면서 어미는 규칙 동사처럼 -te, -t가 붙는 혼합변화 동사예요.</p></div>
+
+    <div class="block" id="g6"><h3>화법조동사</h3>
+      <p>본동사에 '할 수 있다, 해야 한다' 같은 뜻을 더해 줘요. ich와 er의 모양이 같고 어미가 붙지 않는 것이 특징이에요. 본동사는 원형으로 문장 맨 끝에 가요.</p>
+      <div class="tbl"><table><thead><tr><th>원형</th><th>ich</th><th>du</th><th>er · sie · es</th><th>뜻</th></tr></thead><tbody><tr><td class="de">können</td><td>kann</td><td>kannst</td><td>kann</td><td>~할 수 있다</td></tr><tr><td class="de">müssen</td><td>muss</td><td>musst</td><td>muss</td><td>~해야 한다</td></tr><tr><td class="de">dürfen</td><td>darf</td><td>darfst</td><td>darf</td><td>~해도 된다</td></tr><tr><td class="de">sollen</td><td>soll</td><td>sollst</td><td>soll</td><td>~하라고 한다(의무)</td></tr><tr><td class="de">wollen</td><td>will</td><td>willst</td><td>will</td><td>~하려고 한다</td></tr><tr><td class="de">mögen</td><td>mag</td><td>magst</td><td>mag</td><td>좋아하다</td></tr><tr><td class="de">möchten</td><td>möchte</td><td>möchtest</td><td>möchte</td><td>~하고 싶다(공손)</td></tr></tbody></table></div>
+      <div class="ex"><span class="de">Ich kann gut Deutsch sprechen.</span><br>나는 독일어를 잘 말할 수 있다.</div></div>
+
+    <div class="block" id="g7"><h3>분리동사와 비분리동사</h3>
+      <p>접두사가 붙은 동사 중 일부는 문장에서 접두사가 떨어져 맨 끝으로 가요.</p>
+      <div class="tbl"><table><thead><tr><th>종류</th><th>접두사</th><th>예시</th></tr></thead><tbody><tr><td class="de">분리 (강세 있음)</td><td>ab, an, auf, aus, ein, mit, nach, vor, zu, zurück, fern</td><td>aufstehen → Ich stehe um 7 Uhr auf.</td></tr><tr><td class="de">비분리 (강세 없음)</td><td>be, emp, ent, er, ge, miss, ver, zer</td><td>verstehen → Ich verstehe dich.</td></tr></tbody></table></div>
+      <p class="note">분리동사의 과거분사는 ge가 접두사와 어간 사이에 들어가요(aufgestanden). 비분리동사는 ge가 붙지 않아요(verstanden).</p></div>
+
+    <div class="block" id="g8"><h3>현재완료 (Perfekt)</h3>
+      <p>일상 회화에서 과거 일을 말할 때 주로 쓰는 시제예요. <span class="k">haben 또는 sein + 과거분사(문장 끝)</span>로 만들어요.</p>
+      <div class="tbl"><table><thead><tr><th>과거분사 만들기</th><th>규칙</th><th>예시</th></tr></thead><tbody><tr><td class="de">규칙 동사</td><td>ge + 어간 + t</td><td>machen → gemacht</td></tr><tr><td class="de">불규칙 동사</td><td>ge + 바뀐 어간 + en</td><td>sehen → gesehen</td></tr><tr><td class="de">-ieren 동사</td><td>ge 없이 어간 + t</td><td>studieren → studiert</td></tr><tr><td class="de">비분리동사</td><td>ge 없음</td><td>besuchen → besucht</td></tr><tr><td class="de">분리동사</td><td>접두사 + ge + 어간</td><td>einkaufen → eingekauft</td></tr></tbody></table></div>
+      <p class="note">sein을 쓰는 경우: 장소 이동(gehen, fahren), 상태 변화(werden, sterben), 그리고 sein과 bleiben. 나머지 대부분은 haben을 써요.</p>
+      <div class="ex"><span class="de">Ich habe Pizza gegessen. / Ich bin nach Berlin gefahren.</span><br>나는 피자를 먹었다. / 나는 베를린에 (타고) 갔다.</div></div>
+
+    <div class="block" id="g9"><h3>전치사와 격</h3>
+      <p>전치사마다 뒤에 오는 명사의 격이 정해져 있어요.</p>
+      <div class="tbl"><table><thead><tr><th>지배하는 격</th><th>전치사</th><th>예시</th></tr></thead><tbody><tr><td>4격만</td><td>durch, für, gegen, ohne, um, bis</td><td>für <span class='de'>dich</span> (너를 위해)</td></tr><tr><td>3격만</td><td>aus, bei, mit, nach, seit, von, zu, gegenüber</td><td>mit <span class='de'>dem</span> Bus (버스로)</td></tr><tr><td>3격 · 4격</td><td>an, auf, hinter, in, neben, über, unter, vor, zwischen</td><td>위치(어디에?)는 3격, 방향(어디로?)은 4격</td></tr><tr><td>2격</td><td>wegen, trotz, während, statt</td><td>wegen <span class='de'>des</span> Regens (비 때문에)</td></tr></tbody></table></div>
+      <div class="ex"><span class="de">Ich bin in <span class="mark">der</span> Schule.</span> 나는 학교 안에 있다. (위치 → 3격)<br><span class="de">Ich gehe in <span class="mark">die</span> Schule.</span> 나는 학교로 간다. (방향 → 4격)</div></div>
+
+    <div class="block" id="g10"><h3>어순</h3>
+      <p>독일어 어순의 핵심은 <span class="k">동사의 위치</span>예요.</p>
+      <div class="tbl"><table><thead><tr><th>문장 종류</th><th>규칙</th><th>예시</th></tr></thead><tbody><tr><td>평서문</td><td>인칭변화한 동사는 항상 두 번째 자리</td><td>Heute <span class='mark'>lerne</span> ich Deutsch.</td></tr><tr><td>예/아니오 의문문</td><td>동사가 맨 앞</td><td><span class='mark'>Lernst</span> du Deutsch?</td></tr><tr><td>의문사 의문문</td><td>의문사 다음 동사</td><td>Was <span class='mark'>lernst</span> du?</td></tr><tr><td>조동사·완료 문장</td><td>인칭변화한 동사는 두 번째, 본동사는 맨 끝 (문장 괄호)</td><td>Ich <span class='mark'>will</span> Deutsch <span class='mark'>lernen</span>.</td></tr><tr><td>부문장 (weil, dass, wenn, ob)</td><td>인칭변화한 동사가 맨 끝</td><td>…, weil ich Deutsch <span class='mark'>lerne</span>.</td></tr></tbody></table></div>
+      <p class="note">첫 자리에 주어가 아닌 말(시간, 장소 등)이 오면 주어는 동사 뒤로 가요. 동사가 두 번째라는 규칙이 우선이에요.</p></div>
+
+    <div class="block" id="g11"><h3>복수형 만들기</h3>
+      <p>복수형은 단어마다 정해져 있어서 관사처럼 함께 외워야 해요. 그래도 자주 나오는 패턴이 있어요. 복수의 정관사는 성과 관계없이 항상 <span class="k">die</span>예요.</p>
+      <div class="tbl"><table><thead><tr><th>어미</th><th>예시</th><th>특징</th></tr></thead><tbody><tr><td class="de">-e</td><td>der Tag → die Tage</td><td>남성·중성에 많음</td></tr><tr><td class="de">¨-e</td><td>die Hand → die Hände</td><td>움라우트가 함께 붙기도 함</td></tr><tr><td class="de">-er / ¨-er</td><td>das Kind → die Kinder, das Haus → die Häuser</td><td>중성 1음절 단어에 많음</td></tr><tr><td class="de">-n / -en</td><td>die Blume → die Blumen, die Frau → die Frauen</td><td>여성 명사 대부분</td></tr><tr><td class="de">-s</td><td>das Auto → die Autos</td><td>외래어, -a·-o 등 모음 끝</td></tr><tr><td class="de">변화 없음 / ¨</td><td>der Lehrer → die Lehrer, der Vater → die Väter</td><td>-er, -el, -en 끝 남성·중성</td></tr></tbody></table></div></div>
+
+    <div class="block" id="g12"><h3>의문사</h3>
+      <div class="tbl"><table><thead><tr><th>의문사</th><th>뜻</th></tr></thead><tbody><tr><td class="de">wer</td><td>누가</td></tr><tr><td class="de">was</td><td>무엇</td></tr><tr><td class="de">wo</td><td>어디에</td></tr><tr><td class="de">wohin</td><td>어디로</td></tr><tr><td class="de">woher</td><td>어디에서</td></tr><tr><td class="de">wann</td><td>언제</td></tr><tr><td class="de">warum</td><td>왜</td></tr><tr><td class="de">wie</td><td>어떻게</td></tr><tr><td class="de">wie viel</td><td>얼마나 (양)</td></tr><tr><td class="de">welcher</td><td>어느</td></tr></tbody></table></div>
+      <p class="note">welcher는 정관사처럼 성과 격에 따라 welcher, welche, welches로 변해요.</p></div>
+  </section>
+
+  <section class="screen" id="info">
+    <button class="back" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>돌아가기</button>
+    <article class="letter">
+      <h2>Liebe Leserinnen und Leser,</h2>
+      <p>안녕하십니까.<br>강원대학교 화공생물공학부 화학공학전공 4학년에 재학 중인 김정호입니다.</p>
+      <p>평소 언어 공부를 좋아해 여러 언어를 익혀 오다가, 최근 독일어의 매력에 푹 빠지게 되었습니다. 그 즐거움을 조금 더 나누고 싶어 직접 독일어 학습 프로그램을 만들어 보았습니다.</p>
+      <p>독일어의 모든 명사는 남성, 여성, 중성 세 가지 성 가운데 하나를 가지며, 성에 따라 der, die, das라는 서로 다른 관사가 붙습니다. 명사의 성은 뜻만으로 짐작하기 어려워, 많은 독일어 학습자에게 가장 큰 벽으로 꼽히곤 합니다.</p>
+      <p>이 프로그램은 단어를 관사와 함께 게임처럼 반복해 익힐 수 있도록 만들었고, 2,700여 개의 명사와 뜻을 담은 단어장과 함께 발음과 기초 문법도 한곳에서 정리해 볼 수 있게 구성했습니다. 저를 포함한 독일어 학습자들에게 실질적인 도움이 되리라 자부합니다.</p>
+      <p>읽어 주셔서 감사합니다.</p>
+      <p class="sign">Viele Grüße,<br>202111590 김정호 드림</p>
+    </article>
+  </section>
+
+
+  <section class="screen" id="favs">
+    <button class="back" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>돌아가기</button>
+    <div class="page-head"><h2>즐겨찾기</h2><p>게임이나 단어장에서 ★을 누른 단어가 모여요. 다시 누르면 빠져요.</p></div>
+    <div class="pagebar"><span id="favCount"></span><button class="mini" id="favQuiz">즐겨찾기로 퀴즈 풀기</button></div>
+    <div id="favList"></div>
+  </section>
+
+  <section class="screen" id="wrongs">
+    <button class="back" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>돌아가기</button>
+    <div class="page-head"><h2>오답노트</h2><p>게임에서 틀리거나 "모르겠어요"를 누른 단어가 자동으로 모여요. 이후 게임에서 3번 연속으로 맞히면 오답노트에서 졸업해요.</p></div>
+    <div class="pagebar"><span id="wrongCount"></span><button class="mini" id="wrongQuiz">오답노트로 퀴즈 풀기</button></div>
+    <div id="wrongList"></div>
+  </section>
+
+  <section class="screen" id="records">
+    <button class="back" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>돌아가기</button>
+    <div class="page-head"><h2>기록</h2><p>끝까지 마친 게임의 점수가 날짜별로 저장돼요.</p></div>
+    <div id="recBody"></div>
+  </section>
+
+
+  <section class="screen" id="code">
+    <button class="back" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>돌아가기</button>
+    <div class="page-head"><h2>나만의 코드</h2><p>코드를 만들어 두면 다른 기기나 브라우저에서도 같은 코드를 입력해 기록, 즐겨찾기, 오답노트를 그대로 이어 볼 수 있어요.</p></div>
+    <div class="nologin" id="noLoginNote" hidden>지금은 서버에 연결할 수 없어 코드 저장을 쓸 수 없어요. 인터넷 연결을 확인해 주세요. 그동안은 아래 <b>기록 옮기기 코드</b>로 기록을 옮길 수 있어요.</div>
+    <div class="panel" id="codePanel">
+      <div class="tabs" role="group" aria-label="코드">
+        <button data-tab="login" aria-pressed="true">코드로 불러오기</button>
+        <button data-tab="create" aria-pressed="false">새 코드 만들기</button>
+      </div>
+      <div id="tabLogin">
+        <label class="field"><span>내 코드</span><input id="loginCode" type="password" autocomplete="off" placeholder="만들어 둔 코드 입력"></label>
+        <button class="primary" id="loginBtn">불러오기</button>
+      </div>
+      <div id="tabCreate" hidden>
+        <label class="field"><span>이름 (기록에 표시돼요)</span><input id="newName" type="text" maxlength="12" autocomplete="off" placeholder="예: 정호"></label>
+        <label class="field"><span>사용할 코드 (4자 이상)</span><input id="newCode" type="password" autocomplete="off" placeholder="나만 아는 코드"></label>
+        <label class="field"><span>코드 확인</span><input id="newCode2" type="password" autocomplete="off" placeholder="한 번 더 입력"></label>
+        <button class="primary" id="createBtn">코드 만들기</button>
+      </div>
+      <p class="msg" id="codeMsg" role="status"></p>
+      <p class="note">새 코드를 만들면 지금 이 기기에 있는 기록이 그 코드로 옮겨져요. 코드는 다시 찾을 수 없으니 꼭 기억해 두세요.</p>
+    </div>
+    <details class="panel backup">
+      <summary style="cursor:pointer;font-weight:700">인터넷이 안 될 때: 기록 옮기기 (선택)</summary>
+      <h3 style="margin-top:12px">기록 옮기기 코드</h3>
+      <p>지금 기록, 즐겨찾기, 오답노트를 긴 코드 하나로 만들어요. 이 코드를 복사해 메모나 카톡에 보내 두었다가, 다른 기기에서 붙여넣으면 그대로 합쳐져요.</p>
+      <textarea id="bkText" spellcheck="false" placeholder="여기에 코드가 만들어지거나, 받은 코드를 붙여넣어요"></textarea>
+      <div class="row2">
+        <button class="fill" id="bkMake">코드 만들고 복사</button>
+        <button id="bkLoad">붙여넣은 코드 불러오기</button>
+      </div>
+      <p class="msg" id="bkMsg" role="status"></p>
+    </details>
+  </section>
+
+  <section class="screen" id="admin">
+    <button class="back" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>돌아가기</button>
+    <div class="page-head"><h2>관리자 모드<span class="badge">MASTER</span></h2><p>코드를 만든 모든 사용자의 기록이에요. 이름을 누르면 날짜별 기록을 볼 수 있어요.</p></div>
+    <div id="adminBody"></div>
+    <button class="secondary" id="adminExit" style="margin-top:18px">관리자 모드 나가기</button>
+  </section>
+
+  <!-- 결과 -->
+  <section class="screen" id="result">
+    <div class="big" id="finalScore">0</div>
+    <p class="sub" id="finalSub"></p>
+    <div class="stats">
+      <div><b id="sAcc">0%</b><span>정답률</span></div>
+      <div><b id="sStreak">0</b><span>최고 연속</span></div>
+      <div><b id="sBest">0</b><span>최고 점수</span></div>
+    </div>
+    <div id="wrongWrap"></div>
+    <div class="stack">
+      <button class="primary" id="retryWrong">틀린 단어만 다시 풀기</button>
+      <button class="secondary" id="backToSrc" style="display:none"></button>
+      <button class="secondary" id="again">처음으로 돌아가기</button>
+    </div>
+  </section>
+
+</main>
+
+
+<div class="findbar" id="findbar" hidden>
+  <div class="in">
+    <input id="findInput" type="search" placeholder="이 페이지에서 찾기" autocomplete="off" aria-label="이 페이지에서 찾기">
+    <span class="cnt-f" id="findCount"></span>
+    <button id="findPrev" aria-label="이전 결과"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button>
+    <button id="findNext" aria-label="다음 결과"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+    <button id="findClose" aria-label="찾기 닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+</div>
+<div class="fab" id="fab">
+  <button class="fab-search" id="fabSearch" aria-label="검색" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+  <button id="fabTop" aria-label="맨 위로" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button>
+  <button id="fabBottom" aria-label="맨 아래로" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+</div>
+
+
+<script>
+/* ============================================================
+   ▼ 설치 가이드 3단계: Firebase 콘솔에서 복사한 설정값을 붙여넣으세요 ▼
+   ============================================================ */
+window.FIREBASE_CONFIG = {
+  apiKey: "AIzaSyAic4HuMRSJ3eu6EcueSoSViw8gCge-RDI",
+  authDomain: "deutsch-e4bfc.firebaseapp.com",
+  projectId: "deutsch-e4bfc",
+  storageBucket: "deutsch-e4bfc.firebasestorage.app",
+  messagingSenderId: "747927717564",
+  appId: "1:747927717564:web:603c04a3b257cd48ec72b9"
+};
+</script>
+<script type="module">
+const B = "https://www.gstatic.com/firebasejs/10.12.2/";
+let api = null;
+window.FB_ERROR = "";
+try{
+  const cfg = window.FIREBASE_CONFIG || {};
+  if(!cfg.apiKey || !cfg.projectId) window.FB_ERROR = "no-config";
+  else {
+    const { initializeApp } = await import(B + "firebase-app.js");
+    const A = await import(B + "firebase-auth.js");
+    const F = await import(B + "firebase-firestore.js");
+    const app = initializeApp(cfg);
+    const auth = A.getAuth(app), db = F.getFirestore(app);
+    // 사용자는 코드만 입력하고, 보이지 않는 익명 계정으로 서버에 접속해요
+    const user = await new Promise(res => { const off = A.onAuthStateChanged(auth, u => { off(); res(u); }); });
+    if(!user) await A.signInAnonymously(auth);
+    api = {
+      doc(path){
+        const r = F.doc(db, path);
+        return {
+          async get(){ const s = await F.getDoc(r); return { exists: s.exists(), data: () => s.data() }; },
+          set: d => F.setDoc(r, d),
+          update: d => F.updateDoc(r, d),
+          delete: () => F.deleteDoc(r)
+        };
+      },
+      collection(path){
+        let n = 1000;
+        const q = {
+          limit(x){ n = x; return q; },
+          async get(){ const s = await F.getDocs(F.query(F.collection(db, path), F.limit(n))); return { docs: s.docs.map(d => ({ id: d.id, data: () => d.data() })) }; }
+        };
+        return q;
+      },
+      claimAdmin: code => F.setDoc(F.doc(db, "admins", auth.currentUser.uid), { code, at: Date.now() })
+    };
+  }
+}catch(e){ console.error("Firebase를 불러오지 못했어요", e); window.FB_ERROR = (e && (e.code || e.message)) || "unknown"; api = null; }
+window.FB = api;
+window.dispatchEvent(new Event("fb-ready"));
+</script>
+
+<script id="wordData" type="application/json">[["Schwimmen","das","수영","동사를 명사로 만든 말(schwimmen→Schwimmen)은 das예요."],["Brötchen","das","작은 빵"],["Zimmer","das","방"],["Kaffee","der","커피"],["Mann","der","남자","남자를 가리키는 말은 der예요."],["Weg","der","길"],["Leben","das","인생 / 생 （生）"],["Zeit","die","여자","여자를 가리키는 말은 die예요."],["Frau","die","여성 / 여자"],["Macht","die","권 （權）"],["Gott","der","신"],["Morgen","der","아침 / 조 （朝）"],["Vater","der","아버지","남자 가족 구성원은 der예요."],["Glaube","das","돈"],["Tag","der","일 （日）"],["Liebe","die","애 （愛）"],["Geld","die","어머니","여자 가족 구성원은 die예요."],["Mutter","die","모 （母） / 어머니"],["Nacht","die","밤"],["Ordnung","das","소녀"],["Mädchen","das","가시나"],["Abend","das","음식","동사를 명사로 만든 말(essen→Essen)은 das예요."],["Haus","das","집"],["Freund","der","우 （友） / 친구"],["Essen","das","식 （食）"],["Angst","die","겁 / 두려움"],["Welt","die","세계 / 세상"],["Kinder","die","애들"],["Moment","die","음악"],["Musik","die","음악"],["Arbeit","die","업 （業） / 작업"],["Herr","der","신사 / ~씨"],["Familie","die","가족"],["Problem","das","문제"],["Sohn","der","아들"],["Sache","die","사물"],["Hilfe","das","아이"],["Kind","das","아이"],["Bruder","der","형제"],["Frage","die","시계"],["Uhr","die","도시"],["Stadt","die","도시"],["Baby","das","아기"],["Namen","der","이름"],["Kopf","der","대가리 / 고개"],["Glück","das","재수 / 행운"],["Letzte","der","꼴등"],["Ende","das","결말 / 종료"],["Töten","das","살 （殺）"],["Ahnung","die","문"],["Tür","das","자동차"],["Auto","das","차"],["Polizei","die","경찰"],["Treffen","das","마중 / 만남"],["Tochter","die","딸"],["Idee","die","아이디어"],["Schwester","die","자매 / 간호사"],["Name","der","성명 / 이름"],["Job","der","일자리"],["Teufel","die","손"],["Hand","die","손"],["Grund","der","이유"],["Jahr","das","년 （年）"],["Mama","die","엄마"],["Ruhe","die","안 （安）"],["Tod","der","죽음 / 사 （死）"],["Schatz","das","물"],["Wasser","das","수 （水） / 물"],["Geschichte","die","이야기 / 역사"],["Wahrheit","das","나라"],["Woche","die","주일"],["Alter","das","나이"],["Land","das","국 （國） / 나라"],["Wagen","der","차 （車）"],["Gefallen","der","부탁"],["Spaß","der","재미"],["Schuld","die","죄 （罪） / 탓"],["Ort","der","곳"],["Seite","die","면 （面）"],["Spiel","das","놀이"],["Chance","die","기회"],["Freundin","die","여자친구"],["Krieg","das","침대"],["Bett","die","학교"],["Schule","die","학교"],["Entschuldigung","die","사과"],["Wort","das","어 （語） / 단어"],["Typ","der","녀석"],["Gesicht","das","얼굴"],["Teil","der","일부 / 부분"],["Mensch","der","인간"],["Sorge","die","고민 / 걱정"],["Ding","das","물건 / 것"],["Blut","das","혈 （血） / 피"],["Eltern","die","부모님"],["Herz","das","마음"],["Waffe","die","무기"],["Platz","der","광장"],["Papa","der","아빠"],["Nummer","die","번호"],["Telefon","das","전화기"],["Plan","der","계획"],["Fehler","der","오류 / 실수"],["Dollar","der","달러"],["Stunde","die","시 （時）"],["Menge","die","분량 / 수량"],["Büro","das","사무실"],["Ruf","der","호출"],["Hölle","die","지옥"],["Doktor","der","박사 / 의사"],["Film","der","영화"],["Hund","der","개"],["Schiff","das","배(선박)"],["König","der","대왕"],["Lernen","das","학 （學）"],["Feuer","das","화 （火）"],["Kumpel","der","친구 / 동료"],["Suche","das","책"],["Buch","das","책"],["Wert","der","가치"],["Arzt","der","의사"],["Straße","die","거리 / 도로"],["Onkel","der","삼촌"],["Party","die","파티"],["Wahl","die","투표 / 선거"],["Gefühl","das","느낌 / 감정"],["Zukunft","die","장래 / 미래"],["Himmel","der","천 （天） / 하늘"],["Nachricht","der","열쇠"],["Schlüssel","der","열쇠"],["Rest","der","나머지"],["Gefängnis","das","감옥"],["Opfer","das","희생 / 피해자"],["Körper","der","체 （體） / 덩치"],["Mist","der","거름 / 엉망"],["Schreiben","das","서 （書）"],["Böse","die","집(아파트)"],["Wohnung","die","집(아파트)"],["Krankenhaus","das","병원"],["Sinn","der","의미 / 감각"],["Stolz","der","자랑 / 자부심"],["Person","die","인 （人） / 이"],["Boden","der","땅"],["Boss","der","상사 / 보스"],["Stimme","die","음성"],["Sicherheit","die","안전 / 보장"],["Laden","der","방"],["Meinung","die","의견"],["Lesen","das","독 （讀） / 독서"],["Mörder","der","살인자"],["Geschäft","das","가게"],["Verzeihung","die","용서"],["Team","das","팀"],["General","der","장군"],["Schluss","das","휴대폰"],["Handy","das","휴대폰"],["Mord","der","살인"],["Liebling","der","사랑하는 사람"],["Tisch","der","탁자"],["Hotel","das","호텔"],["Meister","der","장인 / 명인"],["Kampf","der","전 （戰）"],["Antwort","die","답 （答）"],["Bild","das","상 （像）"],["Leiche","die","시체"],["Auge","das","눈"],["Agent","der","요원"],["Traum","der","꿈속 / 꿈"],["Entscheidung","das","창문"],["Fenster","das","창문"],["Gefahr","die","위 （危） / 위험"],["Augenblick","der","순간"],["Bescheid","der","통지 / 소식"],["Rum","der","럼주"],["Gedanken","der","머릿속"],["Ziel","das","목적 / 목표"],["Bewegung","die","움직임 / 운동"],["Anfang","der","초 （初）"],["Anwalt","das","맥주"],["Bier","das","맥주"],["Partner","der","파트너"],["Finger","der","손가락"],["Rolle","die","역 （役）"],["Monat","der","달 / 월 （月）"],["Hochzeit","die","결혼식"],["Arm","der","팔"],["Chef","der","상사 / 사장"],["Zuhause","das","집 / 가정"],["Reise","die","여행"],["Raum","der","방"],["Minute","der","기차"],["Zug","der","기차"],["Seele","die","영혼"],["Brief","der","편지"],["Unfall","der","사고"],["Kontrolle","die","통제 / 검사"],["Beispiel","das","예문"],["Vorsicht","die","조심"],["Verbindung","die","관 （關 ） / 연결"],["Richtung","die","방향"],["Lage","die","상황 / 위치"],["Kraft","die","력 （力） / 기운"],["Ehre","die","면목 / 존 （尊）"],["Geschenk","die","가방"],["Tasche","die","가방"],["Beziehung","die","사이"],["Preis","der","가격 / 값"],["Witz","der","농담"],["Geist","der","유령"],["Firma","die","회사"],["Süße","die","단맛"],["Tante","die","아주머니"],["Pferd","das","마 （馬）"],["Wunder","das","기적"],["Major","der","소령"],["Majestät","die","폐하"],["Aussehen","das","모습"],["Punkt","der","점"],["Kirche","die","교회"],["Befehl","der","명령"],["Geburtstag","der","생일"],["Haut","die","피부"],["Sekunde","die","초"],["Anruf","der","전화(통화)"],["Frieden","der","평화"],["Karte","die","지도"],["Güte","die","해"],["Sonne","die","해"],["Professor","der","교수"],["Gericht","das","법원 / 요리"],["Nase","die","코"],["Bank","der","컴퓨터"],["Computer","der","컴퓨터"],["Toten","die","사망자"],["Gefühle","die","감정"],["Fuß","der","발"],["Show","die","쇼"],["Überraschung","die","놀라움 / 깜짝 선물"],["Geheimnis","das","기밀"],["Kontakt","der","연락 / 접촉"],["Gold","das","금 （金）"],["Regierung","die","정부"],["Gegenüber","das","상대방"],["Schlaf","der","수면"],["Lust","die","의욕 / 욕구"],["Blick","der","응시 / 시선"],["Besuch","der","방문"],["Haare","die","머리카락"],["Präsident","der","대통령"],["Hoffnung","die","가능성"],["Möglichkeit","die","여건"],["Flugzeug","das","비행기"],["Vergangenheit","die","과거"],["Armee","die","군 （軍）"],["Tee","der","차"],["Gesellschaft","die","사회"],["Hals","der","목"],["Gebäude","das","건물"],["Schicksal","das","운명"],["Zeichen","das","기호"],["Richter","der","판사"],["Küche","die","주방 / 부엌"],["Volk","das","국민 / 민족"],["Königin","die","여왕"],["Situation","die","지경 / 상황"],["Verstand","der","정신"],["Rat","der","조언 / 위원회"],["Kamera","die","카메라"],["Achtung","die","주의"],["Schuhe","die","신발"],["Glückwunsch","der","축하"],["Gegend","die","지역 / 동네"],["Wald","der","숲"],["Glas","das","유리 / 유리잔"],["Kleid","das","원피스 / 드레스"],["Gesetz","das","법 （法）"],["Schritt","der","보 （步） / 발짝"],["Aufgabe","die","과제 / 임무"],["Spur","die","흔적"],["Sergeant","der","병장 / 경사"],["Freude","die","기쁨"],["Ehemann","der","남편"],["Monster","das","괴물"],["Mission","die","임무"],["Brauch","der","풍습"],["Adresse","die","주소"],["Unsinn","der","헛소리"],["Messer","das","칼"],["Respekt","der","경 （敬） / 존중"],["Ball","der","공"],["Schwierigkeiten","die","곤란 / 고생"],["Hälfte","die","절반"],["Gruppe","die","일행 / 무리"],["Deal","der","거래"],["Eis","das","얼음"],["Erfolg","der","성공"],["Wochenende","das","주말"],["Verbrechen","das","범죄"],["Bericht","der","보고서"],["Prinzessin","die","공주"],["Schmerz","der","통증 / 고통"],["Position","die","위치"],["Angebot","das","신청"],["Ring","der","반지"],["Rennen","das","뜀박질 / 달음박질"],["Lied","das","노래"],["Drink","der","음료 / 술"],["Insel","die","섬"],["Dorf","das","촌"],["Feind","der","적 （敵） / 적"],["Unternehmen","das","기업 / 회사"],["Versprechen","die","자유"],["Freiheit","die","자유"],["Schaden","der","피해"],["Park","der","공원"],["Energie","die","에너지"],["Fleisch","die","신문"],["Zeitung","die","신문"],["Gespräch","das","이야기"],["Leiden","das","고난"],["See","der","호수"],["Unterschied","der","차이"],["Wind","der","풍 （風） / 바람"],["Wand","die","벽"],["Verhalten","das","행동"],["Loch","das","구멍"],["Interesse","das","아랑곳 / 흥미"],["Polizist","der","경찰관"],["Neuigkeiten","die","소식"],["Flasche","die","병"],["Schuss","der","발사 / 총성"],["Meer","das","해 （海） / 바다"],["Maschine","die","기 （機） / 기계"],["Bein","das","다리"],["Frühstück","das","아침 식사"],["Gelegenheit","die","계기 / 경우"],["Fang","der","포획"],["Brüder","die","형제"],["Zeitpunkt","der","시점"],["Ecke","die","모서리 / 구석"],["Brücke","die","다리"],["Haufen","der","더미"],["Oma","die","할머니"],["Auftrag","der","주문 / 임무"],["Lösung","die","해결책 / 정답"],["Pause","die","휴식"],["Keller","der","지하실"],["Nutzen","der","소용"],["Maul","das","주딩이"],["Verantwortung","die","책임"],["Hut","der","모자"],["Lächeln","das","미소"],["Bombe","die","폭탄"],["Haar","das","머리카락"],["Operation","die","수술"],["Schmerzen","die","고통"],["Dach","das","지붕"],["Gehirn","das","뇌"],["Mut","der","용기"],["Tier","das","가축 / 동물"],["System","das","계 （系） / 체계"],["Wahnsinn","der","광기"],["Rose","die","장미"],["Club","der","클럽"],["Thema","das","주제"],["Urlaub","der","휴가"],["Beweis","der","증거"],["Baum","der","선생님","-er로 끝나는 직업(남성)은 der예요."],["Lehrer","der","선생님"],["Nachmittag","das","아가씨"],["Risiko","das","위험"],["Knast","der","감방"],["Held","der","영웅"],["Fräulein","das","아가씨"],["Gewalt","die","폭력"],["Tor","das","대문 / 정문"],["Erfahrung","die","고양이"],["Katze","die","고양이"],["Großvater","der","할아버지"],["Sommer","der","여름"],["Gewissen","das","양심"],["Stein","der","석 （石） / 돌"],["Hose","die","바지"],["City","die","도심"],["Prinz","der","공자 / 왕자"],["Restaurant","das","식당"],["Natur","die","자연"],["Streit","der","논쟁"],["Bad","das","욕실 / 목욕"],["Flug","der","비행"],["Schwert","das","검"],["Labor","das","연구실"],["Fisch","der","어 （魚） / 물고기"],["Kuchen","der","케이크"],["Zustand","der","상태"],["Wunsch","der","소원"],["Farbe","die","색깔 / 색"],["Zufall","der","우연"],["Garten","der","정원"],["Koffer","der","여행 가방"],["Kurs","der","강좌 / 진로"],["Vogel","der","새"],["Strand","der","해변"],["Amerikaner","der","미국인"],["Scherz","der","농담"],["Geschäfte","die","영업"],["Soldat","der","군인"],["Termin","der","나짜"],["Rache","die","복수"],["Vertrag","der","계약"],["Dienst","der","근무"],["Bürgermeister","der","시장(市長)"],["Fluss","der","강"],["Test","der","고사 / 시험"],["Direktor","der","교장 / 이사"],["Karriere","die","진로"],["Akte","die","서류 / 파일"],["Erinnerung","die","회상 / 기억"],["Großmutter","die","할머니"],["Sprache","die","언어"],["Fass","das","통 / 술통"],["Szene","die","장면"],["Pflicht","die","의무"],["Knie","das","무릎"],["Schutz","der","보 （保） / 피난"],["Kuss","der","입맞춤"],["Erklärung","die","설명"],["Video","das","동영상"],["Opa","die","우유"],["Milch","die","우유"],["Kochen","das","취사"],["Grenze","die","국경"],["Braut","die","신부"],["Aufmerksamkeit","die","주의 / 관심"],["Form","der","달"],["Mond","der","달"],["Schande","die","수치"],["Sieg","der","승 （勝） / 필승"],["Blödsinn","der","헛소리"],["Pfund","das","파운드"],["Übersetzung","die","통역"],["Kunst","die","예술"],["Kapitän","der","선장"],["Einsatz","der","투입 / 출동"],["Krankheit","die","질병 / 병 （病）"],["Schatten","der","그늘"],["Tatsache","die","사실"],["Stock","der","막대기 / 몽둥이"],["Anzug","der","정장"],["Freitag","der","금요일"],["Million","die","백만"],["Spuren","die","흔적"],["Dreck","der","먼지 / 오물"],["Knochen","der","골 （骨） / 뼈"],["Programm","das","프로그램"],["Grab","das","무덤"],["Stuhl","der","의자"],["Gast","der","손님"],["Toilette","die","화장실"],["Pistole","die","권총"],["Aussage","die","진술"],["Theater","der","비","날씨 현상은 대개 der예요."],["Regen","der","비"],["Panik","die","공황"],["Flughafen","der","공항"],["Fahrer","der","운전사"],["Star","der","스타"],["Alkohol","der","술"],["Post","die","우편"],["Botschaft","die","메시지 / 대사관"],["Fehlen","das","결여"],["Selbstmord","der","자살"],["Magie","die","마술"],["Gegenteil","das","반대말"],["Projekt","das","프로젝트"],["Schwestern","die","자매"],["Code","der","코드"],["Absicht","die","의도"],["Ohr","das","귀"],["Song","der","노래"],["Schüler","der","학생"],["Größe","die","크기"],["Trick","der","속임수"],["Sonntag","der","일요일"],["Vorstellung","die","소개 / 공연"],["Killer","der","살인 청부업자"],["Unterstützung","die","지지 / 지원"],["Rechnung","die","계산서"],["Kohle","die","탄 ( 炭 )"],["Cousin","der","사촌(남)"],["Artikel","der","기사 / 관사"],["Signal","das","신호"],["Kino","das","영화관"],["Prozent","das","퍼센트"],["Hoheit","die","전하"],["Zugang","der","출입"],["Erlaubnis","die","허가"],["Story","die","이야기"],["Priester","der","사제"],["Geduld","die","참을상 / 인내"],["Bühne","die","무대"],["Gerechtigkeit","die","공정"],["Lügner","der","거짓말쟁이"],["Medizin","die","의학 / 약"],["Prozess","der","과정 / 재판"],["Samstag","der","토요일"],["Motor","der","엔진"],["Chaos","das","엉망"],["Schönheit","die","아름다움"],["Hof","der","마당"],["Norden","der","북 （北）"],["Bauch","der","배"],["Kiste","die","상자"],["Deckung","die","엄호 / 보장"],["Berg","der","산 （山）"],["Untersuchung","die","조사"],["Alarm","der","경보"],["Eindruck","der","감상"],["Montag","die","우정"],["Freundschaft","die","우정"],["Beruf","der","직업"],["Gebiet","das","지역"],["Verräter","der","배신자"],["Brust","die","가슴"],["Jacke","die","웃옷 / 재킷"],["Schlafzimmer","das","침실"],["Vorschlag","der","제안"],["Gift","das","독"],["Ton","der","소리 / 점토"],["Beerdigung","die","장례"],["Müll","der","쓰레기"],["Mitte","die","가운데"],["Geburt","die","출산"],["Decke","die","담요"],["Mittagessen","das","점심"],["Rock","der","치마"],["Crew","die","승무원"],["Gewehr","das","소총"],["Spiegel","der","거울"],["Wetter","das","날씨"],["Regel","die","규칙"],["Einheit","die","단위 / 부대"],["Champagner","der","샴페인"],["Strafe","die","벌칙"],["Zelle","die","세포"],["Kleidung","die","옷"],["Gras","das","빵"],["Brot","das","빵"],["Station","die","정거장 / 병동"],["Hemd","das","셔츠"],["Theorie","die","이론"],["Zunge","die","혀"],["Notfall","der","비상"],["Winter","der","겨울","계절 이름은 모두 der예요."],["Anführer","der","지도자"],["Leck","das","새는 곳"],["Bedeutung","die","의미"],["Strom","der","전기 / 흐름"],["Krebs","der","암"],["Minister","der","장관"],["Talent","das","재주 / 재능"],["Spitze","die","꼭대기"],["Fernseher","der","텔레비전"],["Tatort","der","범행 현장"],["Täter","der","범인"],["Dieb","der","도둑"],["Westen","der","서 （西）"],["Geschmack","der","취향 / 맛"],["Pech","das","불운"],["Schauspieler","der","배우"],["Publikum","das","관객"],["Gas","das","가스"],["Sturm","der","폭풍"],["Abteilung","die","부서"],["Papier","das","종이"],["Genie","das","천재"],["Inspektor","der","감독관 / 경감"],["Kuh","die","소"],["Süden","der","남 （南）"],["Pater","der","신부"],["Menschheit","die","인류"],["Sendung","die","방송 / 발송"],["Treppe","die","계단"],["Wolf","der","늑대"],["Dämon","der","악마"],["Wut","die","분노 / 성"],["Schlange","die","뱀"],["Pizza","die","피자"],["Hütte","die","오두막집"],["Mantel","der","외투"],["Mittag","der","정오"],["Dunkelheit","die","어둠"],["Unterhaltung","die","대화 / 오락"],["Explosion","die","폭발"],["Leitung","die","관리 / 전선"],["Stoff","der","천 / 물질"],["Schrank","der","옷장"],["Gnade","die","자비"],["Einladung","die","청첩장"],["Krieger","der","전사"],["Mitglied","das","구성원 / 회원"],["Feld","die","정보"],["Information","die","정보"],["Vermögen","das","재산"],["Staat","der","국가"],["Schrei","der","비명"],["Mitternacht","die","자정"],["Klinik","die","병원(클리닉)"],["Bürger","der","시민"],["Hammer","der","망치"],["Internet","das","인터넷"],["Politik","die","정 （政）"],["Besitz","der","소유"],["Kommando","das","명령 / 특공대"],["Krankenwagen","der","구급차"],["Schnee","der","설 （雪） / 눈"],["Brille","die","안경"],["Heimat","die","고향"],["Leiter","die","사다리"],["Werk","das","작 （作）"],["Cent","der","센트"],["Schlacht","die","전투"],["Offizier","der","장교"],["Affäre","die","사건 / 불륜"],["Zweck","der","목적"],["Gedanke","der","사고"],["Holz","das","나무 / 목 （木）"],["Kaiser","der","황제"],["Scheidung","das","달걀"],["Bart","der","수염"],["Klo","das","화장실"],["Ei","das","알 / 달걀"],["Stress","der","스트레스"],["Stimmung","die","느낌 / 기분"],["Bulle","der","황소"],["Geräusch","das","소음"],["Künstler","der","예술가"],["Urteil","das","판결"],["Verlust","der","손실"],["Schulter","die","어깨"],["Fluch","der","저주"],["Unterricht","der","수업"],["Feigling","der","치즈"],["Käse","der","치즈"],["Verfügung","die","처분"],["Gesundheit","die","건강"],["Abenteuer","das","모험"],["Scheck","der","수표"],["Universum","das","우주"],["Revier","das","구역 / 경찰서"],["Schädel","der","머리통"],["Realität","die","현실"],["April","der","4월"],["Jagd","die","사냥"],["Öffentlichkeit","die","대중"],["Verbrecher","der","범죄자"],["Maske","die","가면"],["Verstärkung","die","지원 / 보강"],["Führer","der","안내자 / 지도자"],["Antrag","der","신청 / 청혼"],["Schreibtisch","der","책상"],["Vampir","der","흡혈귀"],["Patient","der","환자"],["Zucker","der","당 （糖）"],["Besitzer","der","주인"],["Tasse","die","컵(잔)"],["Hinweis","der","힌트 / 지적"],["Verteidigung","die","방어"],["Magen","der","위"],["Tunnel","der","터널"],["Behandlung","die","대우"],["Serie","die","시리즈"],["Applaus","der","박수"],["Markt","der","시장"],["Kommandant","der","사령관"],["Osten","der","동 （東）"],["Hass","der","증오"],["Posten","der","직위 / 초소"],["Wissenschaft","die","과학"],["Ursache","die","원인"],["Senator","der","상원의원"],["Anteil","der","몫"],["Ritter","der","기사(騎士)"],["Roman","der","소설"],["Basis","die","기반 / 기지"],["Schock","der","충격"],["Empfang","der","수령 / 환영회"],["Titel","der","제목"],["Stil","der","스타일"],["Einfluss","der","영향"],["Anweisungen","die","지시"],["Farm","die","농장"],["Schwachsinn","der","헛소리"],["Wüste","die","사막"],["Gabe","die","재능 / 선물"],["Angelegenheit","die","건 / 사항"],["Dienstag","der","화요일"],["Training","das","훈련"],["Planet","der","행성"],["Suppe","die","수프"],["Sitz","der","좌석"],["Vorteil","der","장점"],["Tour","die","투어"],["Gouverneur","der","주지사"],["Stern","der","별"],["Gedächtnis","das","기억력"],["Wirklichkeit","die","실제"],["Kreis","der","동그라미"],["Staatsanwalt","der","검사"],["Ewigkeit","die","영원"],["Störung","die","방해 / 장애"],["Tiger","der","호 （虎） / 호랑이"],["Zigarette","die","담배"],["Hauptmann","der","대위"],["Not","die","곤경"],["Unglück","das","우환"],["Wissenschaftler","der","과학자"],["Reaktion","die","반응"],["Mitarbeiter","der","직원"],["Identität","die","신원 / 신분"],["Fieber","das","열"],["Hirn","das","뇌"],["Donnerstag","der","목요일"],["Jahrhundert","das","세기"],["Diener","der","하인"],["Ausweis","der","신분증"],["Sicht","die","관 （觀）"],["Sport","der","스포츠"],["Text","der","글"],["Lektion","die","교훈"],["Staub","der","먼지"],["Ratte","die","쥐"],["Mitleid","das","동정"],["Gegner","der","상대 / 적"],["Linie","die","선 （線）"],["Bedrohung","die","위협"],["Kreuz","das","가위표"],["Junior","der","주니어"],["Leidenschaft","die","열정"],["Spieler","der","선수"],["Graf","der","백작"],["Verabredung","der","냉장고","합성어는 마지막 단어(Schrank)의 성을 따라가요."],["Kühlschrank","der","냉장고"],["LehrerIn","die","여선생님"],["Lehrerin","die","여선생님"],["Jäger","der","사냥꾼"],["Start","der","시작 / 출발"],["Sand","der","모래"],["Pfarrer","der","목사님"],["Rückkehr","die","귀환"],["Hafen","der","항구"],["Indianer","der","아메리카 원주민"],["Stahl","der","강철"],["Kindheit","die","어린 시절"],["Fabrik","die","공장"],["Geruch","der","냄새"],["Abmachung","die","합의"],["Appetit","der","식욕"],["Fan","der","팬"],["Verkauf","der","매출"],["Korrektur","die","수정"],["Aufnahme","die","녹음"],["Manager","der","매니저"],["Stellung","die","위치 / 직위"],["Höhle","die","동굴"],["Schokolade","die","초콜릿"],["Belohnung","die","보상"],["Garage","die","차고"],["Gepäck","das","짐"],["Funk","der","무선"],["Jugend","die","청춘"],["Feier","die","잔치"],["Benzin","das","휘발유"],["Mauer","die","담"],["Flügel","der","날개"],["Schluck","der","한 모금"],["Abschluss","der","수료 / 졸업"],["Technik","die","기술"],["Ergebnis","das","결과"],["Bedingungen","die","조건"],["Gentleman","der","신사"],["Warnung","die","경고"],["Gemeinde","die","지역 사회"],["Bär","der","곰"],["Ware","die","상품"],["Figur","die","형상 / 몸매"],["Roboter","der","로봇"],["Material","das","소재"],["Käfig","der","새장 / 우리"],["Fantasie","die","환상"],["Satz","der","문장"],["Kommissar","der","경감"],["Exzellenz","die","각하"],["Führung","die","지도 / 안내"],["Palast","der","궁궐 / 궁전"],["Lärm","der","소음"],["Arbeiter","der","노동자"],["Humor","der","유머"],["Organisation","die","조직"],["Studio","das","스튜디오"],["Teller","der","접시"],["Revolution","die","혁명"],["Wäsche","die","빨래"],["Rätsel","das","수수께끼"],["Bibel","die","성경"],["Kopie","das","자전거","합성어는 마지막 단어(Rad)의 성을 따라가요."],["Höhe","die","높이"],["Narr","der","바보"],["Fahrrad","das","자전거"],["Rauch","der","연기"],["Hubschrauber","der","헬리콥터"],["Kollege","der","동료"],["Konto","das","계좌"],["Munition","die","탄약"],["Sünde","die","죄"],["Militär","das","군대"],["Anzeichen","das","징조"],["Hintergrund","der","배경"],["Tipp","der","조언 / 팁"],["Kram","der","잡동사니"],["Technologie","die","대학교"],["Universität","die","대학원"],["Mai","der","5월"],["Katastrophe","die","재앙"],["Prüfung","die","시험"],["Meeting","das","회의"],["Versicherung","die","보험"],["Ehefrau","die","집사람 / 아내"],["Reporter","der","기자"],["Bibliothek","die","도서관"],["Motiv","das","동기"],["Gewicht","das","무게"],["Badezimmer","das","욕실 / 화장실"],["Drachen","der","기차역","합성어는 마지막 단어(Hof)의 성을 따라가요."],["Bahnhof","der","역"],["Verrat","der","배신"],["Legende","die","전설"],["Konzert","das","연주회"],["Last","die","부담"],["Vergleich","der","비교"],["Besucher","der","방문객"],["Einstellung","die","태도 / 설정"],["Laune","die","기분"],["Asche","die","재"],["Spion","der","스파이"],["Weihnachtsmann","der","산타클로스"],["Puppe","die","인형"],["Überfall","der","습격"],["Übung","die","연습"],["Cousine","die","사촌(여)"],["Ausdruck","der","표현"],["Knopf","der","단추"],["Rad","das","바퀴 / 자전거"],["Netz","das","그물 / 네트워크"],["Atem","der","숨"],["Umgebung","die","주변 / 근처"],["Sender","der","방송국"],["Pilot","der","조종사"],["Leib","der","몸"],["ÄrztIn","die","의사"],["Ärztin","die","여의사"],["Lieferung","die","배달"],["Botschafter","der","대사"],["Kopfschmerzen","die","두통"],["Öl","das","기름"],["Sekretärin","die","비서"],["Phase","das","박물관"],["Handschellen","die","수갑"],["Bande","die","패거리"],["Museum","das","박물관"],["Albtraum","der","악몽"],["Personal","das","직원"],["Wirkung","die","효과"],["Therapie","die","치료"],["Leutnant","der","중위"],["Zauberer","der","마법사"],["Ankunft","die","도착"],["Abstand","der","사이"],["Bewusstsein","das","의식"],["Nation","die","국민"],["Treffer","der","명중 / 득점"],["Tempel","der","사원(절)"],["Ausrüstung","die","장비"],["Segen","der","축복"],["Kehle","die","목구멍"],["Krone","die","관"],["Ladung","die","짐 / 충전"],["Kapitel","das","장"],["Alibi","das","알리바이"],["Bestie","die","야수"],["Wohnzimmer","das","거실"],["Bau","der","건축 / 공사"],["Durst","der","갈증"],["Liebhaber","der","애인 / 애호가"],["Juli","der","7월"],["Camp","das","캠프"],["Hitze","die","더위"],["Spielzeug","das","장난감"],["Zone","die","구역"],["Paket","das","택배 / 소포"],["Ausweg","der","출구 / 해결책"],["Schmuck","der","보석"],["Ausgang","der","출구"],["Ferien","die","방학"],["Raumschiff","das","우주선"],["Ausbildung","die","직업 교육"],["Klavier","das","피아노"],["Hauptsache","die","가장 중요한 것"],["Admiral","der","제독"],["Version","die","버전"],["Küste","die","바닷가"],["Baron","der","남작"],["Puls","der","심장"],["Flur","der","복도"],["Rettung","die","구조"],["Parkplatz","der","주차장"],["Mittwoch","der","수요일"],["Vision","die","선견"],["Schauspielerin","die","여배우"],["Friedhof","der","묘지"],["Irrtum","der","착오"],["Gegenwart","die","현재"],["Protokoll","das","기록 / 의전"],["Wade","die","종아리"],["Missverständnis","das","오해"],["Motorrad","das","오토바이"],["Dicke","die","비 （肥） / 두께"],["Huhn","das","닭"],["Paradies","das","낙원"],["Tagebuch","das","일기"],["Apartment","das","아파트"],["Fleck","der","얼룩"],["Führerschein","der","운전면허"],["Verdächtige","die","용의자"],["Enkel","der","손자"],["Stift","der","연필"],["Aussicht","die","전망"],["Werbung","die","광고"],["Anblick","der","카펫"],["Teppich","der","카펫"],["Handel","der","상업 / 무역"],["Trainer","der","코치"],["Schuh","der","신발"],["Kämpfer","der","전사 / 투사"],["Sitzung","die","회의"],["Experiment","das","실험"],["Tiefe","die","깊이"],["Sarg","der","관(棺)"],["Tradition","die","전통"],["Fähigkeit","die","실력 / 능력"],["Muster","das","무늬"],["Gewinner","der","승자"],["Verständnis","das","이해심"],["Papst","der","교황"],["Toast","der","토스트 / 건배"],["Gewinn","der","이익 / 상금"],["Modell","das","모델"],["Vorfall","der","사건"],["Motel","das","모텔"],["Zirkus","der","서커스"],["Ruhm","der","명성"],["Rezept","das","요리법 / 처방전"],["Geschwindigkeit","die","속도"],["Betrüger","der","사기꾼"],["Märchen","das","동화"],["Wille","der","의지"],["Hügel","der","언덕"],["Königreich","das","왕국"],["Kofferraum","der","트렁크"],["Bursche","der","젊은이"],["Geständnis","das","자백"],["Blitz","der","번개"],["Furcht","die","두려움"],["Aufregung","die","흥분"],["Entführung","die","납치"],["Felsen","der","바위"],["Zorn","der","분노"],["Verkehr","der","교통"],["Generation","die","세대 / 대"],["Ausnahme","die","제외 / 예외"],["Herausforderung","die","도전"],["Tempo","das","속도"],["Tal","das","골짜기"],["Witwe","die","과부"],["Gerede","das","소문 / 잡담"],["Anwesenheit","die","출석"],["Ausflug","der","소풍"],["Rand","der","가장자리"],["Aufzug","der","엘리베이터"],["Amt","das","관청 / 직무"],["Daumen","der","엄지"],["Marke","die","상표 / 우표"],["Jude","der","유대인"],["Gesang","der","노래(가창)"],["Religion","die","종교"],["Unterschrift","die","서명"],["Eingang","der","입구"],["Kultur","die","문화"],["Patientin","die","여자 환자"],["Nichte","die","조카딸"],["Existenz","die","존재"],["Drehbuch","das","시나리오"],["Zaun","der","울타리"],["Wächter","der","경비원"],["Rakete","die","로켓"],["Salz","das","소금"],["Esel","der","당나귀"],["Krankenschwester","die","간호사"],["Symbol","das","상징"],["Fahrzeug","das","차량"],["Unterwäsche","die","속옷"],["Engländer","der","영국인"],["Tropfen","der","물방울"],["September","der","9월"],["Aktion","die","행동 / 할인 행사"],["Heilmittel","das","치료제"],["Apparat","der","기기"],["Zuschauer","der","관객"],["Teenager","der","십대"],["Maus","die","쥐"],["Charakter","der","성격"],["Einbruch","der","침입"],["Kostüm","das","의상"],["Verspätung","die","지연"],["Thron","der","왕좌"],["Akzent","der","억양"],["Truppe","die","부대 / 일행"],["Kompliment","das","칭찬"],["Gemälde","das","그림"],["Chip","der","칩"],["Mannschaft","die","팀"],["Loyalität","die","충성"],["Dankeschön","das","감사 인사"],["Verhandlung","die","협상"],["Krise","die","위기"],["Verlierer","der","패자"],["Profi","der","프로"],["Whisky","der","위스키"],["Gelächter","das","웃음소리"],["Einspruch","der","이의"],["Angeln","das","낚시"],["Kaution","die","보증금"],["Juni","der","6월"],["Herzinfarkt","der","심근경색"],["Nahrung","die","양분"],["Nachbar","der","이웃"],["Nebel","der","안개"],["Front","die","전선 / 정면"],["Veränderung","die","변경 / 변화"],["Affe","der","원숭이"],["Brand","der","화재"],["Zwischenzeit","die","그동안"],["Kreatur","die","생물"],["Kanal","der","운하 / 채널"],["Blutdruck","der","혈압"],["Clown","der","광대"],["Autor","die","꽃"],["Blume","die","꽃"],["Zwillinge","die","쌍둥이"],["Praxis","die","실천 / 개인 병원"],["Tragödie","die","비극"],["Psychiater","der","정신과 의사"],["Rasse","die","품종 / 인종"],["Kummer","der","근심"],["Partei","die","정당"],["Zentrum","das","중심"],["Testament","das","유언장"],["Entfernung","die","거리 / 제거"],["Gelände","das","부지 / 지형"],["Kutsche","die","마차"],["Regisseur","der","감독"],["Erbe","das","유산"],["Bargeld","das","현금"],["Innere","das","내면"],["Kanone","die","대포"],["Marine","die","해군"],["Köder","der","미끼"],["Kleinigkeit","die","사소한 것"],["Kissen","das","쿠션"],["Trost","der","위안"],["Vergebung","die","용서"],["Vieh","das","가축"],["Salat","der","샐러드"],["Schicht","die","층 / 교대 근무"],["Verhältnis","das","관계 / 비율"],["Socken","der","양말"],["Brieftasche","die","지갑"],["Methode","die","방법"],["Vernunft","die","이성"],["Drama","das","드라마"],["Sprung","der","도약"],["Gangster","der","갱단원"],["Ofen","der","오븐 / 난로"],["Cowboy","der","카우보이"],["Wodka","der","보드카"],["Lohn","der","임금"],["Schnaps","der","독한 술"],["Stufe","die","단계"],["Scheune","die","외양간"],["Spaziergang","der","산책"],["Zettel","der","쪽지"],["Telefonnummer","die","전화번호"],["Leistung","die","성능"],["Beileid","das","애도"],["Unschuld","die","결백"],["Sofa","das","소파"],["Nachbarschaft","die","동네"],["Villa","das","채소","Ge-로 시작하는 집합명사는 대개 das예요."],["Saft","der","즙"],["Hauptquartier","das","본부"],["Werkstatt","die","작업장 / 정비소"],["Gemüse","das","채소 / 야채"],["Schläger","der","라켓 / 깡패"],["Assistentin","die","여자 조수"],["Wettbewerb","der","공모전 / 경쟁"],["Sieger","der","승리자"],["Verfassung","die","헌법 / 상태"],["Fußball","der","축구"],["Gürtel","der","허리띠"],["Kabel","das","케이블"],["Zahn","der","이"],["Krankenstation","die","의무실"],["Leine","die","줄 / 목줄"],["Beschreibung","die","묘사"],["Grundstück","das","토지"],["Turm","der","탑"],["Sauerstoff","der","산소"],["Versager","der","실패자"],["Panzer","der","탱크"],["Bach","der","계고"],["Zerstörung","die","파괴"],["Stirn","die","이마"],["Kloster","das","수도원"],["Anlass","der","계기"],["Atmosphäre","die","분위기"],["Leber","die","간"],["Krawatte","die","넥타이"],["Tarnung","die","위장"],["Faust","die","주먹"],["Dschungel","der","밀림"],["Akt","der","행위 / 막(연극)"],["Schießerei","die","총격전"],["AnwältIn","die","변호사"],["Anwältin","die","여자 변호사"],["Frisur","die","헤어스타일"],["Spruch","der","격언"],["Moral","die","도덕성"],["Spezies","die","종(種)"],["Oktober","der","10월"],["Schachtel","die","상자"],["Brunnen","die","램프"],["Lampe","die","전등"],["Eigentum","das","재산"],["Diebstahl","der","절도"],["Gegensatz","der","대조"],["Frühling","der","봄","-ling으로 끝나면 der예요. 계절도 der!"],["Ausland","das","외국"],["Entwicklung","die","발전"],["Diskussion","die","토론"],["Gehalt","das","월급"],["Glocke","die","종"],["Forschung","die","연구"],["Kasse","die","계산대"],["Oberfläche","die","표면"],["Gitarre","die","기타"],["Politiker","der","정치인"],["Werkzeug","das","도구"],["Bevölkerung","die","인구"],["Flieger","der","비행사"],["Detail","das","세부 사항"],["Schriftsteller","der","작가"],["Jury","die","심사위원단"],["Feige","die","무화과"],["Möbel","das","가구"],["Bewährung","die","집행유예"],["Berater","der","상담가"],["Zoo","der","동물원"],["Gedicht","das","시"],["Baseball","der","야구"],["Trennung","die","이별 / 분리"],["Lautsprecher","der","스피커"],["Ticket","das","표"],["Kanzlei","die","사무소"],["Anschlag","der","테러 / 공격"],["Etage","die","층"],["Objekt","das","대상 / 물체"],["Kokain","das","코카인"],["Strategie","die","전략"],["Gräfin","die","백작 부인"],["Genosse","der","동지"],["Fuchs","der","여우"],["Episode","die","에피소드"],["Persönlichkeit","die","성격"],["Weisheit","die","지혜"],["Premierminister","der","총리"],["Nacken","der","목덜미"],["Zusammenhang","der","관련"],["Nadel","die","바늘"],["Apfel","der","사과"],["Mitgefühl","das","공감"],["Heirat","die","결혼"],["Notaufnahme","die","응급실"],["Verwandten","die","친척"],["Trinkgeld","das","팁"],["Sorte","die","종류"],["Vereinbarung","die","합의"],["Datum","das","날짜"],["Bezug","der","관련 / 커버"],["Ermittlung","die","수사"],["Brett","das","판자"],["Einrichtung","die","시설 / 가구"],["November","der","11월"],["Alternative","die","대안"],["Experte","der","전문가"],["Prinzip","das","원리 / 원칙"],["Ozean","der","해양 / 대해"],["Notruf","der","긴급 전화"],["Verschwörung","die","음모"],["Kellner","der","웨이터"],["Lkw","der","트럭"],["Fürst","der","제후"],["Gebet","das","기도"],["Ausrede","die","핑계"],["Tüte","die","봉지"],["Herrin","die","여주인"],["Dezember","der","12월"],["Anspruch","der","권리 / 요구"],["Handtuch","das","수건"],["Kardinal","der","추기경"],["Kommunikation","die","의사소통"],["Analyse","die","분석"],["Hochzeitstag","der","결혼기념일"],["Melodie","die","멜로디"],["Rente","die","연금"],["Zeremonie","die","의식(행사)"],["Ersatz","der","대체"],["Mütze","die","모자(챙 없는)"],["Zeugin","die","여자 증인"],["Zeitverschwendung","die","시간 낭비"],["Ansicht","die","견해"],["Anlage","die","시설 / 첨부"],["Autounfall","der","교통사고"],["Aufstand","der","항쟁"],["Muskeln","die","근육"],["Steak","das","스테이크"],["Japaner","der","일본인"],["Musiker","der","음악가"],["Reichweite","die","도달 범위"],["Schach","das","체스"],["Kater","der","수고양이 / 숙취"],["Bedingung","die","조건"],["Konkurrenz","die","경쟁"],["Festung","die","요새"],["Detektiv","der","탐정"],["Pastor","der","목사"],["Kratzer","der","긁힌 자국"],["Intelligenz","die","지능"],["Rückzug","der","후퇴"],["Bude","die","작은 가게 / 방"],["Metall","das","금속"],["Handschuhe","die","장갑"],["Gerücht","das","소문 얘기 / 소문"],["Temperatur","die","온도 / 기온"],["Verletzung","die","부상"],["Räuber","der","강도"],["Adler","der","독수리"],["Lunge","die","폐"],["Sonnenuntergang","der","일몰 / 해넘이"],["Oper","die","가극"],["Agentur","die","대행사"],["Krach","der","소음 / 싸움"],["Pfeil","der","화살"],["Route","die","경로"],["Kälte","die","추위"],["Sektor","der","부문"],["Häuptling","der","추장"],["März","der","3월"],["Frosch","der","개구리"],["Republik","die","공화국"],["Silber","das","은"],["Umschlag","der","봉투"],["Hinsicht","die","관점"],["Ereignis","das","사건"],["Ente","die","오리"],["Kommentar","der","논평"],["Zivilisation","die","문명"],["Verhaftung","die","체포"],["Meldung","die","보고 / 소식"],["Ziege","die","염소"],["Löwe","der","사자"],["Privatsphäre","die","사생활"],["Eid","der","맹세"],["Telegramm","das","전보"],["Pfad","der","오솔길"],["Mafia","die","마피아"],["Wellen","die","파도"],["Assistent","der","조수"],["Pille","die","알약"],["Korb","der","바구니"],["Samurai","der","사무라이"],["Quartier","das","숙소"],["Transport","der","운송"],["U-Bahn","die","지하철"],["Status","der","지위"],["Skandal","der","스캔들"],["Papierkram","der","서류 작업"],["Gemeinschaft","die","공동체"],["Instinkt","der","본능"],["Narbe","die","흉터"],["Kombination","die","조합"],["Zahnarzt","der","치과 의사"],["Zutritt","der","출입"],["Streich","der","장난치"],["Nest","das","둥지"],["Helm","der","헬멧"],["Herbst","der","가을"],["Stamm","der","줄기 / 부족"],["Auswahl","die","선정 / 선택"],["Vorstand","der","이사회"],["Besprechung","die","의논"],["Studium","das","대학 공부"],["Kreditkarte","die","신용카드"],["Profil","das","프로필"],["Donner","der","천둥"],["Stall","der","외양간"],["Geschäftsmann","der","회사원"],["Champion","der","챔피언"],["Fortschritt","der","진 （進） / 진행"],["Feierabend","der","퇴근"],["Passwort","das","암호"],["Käufer","der","구매자"],["Division","die","사단 / 나눗셈"],["Option","die","선택지"],["Husten","der","기침"],["Schublade","die","서랍"],["Anzahl","die","수"],["Anhänger","der","추종자 / 펜던트"],["Kern","der","핵심 / 씨"],["Erfindung","die","발명품 / 창제"],["Autopsie","die","부검"],["Rucksack","der","배낭"],["Einsamkeit","die","외로움"],["Burg","die","성(城)"],["Genehmigung","die","허가"],["Tankstelle","die","주유소"],["Handtasche","die","핸드백"],["Butler","der","집사"],["Münze","die","동전"],["Saison","die","철"],["Partnerin","die","여자 파트너"],["Haltung","die","태도 / 자세"],["Ruhestand","der","은퇴"],["Anhörung","die","청문회"],["Gauner","der","사기꾼"],["Produkt","das","제품"],["Tafel","die","칠판"],["Geschrei","das","고함"],["Zombie","der","좀비"],["Mahlzeit","die","식사"],["Kenntnis","die","지식"],["Sanitäter","der","구급대원"],["Funkgerät","das","무전기"],["Orden","der","훈장 / 수도회"],["Infektion","die","감염"],["Winkel","der","각도"],["Torte","die","케이크(타르트)"],["Austausch","der","교류"],["Geheimdienst","der","정보기관"],["Genick","das","목덜미"],["Autorität","die","권위"],["Schinken","der","햄"],["Hai","der","상어"],["Erpressung","die","협박"],["Sammlung","die","수지"],["Bewohner","der","주민"],["Supermarkt","der","슈퍼마켓"],["Dealer","der","1월","달 이름은 모두 der예요."],["Priorität","die","우선순위"],["Beförderung","die","승진"],["Eifersucht","die","질투"],["Ufer","das","물가"],["Bezirk","der","구역"],["Qualität","die","질 （質） / 품질"],["Henker","der","사형 집행인"],["Scheibe","die","조각 / 유리판"],["Konferenz","die","회의"],["Flecken","der","얼룩"],["Sonnenaufgang","der","일출 / 해돋이"],["Diagnose","die","진단"],["Weltraum","der","우주 공간"],["Vorbild","das","본보기"],["Frost","der","영하"],["Kabine","die","객실 / 탈의실"],["Chefin","die","여자 상사"],["Römer","der","로마인"],["Datenbank","die","데이터베이스"],["Bunker","der","숟가락"],["Löffel","der","숟가락"],["Fahrstuhl","der","엘리베이터"],["Italiener","der","이탈리아인"],["Disziplin","die","규율"],["Kongress","der","회의 / 의회"],["Schirm","der","우산"],["Charme","der","매력"],["Lügnerin","die","여자 거짓말쟁이"],["Mode","die","유행"],["Hahn","der","수탉 / 수도꼭지"],["Versammlung","die","회 （會） / 회"],["Speck","der","베이컨"],["Saal","der","홀"],["Wirtschaft","die","경제"],["Seife","die","비누"],["Herde","die","무리"],["Zwerg","der","난쟁이"],["Ablenkung","die","주의 분산"],["Herrscher","der","통치자"],["Sprengstoff","der","폭발물"],["Erdbeben","das","지진"],["Älteren","die","어른"],["Gleichgewicht","das","균형"],["Schalter","der","스위치 / 창구"],["Zuneigung","die","애정"],["Rollstuhl","der","휠체어"],["Hauptstadt","die","수도"],["Dosis","die","복용량"],["Kammer","die","방 / 의회"],["Finsternis","die","어둠"],["Transporter","der","승합차"],["Abzug","der","방아쇠 / 철수"],["Becher","der","컵"],["Anweisung","die","지시"],["Geste","die","몸짓"],["Zusammenarbeit","die","협력"],["Sicherheitsdienst","der","경비 업체"],["Weltkrieg","der","세계대전"],["Standort","der","위치"],["Landung","die","착륙"],["Begleitung","die","동행"],["Allianz","die","동맹"],["Echo","das","메아리"],["Sklave","der","노예"],["Honig","der","꿀"],["Göttin","die","여신"],["Februar","der","2월"],["Begegnung","die","만남"],["Feuerwehr","die","소방대"],["Wärter","der","간수"],["Vertreter","der","대리인"],["Hinrichtung","die","처형"],["Hausmeister","der","관리인"],["Helikopter","der","헬리콥터"],["Duft","der","향기"],["Schein","der","지폐 / 증명서"],["Kellnerin","die","여자 종업원"],["Hobby","das","취미"],["Nachtisch","der","디저트"],["Kollegin","die","여자 동료"],["Alptraum","der","악몽"],["Reichtum","der","부(富)"],["Haftbefehl","der","체포 영장"],["Ernte","die","수확 / 농작물"],["Weste","die","조끼"],["Schwager","der","처남 / 매형"],["Föderation","die","연방"],["Dose","die","캔"],["Magazin","das","잡지"],["Nachbarin","die","여자 이웃"],["Formel","die","공식"],["Wohnwagen","der","캠핑카"],["Tumor","der","종양"],["Bezahlung","die","지불"],["Gitter","das","창살"],["Gestalt","die","형태 / 인물"],["Illusion","die","환상"],["Spannung","die","긴장 / 전압"],["Bestimmung","die","규정 / 운명"],["Tresor","der","금고"],["Fischer","der","낚시꾼"],["Lehre","die","가르침"],["Revolver","der","리볼버"],["Schrott","der","고철"],["Vorhang","der","커튼"],["Lagerhaus","das","창고"],["Raub","der","강도질"],["Produktion","die","생산"],["Futter","das","먹이"],["Aktien","die","주식"],["Kinderspiel","das","아주 쉬운 일"],["Dummheit","die","어리석음"],["Inhalt","der","내용"],["Dankbarkeit","die","은혜"],["Make-Up","das","화장"],["Anwesen","das","저택"],["Anerkennung","die","인정"],["Galaxie","die","은하"],["Vermutung","die","추측"],["Überwachung","die","감시"],["Statue","die","동상"],["Bestätigung","die","확인"],["Verzweiflung","die","절망"],["Rahmen","der","틀 / 액자"],["Klub","der","클럽"],["Niederlage","die","패배"],["Logik","die","논리"],["Todesursache","die","사인(死因)"],["Anfall","der","발작"],["Ingenieur","der","엔지니어"],["Zustimmung","die","동의"],["Dokument","das","문서 / 서류"],["Pfannkuchen","der","팬케이크"],["Hase","der","토끼"],["Aufenthalt","der","체류"],["Blutung","die","출혈"],["Staatsanwaltschaft","die","검찰청"],["Ehrlichkeit","die","정직"],["Neugier","die","궁금증"],["Entdeckung","die","발견"],["Herkunft","die","출신"],["Annahme","die","가정 / 수락"],["Gestank","der","악취"],["Hintertür","die","뒷문"],["Truthahn","der","칠면조"],["Jeans","die","청바지"],["Befragung","die","심문 / 설문"],["Studie","die","연구 논문"],["Busch","der","관목"],["Abwesenheit","die","부재"],["Bestellung","die","주문"],["Sehnsucht","die","그리움"],["Demokratie","die","민주주의"],["Satan","der","사탄"],["Police","die","보험 증권"],["Horn","das","뿔"],["Sirene","die","사이렌"],["Ritual","das","의식(儀式)"],["Pflanze","die","식물"],["Garderobe","die","옷 보관소"],["Streifen","der","줄무늬"],["Wirt","der","주인(술집)"],["Kasten","der","상자"],["Salon","der","살롱"],["Medikament","das","약"],["Lebensmittel","das","식료품"],["Vortrag","der","강연"],["Durchbruch","der","돌파구"],["Schere","die","가위"],["Kampagne","die","캠페인"],["Berufung","die","소명 / 항소"],["Knöchel","der","발목"],["Zeitplan","der","일정표"],["Versuchung","die","유혹"],["Beitrag","der","기여 / 회비"],["Picknick","das","소풍"],["Argument","das","논거"],["Meile","die","마일"],["Hamburger","der","햄버거"],["Türklingel","die","초인종"],["Dynamit","das","다이너마이트"],["Fell","das","털가죽"],["Sonnenschein","der","햇빛"],["Bräutigam","der","신랑"],["Drohung","die","위협"],["Bischof","der","주교"],["Geschwister","das","형제"],["Axt","die","도끼"],["Händler","der","상인"],["Dampf","der","증기"],["Kerze","die","초"],["Besatzung","die","승무원 / 점령"],["Standpunkt","der","입장"],["Beutel","der","주머니"],["Klient","der","의뢰인"],["Veranda","die","베란다"],["Strahlung","die","방사선"],["Schwangerschaft","die","임신"],["Nonne","die","수녀"],["Feuerwerk","das","볼꽃놀이"],["Neueste","das","최신형"],["Verletzten","die","부상자"],["Abwechslung","die","기분 전환"],["Kleingeld","das","잔돈"],["Herzschlag","der","심장 박동"],["Heilung","die","치유"],["Profit","der","이익"],["Stadtrat","der","시의회"],["Pressekonferenz","die","기자 회견"],["Regie","die","연출"],["Schweizer","der","스위스인"],["Gasse","die","골목"],["Gefecht","das","교전"],["Pension","die","하숙집"],["Lippenstift","der","립스틱"],["Stab","der","막대 / 참모"],["Maler","der","화가"],["Boxer","der","권투 선수"],["Ausstellung","die","전시회"],["Polizistin","die","여자 경찰관"],["Freizeit","die","여가"],["Dolch","der","단검"],["Auszeit","die","휴식 시간"],["Konzept","das","개념"],["Treffpunkt","der","만남의 장소"],["Schrift","die","글씨 / 문자"],["Mathe","die","수학"],["Konzentration","die","집중"],["Draht","der","철사"],["Reinigung","das","과일"],["Farmer","der","농부"],["Batterie","die","배터리"],["Obst","das","과일"],["Badewanne","die","욕조"],["Droge","die","마약"],["Übertragung","die","송수신"],["Anfänger","der","초보자"],["Reue","die","여한"],["Rhythmus","der","리듬"],["Siegel","das","도장 / 봉인"],["Schüssel","die","그릇"],["Mitbewohner","der","룸메이트"],["Verlobung","die","약혼"],["Balkon","der","발코니"],["Liga","die","리그전"],["Netzwerk","das","네트워크"],["Akademie","die","아카데미"],["Branche","die","업계"],["Soße","die","소스"],["Entführer","der","납치범"],["Basketball","der","농구"],["Suite","die","스위트룸"],["Barkeeper","der","바텐더"],["Wolke","die","구름"],["Umgang","der","교제 / 다루기"],["Erziehung","die","교육(양육)"],["Agentin","die","여자 요원"],["Institut","das","연구소"],["Untergang","der","몰락"],["Autogramm","das","사인(서명)"],["Kompanie","die","중대"],["Casino","das","카지노"],["Sackgasse","die","막다른 골목"],["Einbrecher","der","침입자"],["Flüssigkeit","die","액체"],["Vorsprung","der","앞섬 / 우위"],["Verkäufer","der","판매원"],["Invasion","die","침략"],["Höhepunkt","der","한창"],["Pest","die","페스트"],["Region","die","지방"],["Wachmann","der","경비원"],["Gipfel","der","정상"],["Galerie","die","갤러리"],["Enkelin","die","손녀"],["Mönch","der","스님"],["Tinte","die","잉크"],["Journalist","der","기자"],["Glückspilz","der","행운아"],["Ego","das","자아"],["Aspirin","das","아스피린"],["Prophezeiung","die","예언"],["Lizenz","die","면허"],["Student","der","대학생"],["Ausländer","der","외국인"],["Kalender","der","달력 / 수첩"],["Friseur","der","미용사"],["Ermordung","die","살해"],["Zauberei","die","마법"],["Hotelzimmer","das","호텔 방"],["Frequenz","die","주파수"],["Verband","der","붕대"],["Website","die","웹사이트"],["Diät","die","다이어트"],["Geier","der","독수리(대머리)"],["Philosophie","die","철학"],["Kneipe","die","술집"],["Sumpf","der","늪"],["Apotheke","die","약국"],["Schal","der","목도리"],["Enttäuschung","die","실망"],["Unterkunft","die","숙소"],["Niere","die","신장"],["Altar","der","제단"],["Ausbruch","der","탈출 / 발발"],["Tuch","das","천 / 수건"],["Fahne","die","깃발"],["Beleidigung","die","모욕"],["Nachfolger","der","후계자"],["Chauffeur","der","운전기사"],["Ironie","die","아이러니"],["Erlösung","die","구원"],["Käfer","der","딱정벌레"],["Limonade","die","레모네이드"],["Tequila","der","테킬라"],["Schlachtfeld","das","전쟁터"],["Angreifer","der","공격자"],["Schale","die","껍질"],["Motto","das","좌우명"],["Eintritt","der","입장"],["Kapelle","die","예배당 / 악단"],["Kinn","das","턱"],["Körperverletzung","die","상해"],["Einwohner","der","주민"],["Rekord","der","신기록"],["Überdosis","die","과다 복용"],["Armband","das","팔찌"],["Handschrift","die","필체"],["Mischung","die","혼합"],["Luxus","der","사치"],["Schwung","der","활력"],["Grippe","die","독감"],["Schaf","das","양"],["Uhrzeit","die","시각"],["Zigarre","die","시가"],["Tänzerin","die","여자 무용수"],["Einkaufszentrum","das","쇼핑몰"],["Vollmond","der","보름달"],["Mexikaner","der","멕시코인"],["Umarmung","die","포옹"],["Rohr","das","관(파이프)"],["Spende","die","기부"],["Gans","die","거위"],["Dom","der","대성당"],["Geschlecht","das","성별"],["Buchhalter","der","회계사"],["Drache","der","용 （龍）"],["Bildung","die","교육"],["Volltreffer","der","정통으로 맞힘"],["Herrschaft","die","지배"],["Distanz","die","이정"],["Rendezvous","das","데이트"],["Empfehlung","die","추천"],["Handgelenk","das","손목"],["Literatur","die","문학"],["Angestellte","die","사원"],["Stipendium","das","장학금"],["Hüfte","die","엉덩이 / 허리"],["Wurf","der","투구"],["Maschinenraum","der","기관실"],["Inspiration","die","영감"],["Samen","der","씨앗"],["Hinterhalt","der","매복"],["Parfüm","das","향수"],["Präsidentin","die","여자 대통령"],["Entlassung","die","해고 / 퇴원"],["Todesstrafe","die","사형"],["Sultan","der","술탄"],["Routine","die","일상 / 루틴"],["Umkreis","der","주변"],["Ärmel","der","소매"],["Tausch","der","환"],["Schlaganfall","der","뇌졸중"],["Gärtner","der","정원사"],["Jet","der","제트기"],["Garantie","die","보증서"],["Topf","der","냄비"],["Kritik","die","비난 / 논란"],["Gewerkschaft","die","노동 조합"],["Maulwurf","der","두더지"],["Rathaus","das","시청"],["Handlung","die","동작"],["Abkürzung","die","지름길"],["Herd","der","레인지"],["Gegenstand","der","품 （品） / 물건"],["Armut","die","빈곤"],["Bestrafung","die","징 （懲）"],["Budget","das","예산"],["Sprichwort","das","관용어 / 속담"],["Flut","die","홍수"],["Spezialität","die","명물"],["Positive","das","양 （陽）"],["Wildnis","die","야생"],["Jahreszeit","die","계절"],["Taschentuch","das","손수건"],["Kreuzung","die","사거리"],["Bildschirm","der","화면"],["Wechsel","der","환 （換）"],["Strasse","die","가로 / 도로"],["Vulkan","der","화산"],["Premiere","die","개봉"],["Beobachtung","die","관측 / 망 ( 望 )"],["Lebenslauf","der","이력서"],["Vorhänge","die","커튼"],["Wahrscheinlichkeit","die","확률"],["Semester","das","학기"],["Kindergarten","der","유치원"],["Landschaft","die","경치"],["SchülerIn","die","제자 / 학생"],["Regal","das","책장 / 선반"],["Niveau","das","정도"],["Mathematik","die","수학"],["Struktur","die","구조"],["Arbeitsplatz","der","직장"],["Leder","das","가죽"],["Rüstung","die","갑옷"],["Gewohnheit","die","습관"],["Schildkröte","die","거북이"],["Bonus","der","수당"],["Deckel","der","뚜껑"],["Ausschlag","der","뾰루지"],["Quittung","die","영수증"],["Investition","die","투자"],["Selbstvertrauen","das","자신 / 자신감"],["Jägerin","das","악기"],["Aktivität","die","활동"],["Gier","die","욕심 / 탐 （貪）"],["Überzeugung","die","신념 / 확신"],["Heizung","die","난방"],["Teich","der","연못"],["Arbeitszimmer","das","서재"],["Baustelle","die","공사"],["Umwelt","die","환경"],["Zeitalter","das","시대"],["Eisenbahn","die","열차"],["Elektrizität","die","전기"],["Erlebnis","das","체험"],["Effekt","der","효과"],["Grundlage","die","기본 / 근거"],["Reihenfolge","die","순차 / 순서"],["Besen","der","빗자루"],["Verwaltung","die","행정"],["Getränk","das","음료수"],["Finanzen","die","금융"],["Erkältung","die","감기"],["Kiefer","der","턱"],["Ratschlag","der","조언 / 충고"],["Schaufel","die","삽"],["Eröffnung","die","개업"],["Entschluss","der","결심"],["Ohrringe","die","귀고리"],["Präsentation","die","제시 / 발표"],["Zahnbürste","die","칫솔"],["Mythos","der","신화"],["Haustier","das","애완동물"],["Gesichtsausdruck","der","표정"],["Aufsatz","der","논술"],["Hengst","die","바나나"],["Psychologie","die","심리학"],["Ursprung","der","근원"],["Bösewicht","der","악역"],["Auszeichnung","die","우등"],["Aufführung","die","공연"],["Briefkasten","der","우편함"],["Hausfrau","die","주부 / 전업주부"],["Reparatur","die","수선 / 수리"],["Lücke","die","빈틈"],["Immobilien","die","부동산"],["Weibchen","das","암컷"],["Jahrestag","der","기념일"],["Männchen","das","수컷"],["Kapital","das","원금 / 밑천"],["Kristall","der","수정"],["Bürgerkrieg","der","내전"],["Evolution","die","진화"],["Meisterwerk","das","대표작"],["Falten","die","주름"],["Pflaster","das","반창고"],["Ampel","die","신호등"],["Hirsch","der","사슴"],["Jugendlichen","die","젊은 층 / 청소년"],["Halskette","die","목걸이"],["Parlament","das","국회"],["Nuss","die","견과"],["Einkommen","das","수입"],["Mittelpunkt","der","중점"],["RichterIn","die","판사"],["Immunität","die","면역"],["Sonnenbrille","die","선글라스"],["Lebensunterhalt","der","생계형"],["Feiertag","der","축일"],["Spitzname","der","별명"],["Buchhaltung","die","회계"],["Bestechung","die","뇌물"],["Traurigkeit","die","슬픔"],["Schlucht","die","계곡"],["Standard","der","표준"],["Vormittag","der","오전"],["Bonbons","die","사탕"],["Ast","der","나뭇가지"],["Blutgruppe","die","혈액형"],["Klarheit","die","분명"],["Horror","der","공포"],["Schnecke","die","달뱅이"],["Wechselgeld","das","거스름돈"],["Territorium","das","국토"],["Portemonnaie","das","지갑"],["Wiese","die","풀밭 / 잔디밭"],["Anfrage","die","문의"],["Praktikum","das","인턴쉽"],["Nachtschicht","die","야근"],["Heu","das","건초"],["Dialog","die","빵집"],["Vorlesung","die","강연 / 강의"],["Industrie","die","공업 / 산업"],["Krallen","die","발톱"],["Komma","das","점"],["Freundlichkeit","die","친절"],["Klima","das","기후"],["Waise","die","고아"],["Fallschirm","der","낙하산"],["Überprüfung","die","복습"],["Grundschule","die","초등학교"],["Reife","die","성숙"],["Staubsauger","der","청소기"],["Beratung","die","상의"],["Rabatt","der","할인"],["Spielplatz","der","놀이터"],["Parfum","das","향수"],["Durchschnitt","der","평균"],["Augenbrauen","die","눈썹"],["Kalb","das","소아지"],["Schnur","die","줄"],["Waschmaschine","die","세탁기"],["Heimweh","das","향수병"],["Ostküste","die","동해안"],["Stecker","der","플러그"],["Taschengeld","das","용돈"],["Kontinent","der","대륙"],["Biologie","die","생물학"],["Blüte","die","송이"],["Versorgung","die","공급"],["Tagesanbruch","der","새벽"],["Mülleimer","der","쓰레기통"],["Schauspiel","das","연기"],["Vitamine","die","비타민"],["Heiratsantrag","der","청혼"],["Kunstwerk","das","작품"],["Kamm","der","빗"],["Antike","die","고대"],["Mittelalter","das","중세"],["Küken","das","병아리"],["Vorliebe","die","선호"],["Musical","das","뮤지컬"],["Entschädigung","die","대상"],["Kaufhaus","das","백화점"],["Forderung","die","요구"],["Potential","das","잠재력"],["Kreuzfahrt","die","유람선"],["Wachstum","das","성장"],["Bescheidenheit","die","겸손"],["Weizen","der","밀"],["Eigenschaft","die","속성"],["Hochzeitsreise","die","신혼여행"],["Festival","das","축제"],["Kleinstadt","die","소도시"],["Hausarbeit","die","집안일"],["Alltag","der","일상"],["Krokodil","das","악어"],["Übergang","der","고가도"],["Ankündigung","die","안내방송"],["Popmusik","die","대중가요"],["Spüle","die","싱크대"],["Öffnung","die","구 （口）"],["Visitenkarte","die","명함"],["Pazifik","der","태평양"],["Vordertür","die","현관"],["Reinheit","die","청정"],["Eitelkeit","die","허영"],["Aquarium","das","수족관"],["Perverse","der","변테"],["Wendung","die","반전"],["Souvenir","das","기념품"],["Obdachlose","die","노숙자"],["Adel","der","양반"],["Streber","der","모법생"],["Spatz","der","참새"],["Sponsor","der","광고주"],["Klassenzimmer","das","교실"],["Stroh","das","지푸라기 / 짚"],["Wurzel","die","뿌리"],["Bewunderung","die","감탄"],["Nachteil","der","단점"],["Sarkasmus","der","비아냥"],["Schnabel","der","부리"],["Kartoffel","die","감자"],["Einverständnis","das","양해"],["Zeitraum","der","기간"],["Verbot","das","금지"],["Übelkeit","die","멀미"],["Niesen","das","재채기"],["Schraube","die","나사"],["Visum","das","비자"],["Symptom","das","증상"],["Kommode","die","수납장 / 서랍장"],["Thunfisch","der","참치"],["Rumpf","der","몸통"],["Bauernhof","der","농장"],["Architektur","die","건축"],["Selbstachtung","die","자존심"],["Schürze","die","앞치마"],["Sauna","die","찜찔방"],["Ausblick","der","경관 / 전망"],["Klassentreffen","das","동창회"],["Katalog","der","목록"],["Bauchschmerzen","die","배탈"],["Vorstellungskraft","die","상상력"],["Schwachstelle","die","약점"],["Spa","das","온천"],["Schlussfolgerung","die","결론"],["Allergie","die","알레르기"],["Fuss","der","발"],["Dürre","die","가물 / 가뭄"],["Leopard","der","표범"],["Signatur","die","서명"],["Einführung","die","도입"],["Pilz","der","버섯"],["Snack","der","군것질 / 간식"],["Altersheim","das","양로원"],["Meerjungfrau","die","인어"],["Schwimmbad","das","수영장"],["Unterdrückung","die","탄압"],["Landwirtschaft","die","농업 / 농사"],["Malerei","die","미술"],["Markierung","die","표시"],["Beschäftigung","die","할 일"],["Wäscherei","die","세탁소"],["Insekt","das","곤충 / 벌레"],["Parasit","der","기생충"],["These","die","이론"],["Stabilität","die","안정"],["Wohnheim","das","기숙사"],["Halunke","der","이놈아"],["Zahnpasta","die","치약"],["Fluchtweg","der","퇴로"],["Gurke","die","오이"],["Krankenversicherung","die","의료 보험"],["Pflegeheim","das","요양원"],["Sonnensystem","das","태양계"],["Polizeiwache","die","경찰서"],["Bushaltestelle","die","정류장"],["Turnhalle","die","운동장"],["Trauerfeier","die","장례식"],["Theaterstück","das","연극"],["Abschlussfeier","die","졸업식"],["Verantwortliche","die","담당자"],["Essig","der","식초"],["Wörterbuch","das","사전"],["Abwasch","der","설거지"],["Porzellan","das","도자기"],["Statistik","die","통계"],["Immunsystem","das","면역 체계"],["Erwartung","die","기댁마 / 기대감"],["Diesel","der","경유"],["Teilnahme","die","참석 / 참가"],["Währung","die","화폐 / 통화"],["Diplomatie","die","외교"],["Kreativität","die","창의성"],["Postamt","das","우체국"],["Salbe","die","연고"],["Gliedmaßen","die","사지"],["Mysterium","das","신비"],["Buchstabe","der","글자"],["Haltestelle","die","정거장"],["Kontext","der","문멕"],["Flugticket","das","항공권"],["Normalität","die","정상"],["Komfort","der","편이"],["Dialekt","der","사투리"],["Lounge","die","휴게실"],["Bewertung","die","등급 / 평가"],["Erkrankung","die","질환"],["Anmeldung","der","자본주의"],["Toilettenpapier","das","두루마리"],["Verpackung","die","포장"],["Gutschein","der","상품권"],["Ventilator","der","선풍기"],["Spinat","der","시금치"],["Giraffe","die","기린"],["Wetterbericht","der","일기예보"],["Automobil","das","자동차"],["Hauptfach","das","전공"],["Grollen","das","명동"],["Muschel","die","조개"],["Effizienz","die","효율 / 능률"],["Pfirsich","der","복숭아"],["Absätze","die","굽"],["Oberkörper","der","윗몸 / 상체"],["Dichte","die","밀도"],["Gebirge","das","산악"],["Teig","der","반죽"],["Feuchtigkeit","die","습기"],["Fächer","der","부채"],["Emotion","die","정 （情）"],["Schlüpfer","der","빤쓰"],["Überraschungsparty","die","깜짝 파티"],["Kampfgeist","der","사기"],["Zwiebel","die","양파"],["PR","die","홍보"],["Mitgliedschaft","die","회원권"],["Ellenbogen","der","팔꿈치"],["Anforderungen","die","요건"],["Mittelmeer","das","지중해"],["Stricken","das","뜨개질"],["Reisepass","der","여권"],["Vorort","der","교외"],["Wildschwein","das","멧돼지"],["Überfluss","der","풍요"],["Pfütze","die","웅덩이"],["Reichtümer","die","재물"],["Zutat","die","재료"],["Arbeitszeit","die","근무 시간"],["Aussprache","die","발음"],["Gebühr","die","요금 / 수수료"],["Verbrennung","die","화상"],["Horrorfilm","der","무서운 영화"],["Denkweise","die","사고 방식"],["Karotte","die","당근"],["Schornstein","der","굴뚝"],["Vergiftung","die","중독"],["Hochschule","die","대학교"],["Tintenfisch","der","오징어"],["Süsse","die","감미"],["Anspannung","die","긴장"],["Vorgesetzte","die","상사 / 윗사람"],["Amtszeit","die","임기"],["ManagerIn","die","지매인"],["Schlaflosigkeit","die","불면증"],["Vergnügungspark","der","놀이공원"],["Aufsichtsrat","der","이사회"],["Verbreitung","die","보급"],["Willenskraft","die","근성"],["Orient","der","동양"],["Proteine","die","단백질"],["Wegweiser","der","길잡이"],["Laub","das","낙엽"],["Weinberg","der","포도밭"],["Geburtsort","der","출생지"],["Lungenkrebs","der","폐암"],["Unendlichkeit","die","무제"],["Betonung","die","강조"],["Kopierer","der","복사기"],["Sonnenfinsternis","die","일식"],["Tumult","der","소란"],["Preisgeld","das","상금"],["Besichtigung","die","구경"],["Garnelen","die","대하"],["Nervosität","die","신경질"],["Krabbe","die","게"],["Schwierigkeit","die","난 （難）"],["Innenseite","die","안쪽"],["Sehenswürdigkeiten","die","볼거리"],["Pflaume","die","매실"],["Verkehrsunfall","der","교통사고"],["Verdauung","die","소화"],["Laus","die","벼룩"],["Einzelzimmer","das","독방"],["Winterschlaf","der","겨울잠"],["Hausschuhe","die","실내화"],["Vene","die","정맥"],["Geizhals","der","짠돌이"],["Statur","die","체격"],["Ureinwohner","der","현지인"],["Krimi","der","범죄추리"],["Tempus","das","시제"],["Ballade","die","발라드"],["Grammatik","die","문법"],["Meeresfrüchte","die","해물 / 해산물"],["Zielort","der","행선지"],["Buchhandlung","die","서점"],["Karpfen","der","잉어"],["Wassermelone","die","수박"],["Blutegel","der","거머리"],["Liegestütze","die","팔굽혀펴기"],["Lebenserwartung","die","수명"],["Nilpferd","das","하마"],["Feierlichkeiten","die","기념행사"],["Tsunami","der","쓰나미"],["VegetarierIn","die","채식주의자"],["Gehweg","der","보도"],["Feuerwache","die","소방서"],["Qualifikation","die","스펙 / 자격"],["Mittagsschlaf","der","낮잠"],["Sehkraft","die","시력 / 시각"],["Mineralien","die","무기질"],["Rundfunk","der","방송"],["Halbinsel","die","반도"],["Referenz","die","참고"],["Hausbesuch","der","왕진"],["Watte","die","솜"],["Pitcher","der","투수"],["Passiv","das","피동"],["Pausenraum","der","휴게실"],["Sauberkeit","die","청결"],["Pollen","der","꽃가루"],["Photo","das","사진"],["Improvisation","die","임기 응젼"],["Wirtschaftskrise","die","불황 / 경제 위기"],["Versteigerung","die","경매"],["Bettdecke","die","이불"],["Impfung","die","백신"],["Kohlenhydrate","die","탄수화물"],["TrainerIn","die","사범"],["Rotz","der","콧물"],["Kondition","die","체력"],["Rechtschreibung","die","맞춤법 / 철자"],["Erdnuss","die","땅콩"],["Fänger","der","포수"],["Tourismus","der","관광"],["Esstisch","der","밥상 / 식탁"],["Steppe","die","초원"],["Springbrunnen","der","분수"],["Hauptfigur","die","주인공"],["Landleben","das","농촌"],["Grapefruit","die","자뭉"],["Unzufriedenheit","die","불만"],["Übernachtung","die","박"],["Genre","das","장르"],["Vorurteil","das","편견"],["Leitungswasser","das","수돗물"],["Zucchini","die","애호박"],["Fingernagel","der","손톱"],["Nebenjob","der","알바"],["Hausaufgabe","die","숙제"],["Kontrast","der","대비"],["Felsbrocken","der","돌덩이"],["Hochzeitsfeier","die","피로연"],["Prospekt","das","팸플릿"],["Kosmetik","die","화장품"],["Wortschatz","der","어휘"],["Empathie","die","공감"],["Sandkasten","der","모래 상자"],["Zuschuss","der","보조금"],["Gebrauchtwagen","der","중고차"],["Vibration","die","진동"],["Muttersprache","die","모국어 / 원어"],["Tabelle","die","표"],["Mittelschule","die","중학교"],["Diktat","das","받아쓰기"],["Erkundung","die","탐방"],["Fön","der","헤어드라이어"],["Psalm","der","시편"],["Schneeball","der","눈 뭉치"],["Lüftung","die","환풍기"],["Antibiotikum","das","항생제"],["Waschmittel","das","세탁세제 / 세제"],["Grösse","die","크기 / 키가"],["Umweltverschmutzung","die","오염"],["Transparenz","die","투명"],["Elster","die","까치"],["Silhouette","die","윤곽"],["Reisetasche","die","여행 가방"],["Wohnort","der","주거"],["Briefumschlag","der","서류 봉투"],["Schlagmann","der","타자"],["Fragebogen","der","설문조사"],["Haarausfall","der","탈모"],["Parkbank","die","벤치"],["Schülerzeitung","die","교지"],["Grüsse","die","안부"],["Guide","der","가이드"],["Kita","die","보육 시설"],["Geographie","die","지리학"],["Erdrutsch","der","산사태"],["Sparbuch","das","통장"],["Einschränkung","die","제약"],["Jungle","der","정글"],["Kranich","der","두루미"],["Vorratskammer","die","창고"],["Soziologie","die","사회학"],["Schuldirektor","der","교장님"],["Schneeflocke","die","눈송이"],["Besonderheit","die","특징"],["Knospe","die","새싹"],["Aubergine","die","가지"],["Blumentopf","der","화분"],["Export","der","수출"],["Popularität","die","인기"],["Jahresende","das","연말"],["Shrimp","der","새우"],["Wochentag","der","요일"],["Studiengebühren","die","학비"],["Frittierte","das","튀김"],["Glitzern","das","반짝"],["Fährmann","der","뱃사공"],["Bauwerk","das","건축물"],["Zertifikat","das","증권"],["Kirchturm","der","첨탑"],["Regenzeit","die","우기 / 장마"],["Hofdame","die","상궁"],["Mobbing","das","집단 따돌림"],["Wahrzeichen","das","상징물"],["Rastplatz","der","쉼터"],["Kontaktdaten","die","연락처"],["Mehrzahl","die","대다수"],["Walnuss","die","호두"],["Fitnesscenter","das","체육관"],["Podcast","der","팟캐스트"],["Recycling","das","재활용"],["Sitzplatz","der","좌석 / 자리"],["Teehaus","das","찻집"],["Airline","die","항공사"],["Landessprache","die","국어"],["Kirchenchor","der","성가대"],["Gelenk","das","관절"],["Meeresspiegel","der","해수면"],["Arztpraxis","die","의원"],["Konsistenz","die","질감"],["Oberschule","die","고교 / 고등학교"],["Ziffer","die","숫자"],["Durchhaltevermögen","das","처력 / 끈기"],["Naturkatastrophe","die","자연 재해"],["Lineal","das","자"],["Gewürz","das","양념"],["Türklinke","die","문고리"],["Einzelhandel","der","소매"],["Fabel","die","우화"],["KosmetikerIn","die","미용사"],["Ermutigung","die","격려"],["Felswand","die","암벽"],["Namensliste","die","명단"],["Erderwärmung","die","지구 온난화"],["Schuluniform","die","교복"],["Netzhaut","die","망막"],["Bilderrahmen","der","액자"],["Luftfahrt","die","항공"],["Windrichtung","die","풍향"],["Kinderbetreuung","die","보육"],["BesucherIn","die","객"],["Radiowellen","die","전파"],["Niederschlag","der","강수"],["Exkremente","die","배설물"],["Mandel","die","아몬드"],["Wechselkurs","der","환율"],["Wäscheleine","die","빨랫줄"],["Pädagogik","die","교육학"],["Radiergummi","der","지우개"],["Lebensstandard","der","생활 정도"],["MechanikerIn","die","정비사"],["Reiskuchen","der","떡"],["Unterführung","die","지하도"],["Giftschlange","die","독사"],["Rettich","der","무"],["Verantwortungsgefühl","das","책임감"],["Abschlussarbeit","die","논문"],["Vogelkäfig","der","새장"],["Fischerei","die","수산업"],["Adjektiv","das","형용사"],["Abendgarderobe","die","정장"],["Wohtätikeits-Basar","der","바자회"],["Fantasiepreis","der","에누리"],["Schreibwaren","die","문구"],["Einkaufsviertel","das","번화가"],["Einmalgebrauch","der","1회용"],["Hochwertigkeit","die","고급"],["Garantie-Zeitraum","der","보증 기간"],["Sofortzahlung","die","일시불"],["Neuerscheinung","die","신상"],["Second-Hand-Shop","der","중고 거래"],["Verkaufsraum","der","매장"],["Erstattung","die","환불"],["Duty-Fee-Shop","der","면세점"],["Schreibwarengeschäft","das","문구점"],["Blumengeschäft","das","꽃집"],["Verkaufsautomat","der","자동판매기"],["Schönheits-Salon","der","미용실"],["Brillengeschäft","das","안경점"],["Vertrauenswürdigkeit","die","신뢰"],["Persönlichkeitstest","der","인적성"],["Hintergedanke","der","속셈"],["Korea-Welle","die","한류"],["Unterhaltungssendung","die","예능"],["Tusche","die","먹물"],["Schreibpinsel","der","붓"],["Drucksachen","die","인쇄물"],["Talentwettbewerb","der","경연 대회"],["Popkultur","die","대중문화"],["Musikinstrument","das","악기"],["Kunstmuseum","das","미술관"],["Gesangsunterricht","der","성악과"],["Musik-Album","das","음반"],["Neujahrsgrüsse","die","세배"],["Schriftsprache","die","글말 / 문어체"],["E-Book","das","전자책"],["Zuschauerreihen","die","관람석"],["Rundfunksender","der","방송국"],["Nachrichtenbeitrag","der","보도"],["Scene","die","장면"],["Lyrics","die","가사"],["Musikstück","das","곡"],["Computer-Laie","der","컴맹"],["AnalphabetIn","die","문맹자"],["Einschaltquote","die","시청률"],["Brochure","die","책자"],["Ettiquette","die","예절 / 예의"],["Kulturschock","der","문화 충격"],["Kulturunterschiede","die","문화 차이"],["Puppentheater","das","인형극"],["Naturkundemuseum","das","자연사 박물관"],["Ausmass","das","정도"],["Industrialisierung","die","공업화"],["Eisenzeit","die","철기 시대"],["Schiffbau","der","조선"],["Herstellerfirma","die","제작사"],["Entwicklungsland","das","개발 도상국"],["Durchschnitts-Jahr","das","예년"],["Unternehmensgründung","die","창업"],["Handelsvolumen","das","무역량"],["Viehzucht","die","목장"],["Milchwirtschaft","die","낙농업"],["Bauindustrie","die","건설업"],["Grosskonzern","der","대기업"],["Grosshandel","der","도매"],["Hochzeitszeremonie","die","혼례"],["Traumtyp","der","이상형"],["Hochzeitskiste","die","함"],["Voicemail-Box","die","소리샘"],["Ankündigungen","die","공지"],["Antwortschreiben","das","답장"],["Aushang","der","게시판"],["Small-Talk","der","잡담"],["Voicemailbox","die","음성메일함"],["Parlamentsgebäude","das","국회의사당"],["Botschaftsangestellte","die","대사관 직원"],["Familien-Beziehungen","die","가족 관계"],["Elternzeit","die","육아 휴직"],["Rundreise","die","전국 일주"],["Hotelurlaub","der","호캉스"],["Urlaubsziel","das","휴가지"],["Sehenswürdigkeit","die","명소 / 관광지"],["Ferienzeit","die","휴가철"],["Tourist-Info","die","관광 안내소"],["Urlaubsort","der","휴양지"],["Rucksackreise","die","배낭여행"],["Pauschalreise","die","패키지여행"],["Nebensaison","die","비수기"],["Hauptsaison","die","성수기"],["Elterntag","der","어버이날"],["Frauentag","der","여성의 날"],["Fahrkartenautomat","der","자동발급기"],["Besichtigungszeiten","die","관람 시간"],["Weltraumreisende","die","우주 여행자"],["Inlandsreise","die","국내여행"],["Urlaubstag","der","휴일"],["Flugpreis","der","항공료"],["Reiseveranstalter","der","여행사"],["Reisekosten","die","교통비"],["Sportstadion","das","경기장"],["Mountainbike","das","산악자전거"],["Endauswahl","die","본선"],["Vorauswahl","die","예선"],["Strikeout","der","삼진"],["Aussenfeld","das","외야"],["Schwimmweste","die","구명 조끼"],["Sportschuhe","die","운동화"],["Äussere","das","겉 / 외모"],["Skizzen-Karte","die","약도"],["Souterrain","das","아래층"],["Strassenlaterne","die","가로등"],["Windschutz","der","바람막이"],["Fischerdorf","das","어촌"],["Grossstadt","die","대도시"],["Geschäftsviertel","das","상가"],["Bürgeramt","das","관공서"],["Fussgängerbrücke","die","육교"],["Fangen-Spiel","das","술래잡기"],["Ballspiel","das","공놀이"],["Papierdrachen","der","연"],["Alterung","die","노화"],["Endphase","die","말기"],["Jahrhunderaufgabe","die","백년지대계"],["Mondkalender","der","음력"],["Werktag","der","평일"],["Nachtzeit","die","밤사이"],["Vorbeugung","die","방지"],["Wutkrankheit","die","화병"],["Karies","die","충치"],["Gummihandschuhe","die","고무장갑"],["Vergesslichkeit","die","건망증"],["Krankenbesuch","der","문병"],["Luftverschmutzung","die","대기오염"],["Gynäkologie","die","산부인과"],["Augenheilkunde","die","안과"],["Zahnmedizin","die","치과"],["Verschreibung","die","처방전"],["Selbstständige","die","자영업자"],["Lehrerberuf","der","교사"],["TechnikerIn","die","수리공"],["Team-Leader","der","팀장"],["Staatsbedienstete","die","공무원"],["Photographie","die","촬영"],["Vererbung","die","유전"],["Geburtshaus","das","생가"],["Volljährigkeit","die","정년"],["Erledigung","die","심부름 / 볼일"],["Bezirksamt","das","구청"],["Gemeindeamt","das","동사무소"],["Massnahme","die","조치"],["Linguistik","die","언어학"],["Betriebswirtschaftslehre","die","경영학"],["Karomuster","das","체크무늬"],["Laubfrosch","der","청개구리"],["Tierfutter","das","사료"],["Zugvogel","der","철새"],["Zaumzeug","das","굴레"],["Würgeschlange","die","구렁이"],["Wildgans","die","기러기"],["Vogelstrauss","der","타조"],["Goral","der","산양"],["Reisszahn","der","송곳니"],["Möve","die","갈매기"],["Gangplatz","der","통로 자리"],["Fensterplatz","der","창가 자리"],["Nichtraucherplatz","der","금연석"],["Limusine","die","대형차"],["Glatteis","das","빙판"],["Falschparken","das","불법 주차"],["Fahrspur","die","차선"],["Verkehrsschild","das","표지판"],["Wegmarke","die","이정표"],["Seitengasse","die","골목"],["Stosszeit","die","출퇴근 시간"],["Express-Bus","der","고속 버스"],["T-Kreuzung","die","삼거리"],["Zebrastreifen","der","횡단 보도"],["Wissenschaftswettbewerb","der","경시대회"],["Schulfach","das","과목"],["Benotung","die","채점"],["Erlebnisbericht","der","감상문"],["Lernende","die","학습자"],["Rowdies","die","불량배"],["Masterabschluss","der","석사"],["Schulanfang","der","개학"],["Schulsachen","die","학용품"],["Abschlusszertifikat","das","수료증"],["MitschülerIn","die","동창"],["Auslandsstudium","das","유학"],["Leerstelle","die","빈칸"],["Schulnote","die","성적"],["Sommerschule","die","어학연수"],["Federmäppchen","das","필통"],["Übungsbuch","das","부교재"],["Studenten-Club","der","동아리"],["Schulbuch","das","교과서"],["Schulheft","das","공책"],["Studentenhaus","das","학생회관"],["Stifung","die","재단"],["Kommitee","das","위원회"],["Rücksichtnahme","die","배려"],["Sozialsystem","das","복지 제도"],["Gemeinwesen","das","공공"],["Patriarchat","das","가부장제"],["Weisenhaus","das","고아원"],["Gesundheitsversorgung","die","의료"],["Bevölkerungsdichte","die","인구 밀도"],["Vorbestrafte","die","전과자"],["Minderwertigkeitskomplex","der","자격지심"],["Erfolgsgefühl","das","성취감"],["Sicherheitsgefühl","das","안정감"],["Vertriebsabteilung","die","영업부"],["Job-Suche","die","취업 준비"],["Bewerbungsformular","das","지원서"],["Firmen-Event","das","직장 행사"],["Stellenausschreibung","die","채용 공고"],["Qualifikations-Anforderungen","die","자격 요건"],["Arbeitserfahrung","die","경력"],["Beschwerdebrief","der","고소장"],["Niederlassung","die","지부"],["Jahreseinkommen","das","연봉"],["Büro-Arbeit","die","문서 작업"],["Nützlichkeit","die","실용성"],["Öffnungszeiten","die","입장 시간"],["Eignung","die","적성"],["Vorhandensein","das","유 （有）"],["Neuheit","die","신 （新）"],["Lebensenergie","die","기 （氣）"],["Hochsommer","der","한여름"],["Wetterdienst","der","기상청"],["Jahreszeitenwechsel","der","환절기"],["Schneefall","der","적설량"],["Starkregen","der","폭우"],["Trockenzeit","die","건기"],["Feuchtigkeitsgehalt","der","습도"],["Meteorologie","die","기상"],["Naturwunder","das","조화"],["Infrarotstrahlen","die","적외선"],["Flussbank","die","시냇가"],["Sonnenwärme","die","햇볕"],["Flusslauf","der","하천"],["Quellwasser","das","샘물"],["Tierreich","das","동물계"],["Arboretum","das","수목원"],["Ostmeer","das","동해바다"],["Magnolie","die","목련꽃나무"],["Kirschbaum","der","벚나무"],["Mimimum","das","최소"],["Dreiecksbeziehung","die","삼각관계"],["Problemlöser","der","해결사"],["Snop","der","속물"],["Tweens","die","이십대"],["Gleichaltrige","die","동갑"],["Personenzahl","die","인원"],["Plaudertasche","die","수다쟁이"],["Einfühlvermögen","das","눈치"],["Missionsarbeit","die","선교"],["Pastoral-Besuch","der","심방"],["Babynahrung","die","이유식"],["Kaki","die","감"],["Rohmilch","die","생우유"],["Digestive","der","소화제"],["Kallorienzahl","die","열량"],["Piknick","das","야유회"],["Essensration","die","식량"],["Nährwert","der","영양"],["Teigtasche","die","송편"],["Sushi-Restaurant","das","초밥집"],["Fischfleisch","das","생선"],["Cuisine","die","조리법"],["Süssigkeiten","die","단것"],["Nachtsnack","der","야식"],["Wasserschnecke","die","골뱅이"],["Gräte","die","가시"],["Soya-Sprossen","die","콩나물"],["Kastanie","die","밤"],["Rinderhackfleisch","das","갈소고기"],["Süssigkeit","die","과자"],["Mittelteil","der","중심부"],["Kausativ","der","사동"],["Befehlssatz","der","명령문"],["Aussagesatz","der","평서문"],["Satzsubjekt","das","주어 / 대상"],["Wortart","die","품사"],["Wortendung","die","어미"],["Ausdrucksform","die","방식"],["Fragesatz","der","의문문"],["Substantiv","das","명사"],["Wortstamm","der","어간"],["Endkonsonant","der","받침"],["Dauerhaftigkeit","die","지속성"],["Einwurf","der","투입"],["Kernaussage","die","핵심"],["Selbststudium","das","독학"],["Schwierigkeitsniveau","das","난이도"],["Blutgefäss","das","혈관"],["Sit-ups","die","윗몸 일으키기"],["Sehtest","der","시력 검사"],["Kopfform","die","두상"],["Weissheitszahn","der","사랑니"],["Vorderzähne","die","앞니"],["Geisteskraft","die","정신력"],["Körpergewicht","das","체중"],["Tatoo","das","문신"],["Körperinnere","das","뱃속"],["Videokonferenz","die","화상 회의"],["Maschinenbau","der","기계 조작직"],["Geldgeschenk","das","축의금"],["Wohnungseinweihung","die","집들이"],["Schöpflöffel","der","국자"],["Reiskocher","der","전기밥솥"],["Kaffee-Service","das","커피잔 세트"],["Einfamilienhaus","das","주택 / 단독주택"],["Spülmittel","das","주방세제"],["Kehrschaufel","die","쓰레받기"],["Handwäsche","die","손빨래"],["Wischmopp","der","대걸레"],["Putzlappen","der","걸레"],["Haushaltsgerät","das","가전 제품"],["Umzugsgut","das","이삿짐"],["Umzugstag","der","이삿날"],["Umzugsfirma","die","이삿짐센터"],["Eltern-Schlafzimmer","das","안방"],["Wäscheständer","der","건조대"],["Innenraum","der","실내"],["Monatsmiete","die","월세"],["Drogerieartikel","die","생활용품"],["Drehtür","die","회전문"],["Zimmertür","die","방문"],["Hauptpreis","der","대상"],["Nutzungsgebühr","die","이용료"],["Mitgliedsbeitrag","der","회비"],["Saldo","der","잔액"],["Lebenshaltungskosten","die","생활비"],["Reparaturkosten","die","수리비"],["Preisniveau","das","물가"],["Gewinnspiel","das","복권"],["Eintrittspreis","der","입장료"],["Banksparplan","der","적금 통장"],["Geldschein","der","지폐"],["Umgangssprache","die","구어체"],["Baumwollhose","die","면바지"],["Punktmuster","das","물방울 무늬"],["Schultertasche","die","어깨에 매는 가방"],["Winterkleidung","die","겨울 옷"],["Schwimmkleidung","die","수영복"],["Mass-Grösse","die","치수"],["Ausgehschuhe","die","구두"],["Silber-farbe","die","은색"],["Damenbinde","die","생리대"],["Einladungskarte","die","초대장"],["Anmeldegebühr","die","등록비"],["Bekleidungsgeschäft","das","옷가게"],["Hibiscus","der","무궁화"],["An-Aus-Schalter","der","적동"],["Papiertuch","das","휴지"],["Schneidebrett","das","도마"],["Sojasosse","die","간장"],["Blattsalat","der","상추"],["Seegras","das","미역"],["Chinakohl","der","배추"],["Süsskartoffel","die","고구마"],["Essstäbchen","die","젓가락"],["Glasnudeln","die","당면"],["Speiseöl","das","식용유"],["Sesamöl","das","침기름"],["Beilagen","die","반찬"]]</script>
+<script>
+// 데이터: [단어, 관사, 뜻, (선택) 직접 쓴 힌트]  — 배열 순서 = 자주 쓰는 순
+const WORDS = JSON.parse(document.getElementById("wordData").textContent).map((x,i) => ({w:x[0], a:x[1], m:x[2]||"", h:x[3]||"", r:i}));
+const WITH_MEANING = WORDS.filter(x => x.m);
+const ABC = WORDS.slice().sort((p,q) => p.w.localeCompare(q.w, "de"));
+
+const RULES = [
+  [/ung$/, "die", "-ung으로 끝나는 명사는 언제나 die예요."],
+  [/heit$/, "die", "-heit로 끝나는 명사는 언제나 die예요."],
+  [/keit$/, "die", "-keit로 끝나는 명사는 언제나 die예요."],
+  [/schaft$/, "die", "-schaft로 끝나는 명사는 언제나 die예요."],
+  [/tät$/, "die", "-tät로 끝나는 명사는 언제나 die예요."],
+  [/(chen|lein)$/, "das", "-chen, -lein으로 끝나는 명사는 언제나 das예요."],
+  [/ismus$/, "der", "-ismus로 끝나는 명사는 언제나 der예요."],
+  [/ion$/, "die", "-ion으로 끝나는 명사는 대개 die예요."],
+  [/ik$/, "die", "-ik으로 끝나는 명사는 대개 die예요."],
+  [/ei$/, "die", "-ei로 끝나는 명사는 대개 die예요."],
+  [/erin$/, "die", "-in으로 끝나는 여성형 명사는 die예요."],
+  [/(enz|anz)$/, "die", "-enz, -anz로 끝나는 명사는 대개 die예요."],
+  [/ie$/, "die", "-ie로 끝나는 명사는 대개 die예요."],
+  [/ur$/, "die", "-ur로 끝나는 명사는 대개 die예요."],
+  [/ment$/, "das", "-ment로 끝나는 명사는 대개 das예요."],
+  [/um$/, "das", "-um으로 끝나는 명사는 대개 das예요."],
+  [/ling$/, "der", "-ling으로 끝나는 명사는 대개 der예요."],
+  [/(ich|ig)$/, "der", "-ich, -ig로 끝나는 명사는 대개 der예요."],
+  [/or$/, "der", "-or로 끝나는 명사는 대개 der예요."],
+  [/ist$/, "der", "-ist로 끝나는 사람 명사는 der예요."],
+  [/e$/, "die", "-e로 끝나는 명사는 대부분 die예요."]
+];
+function ruleFor(w){ return RULES.find(r => r[0].test(w)); }
+function hintBefore(item){
+  if(item.h) return item.h;
+  const r = ruleFor(item.w);
+  return r ? r[2] : "규칙으로 알기 어려운 단어예요. 관사와 함께 통째로 외워 두세요.";
+}
+function hintAfter(item){
+  if(item.h) return item.h;
+  const r = ruleFor(item.w);
+  if(!r) return "";
+  return r[1] === item.a ? r[2] : `${r[2]} 하지만 이 단어는 예외라서 ${item.a}예요.`;
+}
+
+const $ = id => document.getElementById(id);
+const fmt = n => n.toLocaleString("ko-KR");
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const store = {
+  get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+};
+
+let roundSize = 20;
+const WORD_IDX = new Map(WORDS.map(x => [x.w, x]));
+
+/* ---------- 저장소: 코드로 로그인하면 공유 저장소에, 아니면 이 브라우저에 저장 ---------- */
+const S = { history: [], favorites: [], wrongs: {} };
+const KINDS = Object.keys(S);
+let codeHash = null, codeName = "", isAdmin = false, DB = null, syncNote = "";
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k, v){ try{ localStorage.setItem(k, v); }catch(e){} }
+function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
+KINDS.forEach(k => { try{ const v = JSON.parse(lsGet("ddd-" + k)); if(v) S[k] = v; }catch(e){} });
+codeHash = lsGet("ddd-code"); codeName = lsGet("ddd-name") || "";
+
+const dbReady = new Promise(res => {
+  const done = () => { DB = window.FB || null; res(DB); };
+  if(window.FB !== undefined) return done();
+  window.addEventListener("fb-ready", done, { once: true });
+  setTimeout(done, 12000);
+});
+async function sha(s){
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("ddd:" + s));
+  return Array.from(new Uint8Array(buf)).map(x => x.toString(16).padStart(2, "0")).join("");
+}
+const playerRef = h => DB.doc("players/" + h);
+function packData(){
+  return JSON.parse(JSON.stringify({ name: codeName, history: S.history, favorites: S.favorites, wrongs: Object.entries(S.wrongs).map(([w,v]) => ({ w, n: v.n || 1, c: v.c || 0, t: v.t || 0 })), updated: Date.now() }));
+}
+function applyData(d){
+  S.history = Array.isArray(d.history) ? d.history : [];
+  S.favorites = Array.isArray(d.favorites) ? d.favorites : [];
+  S.wrongs = {};
+  (Array.isArray(d.wrongs) ? d.wrongs : []).forEach(x => {
+    if(Array.isArray(x)) S.wrongs[x[0]] = x[1];
+    else if(x && x.w) S.wrongs[x.w] = { n: x.n, c: x.c, t: x.t };
+  });
+  KINDS.forEach(k => lsSet("ddd-" + k, JSON.stringify(S[k])));
+}
+let flushTimer, flushing = Promise.resolve();
+function save(k){
+  lsSet("ddd-" + k, JSON.stringify(S[k]));
+  if(codeHash && DB){ clearTimeout(flushTimer); flushTimer = setTimeout(flush, 600); }
+}
+function flush(){
+  if(!codeHash || !DB) return;
+  const h = codeHash, data = packData();
+  flushing = flushing.then(() => playerRef(h).update(data)).then(() => { if(syncNote){ syncNote = ""; renderAcct(); } })
+    .catch(() => { syncNote = "저장이 잠시 실패했어요. 다음 게임 때 다시 저장할게요."; renderAcct(); });
+}
+function resetLocal(){
+  S.history = []; S.favorites = []; S.wrongs = {};
+  KINDS.forEach(k => lsDel("ddd-" + k)); lsDel("ddd-best");
+}
+// 이전에 코드로 로그인해 둔 기기라면 최신 기록을 다시 불러와요
+(async () => {
+  await dbReady;
+  if(!codeHash) return;
+  if(!DB){ syncNote = "지금은 서버에 연결할 수 없어 이 기기에 저장된 기록을 보여드려요."; renderAcct(); return; }
+  try{
+    const snap = await playerRef(codeHash).get();
+    if(snap.exists){ applyData(snap.data() || {}); codeName = (snap.data() || {}).name || codeName; }
+    else { logout("코드가 삭제되어 로그아웃됐어요."); return; }
+  }catch(e){ syncNote = "기록을 불러오지 못했어요. 이 기기에 저장된 기록을 보여드려요."; }
+  renderAcct(); refreshCurrent();
+})();
+
+function renderAcct(){
+  const el = $("acct");
+  if(isAdmin){
+    el.className = "acct master";
+    el.innerHTML = `<p><b>관리자 모드</b>로 로그인되어 있어요.</p><button class="mini" data-go="admin">관리자 화면</button>`;
+  } else if(codeHash){
+    el.className = "acct";
+    el.innerHTML = `<p><b>${esc(codeName || "내 코드")}</b> 님의 기록이 저장되고 있어요.${syncNote ? `<br>${esc(syncNote)}` : ""}</p><button class="mini" id="logoutBtn">로그아웃</button>`;
+    $("logoutBtn").addEventListener("click", () => logout("로그아웃했어요."));
+  } else {
+    el.className = "acct";
+    el.innerHTML = `<p>지금은 기록이 <b>이 브라우저에만</b> 저장돼요. 코드를 만들면 어디서나 이어 볼 수 있어요.</p><button class="mini" data-go="code">나만의 코드</button>`;
+  }
+  el.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => show(b.dataset.go)));
+}
+function logout(note){
+  codeHash = null; codeName = ""; isAdmin = false; syncNote = note || "";
+  lsDel("ddd-code"); lsDel("ddd-name"); resetLocal();
+  renderAcct(); updateCounts(); renderBest();
+  setTimeout(() => { if(syncNote === note){ syncNote = ""; renderAcct(); } }, 4000);
+}
+
+/* ---------- 코드 화면 ---------- */
+function setMsg(text, ok){ const m = $("codeMsg"); m.textContent = text; m.className = "msg " + (ok ? "ok" : "err"); }
+document.querySelectorAll("[data-tab]").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll("[data-tab]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  $("tabLogin").hidden = b.dataset.tab !== "login";
+  $("tabCreate").hidden = b.dataset.tab !== "create";
+  setMsg("", true);
+}));
+async function needDB(){
+  await dbReady;
+  if(!DB){ setMsg("아직 서버에 연결되지 않아 코드를 쓸 수 없어요. 위 안내를 확인해 주세요.", false); return false; }
+  return true;
+}
+let busy = false;
+async function doLogin(){
+  if(busy) return;
+  const code = $("loginCode").value.trim();
+  if(!code){ setMsg("코드를 입력해 주세요.", false); return; }
+  busy = true; setMsg("확인하는 중이에요…", true);
+  try{
+    const h = await sha(code);
+    if(!(await needDB())) return;
+    const snap = await playerRef(h).get();
+    if(!snap.exists){
+      let ok = false;
+      try{ await DB.claimAdmin(code); ok = true; }catch(_){}
+      if(ok){ isAdmin = true; $("loginCode").value = ""; setMsg("", true); renderAcct(); show("admin"); return; }
+      setMsg("존재하지 않는 코드입니다.", false); return;
+    }
+    const d = snap.data() || {};
+    codeHash = h; codeName = d.name || ""; isAdmin = false; syncNote = "";
+    lsSet("ddd-code", h); lsSet("ddd-name", codeName);
+    applyData(d);
+    $("loginCode").value = "";
+    setMsg(`${codeName || "내"} 님의 기록을 불러왔어요.`, true);
+    renderAcct(); setTimeout(() => show("start"), 700);
+  }catch(e){ setMsg("불러오지 못했어요. 잠시 후 다시 시도해 주세요.", false); }
+  finally{ busy = false; }
+}
+async function doCreate(){
+  if(busy) return;
+  const name = $("newName").value.trim(), code = $("newCode").value.trim(), code2 = $("newCode2").value.trim();
+  if(!name){ setMsg("이름을 입력해 주세요.", false); return; }
+  if(code.length < 4){ setMsg("코드는 4자 이상으로 만들어 주세요.", false); return; }
+  if(code !== code2){ setMsg("두 코드가 서로 달라요.", false); return; }
+  busy = true; setMsg("확인하는 중이에요…", true);
+  try{
+    const h = await sha(code);
+    if(!(await needDB())) return;
+    const snap = await playerRef(h).get();
+    if(snap.exists){ setMsg("이미 존재하는 코드입니다.", false); return; }
+    codeHash = h; codeName = name; isAdmin = false; syncNote = "";
+    try{ await playerRef(h).set({ ...packData(), created: Date.now() }); }
+    catch(err){ codeHash = null; codeName = ""; setMsg(err && err.code === "permission-denied" ? "이미 존재하는 코드입니다." : "코드를 만들지 못했어요. 잠시 후 다시 시도해 주세요.", false); return; }
+    lsSet("ddd-code", h); lsSet("ddd-name", name);
+    ["newName","newCode","newCode2"].forEach(id => $(id).value = "");
+    setMsg("코드를 만들었어요. 이제 어디서나 이 코드로 기록을 불러올 수 있어요.", true);
+    renderAcct(); setTimeout(() => show("start"), 1200);
+  }catch(e){ codeHash = null; codeName = ""; setMsg("코드를 만들지 못했어요. 잠시 후 다시 시도해 주세요.", false); }
+  finally{ busy = false; }
+}
+$("loginBtn").addEventListener("click", doLogin);
+$("createBtn").addEventListener("click", doCreate);
+$("loginCode").addEventListener("keydown", e => { if(e.key === "Enter") doLogin(); });
+$("newCode2").addEventListener("keydown", e => { if(e.key === "Enter") doCreate(); });
+
+/* ---------- 관리자 화면 ---------- */
+let adminArmed = null;
+async function renderAdmin(){
+  if(!isAdmin){ show("code"); return; }
+  const body = $("adminBody");
+  body.innerHTML = `<div class="emptybox">불러오는 중이에요…</div>`;
+  let docs = [];
+  try{
+    const snap = await DB.collection("players").limit(1000).get();
+    docs = snap.docs.map(d => ({ id: d.id, d: d.data() || {} }));
+  }catch(e){ body.innerHTML = `<div class="emptybox">기록을 불러오지 못했어요.</div>`; return; }
+  if(!docs.length){ body.innerHTML = `<div class="emptybox">아직 코드를 만든 사용자가 없어요.</div>`; return; }
+  const rows = docs.map(({id, d}) => {
+    const H = Array.isArray(d.history) ? d.history : [];
+    const last = H.length ? Math.max(...H.map(g => g.t)) : (d.created || 0);
+    return { id, d, H, last, best: H.length ? Math.max(...H.map(g => g.s)) : 0 };
+  }).sort((a,b) => b.last - a.last);
+  const totalGames = rows.reduce((s,r) => s + r.H.length, 0);
+  const fmtDate = t => { if(!t) return "-"; const d = new Date(t); return `${d.getMonth()+1}/${d.getDate()} ${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+  body.innerHTML = `
+    <div class="summary">
+      <div><b>${fmt(rows.length)}</b><span>사용자</span></div>
+      <div><b>${fmt(totalGames)}</b><span>전체 게임 수</span></div>
+      <div><b>${fmt(Math.max(0, ...rows.map(r => r.best)))}</b><span>전체 최고 점수</span></div>
+    </div>
+    <div class="players">${rows.map(r => `
+      <details class="player" data-pid="${r.id}">
+        <summary><b>${esc(String(r.d.name || "이름 없음"))}</b><span>${r.H.length}판, 최고 ${fmt(r.best)}점, 즐겨찾기 ${(r.d.favorites||[]).length}, 오답 ${(r.d.wrongs||[]).length}, 최근 ${fmtDate(r.last)}</span></summary>
+        <div class="inner">${r.H.length ? recordsHTML(r.H) : `<div class="emptybox">아직 게임 기록이 없어요.</div>`}
+          <button class="danger" data-del="${r.id}">이 사용자 삭제</button></div>
+      </details>`).join("")}</div>`;
+  adminArmed = null;
+  body.querySelectorAll("[data-del]").forEach(b => b.addEventListener("click", async () => {
+    if(adminArmed !== b){ adminArmed = b; b.classList.add("armed"); b.textContent = "한 번 더 누르면 이 사용자의 코드와 기록이 삭제돼요"; return; }
+    try{ await playerRef(b.dataset.del).delete(); renderAdmin(); }catch(e){ b.textContent = "삭제하지 못했어요"; }
+  }));
+}
+$("adminExit").addEventListener("click", () => { isAdmin = false; renderAcct(); show("start"); });
+
+function isFav(w){ return S.favorites.includes(w); }
+function toggleFav(w){
+  const i = S.favorites.indexOf(w);
+  if(i >= 0) S.favorites.splice(i,1); else S.favorites.unshift(w);
+  save("favorites");
+  return i < 0;
+}
+function noteResult(it, ok){
+  const cur = S.wrongs[it.w];
+  if(ok){
+    if(cur){ cur.c = (cur.c||0) + 1; if(cur.c >= 3) delete S.wrongs[it.w]; save("wrongs"); }
+  } else {
+    S.wrongs[it.w] = { n: (cur ? cur.n : 0) + 1, c: 0, t: Date.now() };
+    save("wrongs");
+  }
+}
+function updateCounts(){
+  $("cFav").textContent = fmt(S.favorites.filter(w => WORD_IDX.has(w)).length);
+  $("cWrong").textContent = fmt(Object.keys(S.wrongs).filter(w => WORD_IDX.has(w)).length);
+  $("cRec").textContent = fmt(S.history.length);
+}
+let deck = [], idx = 0, score = 0, streak = 0, maxStreak = 0, correct = 0, wrong = [], answered = false, hintUsed = false;
+let cameFrom = "start";
+
+function show(id){
+  closeFind();
+  document.querySelectorAll(".screen").forEach(s => s.classList.toggle("on", s.id === id));
+  window.scrollTo(0,0);
+  renderScreen(id);
+  updateFab();
+}
+function renderScreen(id){
+  if(id === "start"){ renderBest(); updateCounts(); renderAcct(); }
+  else if(id === "favs") renderFavs();
+  else if(id === "wrongs") renderWrongs();
+  else if(id === "records") renderRecords();
+  else if(id === "admin") renderAdmin();
+  else if(id === "code") setMsg("", true);
+}
+function refreshCurrent(){
+  const on = document.querySelector(".screen.on");
+  if(on && on.id !== "game") renderScreen(on.id);
+  if(on && on.id === "game" && deck[idx]) syncFavBtn();
+}
+function best(){ return Math.max(codeHash ? 0 : parseInt(store.get("ddd-best") || "0", 10), ...S.history.map(g => g.s), 0); }
+function renderBest(){ const b = best(); $("bestLine").textContent = b ? `지금까지 최고 점수: ${fmt(b)}점` : ""; }
+function shuffle(a){
+  a = a.slice();
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+function pick(groupId, attr, cb){
+  document.querySelectorAll(`#${groupId} button`).forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll(`#${groupId} button`).forEach(x => x.setAttribute("aria-pressed","false"));
+    b.setAttribute("aria-pressed","true"); cb(b.dataset[attr]);
+  }));
+}
+
+pick("sizeChoose", "n", v => roundSize = parseInt(v,10));
+
+
+document.querySelectorAll("[data-back]").forEach(b => b.addEventListener("click", () => {
+  if("speechSynthesis" in window) speechSynthesis.cancel();
+  const target = b.closest("#game") ? cameFrom : "start";
+  renderBest(); show(target);
+}));
+
+/* ---------- 게임 ---------- */
+function startGame(list, from){
+  cameFrom = from || "start";
+  deck = list; idx = 0; score = 0; streak = 0; maxStreak = 0; correct = 0; wrong = [];
+  show("game"); renderQuestion();
+}
+$("startBtn").addEventListener("click", () => {
+  const src = WORDS;
+  startGame(shuffle(src).slice(0, roundSize), "start");
+});
+
+function renderQuestion(){
+  answered = false; hintUsed = false;
+  const it = deck[idx];
+  $("count").textContent = `${idx+1} / ${deck.length}`;
+  $("score").textContent = fmt(score);
+  $("streak").textContent = streak;
+  $("barFill").style.width = (idx/deck.length*100) + "%";
+  $("meaning").textContent = it.m || "뜻 미수록 단어";
+  $("meaning").classList.toggle("none", !it.m);
+  $("word").textContent = it.w;
+  $("hint").textContent = "";
+  $("hintBtn").disabled = false;
+  $("card").className = "card";
+  $("answers").className = "answers";
+  document.querySelectorAll("#answers button").forEach(b => { b.className = b.dataset.a; b.disabled = false; });
+  $("feedback").innerHTML = "";
+  $("dunnoBtn").disabled = false;
+  syncFavBtn();
+}
+function syncFavBtn(){
+  const on = isFav(deck[idx].w);
+  $("favBtn").classList.toggle("on", on);
+  $("favBtn").setAttribute("aria-pressed", String(on));
+}
+$("favBtn").addEventListener("click", () => { toggleFav(deck[idx].w); syncFavBtn(); });
+$("dunnoBtn").addEventListener("click", () => answer(null));
+$("hintBtn").addEventListener("click", () => {
+  if(answered) return;
+  hintUsed = true;
+  $("hint").textContent = hintBefore(deck[idx]);
+  $("hintBtn").disabled = true;
+});
+
+function speak(text){
+  if(!("speechSynthesis" in window)) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "de-DE"; u.rate = .9;
+  const v = speechSynthesis.getVoices().find(v => v.lang && v.lang.startsWith("de"));
+  if(v) u.voice = v;
+  speechSynthesis.speak(u);
+}
+$("speakBtn").addEventListener("click", () => {
+  const it = deck[idx];
+  speak(answered ? `${it.a} ${it.w}` : it.w);
+});
+if("speechSynthesis" in window){ speechSynthesis.getVoices(); }
+else { $("speakBtn").style.display = "none"; }
+
+function answer(choice){
+  if(answered) return;
+  answered = true;
+  const it = deck[idx];
+  const ok = choice === it.a;
+  document.querySelectorAll("#answers button").forEach(b => {
+    b.disabled = true;
+    if(b.dataset.a === it.a) b.classList.add("right");
+    if(b.dataset.a === choice) b.classList.add("picked");
+  });
+  $("answers").classList.add("done");
+  $("card").classList.add(it.a);
+  $("word").innerHTML = `<span class="art ${it.a}">${it.a}</span>${esc(it.w)}`;
+  $("hint").textContent = hintAfter(it);
+  $("dunnoBtn").disabled = true;
+  noteResult(it, ok);
+
+  let msg;
+  if(ok){
+    correct++; streak++; maxStreak = Math.max(maxStreak, streak);
+    const gain = (hintUsed ? 5 : 10) + Math.min(streak-1, 5) * 2;
+    score += gain;
+    msg = streak >= 3 ? `정답! ${streak}연속 +${gain}` : `정답! +${gain}`;
+    const s = $("streak"); s.classList.remove("streak-pop"); void s.offsetWidth; s.classList.add("streak-pop");
+  } else {
+    streak = 0;
+    wrong.push(it);
+    msg = choice === null ? `괜찮아요. 정답은 ${it.a}예요.` : `아쉬워요. 정답은 ${it.a}예요.`;
+  }
+  $("score").textContent = fmt(score);
+  $("streak").textContent = streak;
+  const last = idx === deck.length - 1;
+  $("feedback").innerHTML = `<p style="color:var(--${ok ? it.a : "die"})">${msg}</p><button class="next" id="nextBtn">${last ? "결과 보기" : "다음 단어"}</button>`;
+  $("nextBtn").addEventListener("click", next);
+  $("nextBtn").focus();
+}
+document.querySelectorAll("#answers button").forEach(b => b.addEventListener("click", () => answer(b.dataset.a)));
+function next(){ idx++; if(idx >= deck.length) finish(); else renderQuestion(); }
+
+document.addEventListener("keydown", e => {
+  if(!$("game").classList.contains("on")) return;
+  if(!answered && ["1","2","3"].includes(e.key)) answer(["der","die","das"][+e.key-1]);
+  else if(!answered && e.key === "4") answer(null);
+  else if(answered && (e.key === "Enter" || e.key === " ")){ e.preventDefault(); next(); }
+});
+
+function finish(){
+  $("barFill").style.width = "100%";
+  const acc = Math.round(correct/deck.length*100);
+  let b = best();
+  const isNew = score > b;
+  S.history.push({ t: Date.now(), s: score, n: deck.length, c: correct, k: maxStreak });
+  if(S.history.length > 500) S.history = S.history.slice(-500);
+  save("history");
+  if(isNew){ b = score; store.set("ddd-best", String(score)); }
+  $("finalScore").textContent = fmt(score);
+  $("finalSub").textContent = isNew && score > 0 ? "새 최고 점수예요!" :
+    acc === 100 ? "완벽해요. 관사 감각이 대단해요." :
+    acc >= 70 ? "잘했어요. 틀린 단어만 한 번 더 볼까요?" : "괜찮아요. 관사는 독일 사람에게도 어려워요.";
+  $("sAcc").textContent = acc + "%";
+  $("sStreak").textContent = maxStreak;
+  $("sBest").textContent = fmt(b);
+  if(wrong.length){
+    $("wrongWrap").innerHTML = `<h3>틀린 단어 ${wrong.length}개</h3><ul class="wrong">` +
+      wrong.map(it => `<li><span class="w"><span class="art ${it.a}">${it.a}</span> ${esc(it.w)}</span><span class="m">${esc(it.m || "뜻 미수록")}</span></li>`).join("") + "</ul>";
+    $("retryWrong").style.display = "block";
+  } else {
+    $("wrongWrap").innerHTML = `<p class="perfect">틀린 단어가 하나도 없어요. 문제 수를 늘려서 도전해 보세요.</p>`;
+    $("retryWrong").style.display = "none";
+  }
+  const SRC = { favs: "즐겨찾기로 돌아가기", wrongs: "오답노트로 돌아가기", words: "수록된 단어로 돌아가기" };
+  $("backToSrc").style.display = SRC[cameFrom] ? "block" : "none";
+  $("backToSrc").textContent = SRC[cameFrom] || "";
+  show("result");
+}
+$("backToSrc").addEventListener("click", () => show(cameFrom));
+$("retryWrong").addEventListener("click", () => startGame(shuffle(wrong), cameFrom));
+$("again").addEventListener("click", () => { renderBest(); show("start"); });
+
+/* ---------- 수록된 단어 ---------- */
+const PAGE = 100;
+let fArt = "all", fOnly = false, fSort = "freq", fQuery = "", filtered = [], shown = 0;
+
+(function initStats(){
+  const c = {der:0, die:0, das:0};
+  WORDS.forEach(x => c[x.a]++);
+  const tot = WORDS.length;
+  $("wordsIntro").textContent = `한국어 뜻이 확인된 독일어 명사 ${fmt(tot)}개를 관사와 함께 모았어요. 자주 쓰는 단어부터 차례로 정리되어 있어요.`;
+  $("dist").innerHTML = ["der","die","das"].map(a => `<i style="width:${c[a]/tot*100}%;background:var(--${a})"></i>`).join("");
+  const NAME = {der:"남성", die:"여성", das:"중성"};
+  $("distLegend").innerHTML = ["der","die","das"].map(a => `<div style="border-top-color:var(--${a})"><b style="color:var(--${a})">${a} (${NAME[a]})</b><span>${fmt(c[a])}개, ${Math.round(c[a]/tot*100)}%</span></div>`).join("");
+})();
+
+function applyFilter(){
+  const q = fQuery.trim().toLowerCase();
+  const src = fSort === "abc" ? ABC : WORDS;
+  filtered = src.filter(x =>
+    (fArt === "all" || x.a === fArt) &&
+    (!fOnly || x.m) &&
+    (!q || x.w.toLowerCase().includes(q) || x.m.toLowerCase().includes(q) || (x.a + " " + x.w).toLowerCase().includes(q))
+  );
+  shown = 0;
+  $("list").innerHTML = "";
+  $("resultCount").textContent = `${fmt(filtered.length)}개 단어`;
+  $("quizList").disabled = filtered.length < 3;
+  renderMore();
+}
+function renderMore(){
+  if(!filtered.length){
+    $("list").innerHTML = `<li class="empty">찾는 단어가 없어요. 검색어를 바꾸거나 필터를 풀어 보세요.</li>`;
+    $("moreBtn").style.display = "none";
+    return;
+  }
+  const slice = filtered.slice(shown, shown + PAGE);
+  $("list").insertAdjacentHTML("beforeend", slice.map(x =>
+    rowHTML(x)
+  ).join(""));
+  shown += slice.length;
+  const left = filtered.length - shown;
+  $("moreBtn").style.display = left > 0 ? "block" : "none";
+  $("moreBtn").textContent = `더 보기 (${fmt(left)}개 남음)`;
+}
+function rowHTML(x, extra){
+  const fav = isFav(x.w);
+  return `<li><button class="row" data-i="${x.r}"><span class="w"><span class="art ${x.a}">${x.a}</span>${esc(x.w)}</span><span class="m">${esc(x.m)}${extra ? `<span class="sub-m">${extra}</span>` : ""}</span></button><button class="star${fav ? " on" : ""}" data-star="${x.r}" aria-label="즐겨찾기" aria-pressed="${fav}">★</button></li>`;
+}
+document.addEventListener("click", e => {
+  const st = e.target.closest("[data-star]");
+  if(st){
+    const x = WORDS[+st.dataset.star];
+    const on = toggleFav(x.w);
+    document.querySelectorAll(`[data-star="${x.r}"]`).forEach(b => { b.classList.toggle("on", on); b.setAttribute("aria-pressed", String(on)); });
+    if($("favs").classList.contains("on")) renderFavs();
+    return;
+  }
+  const row = e.target.closest("button.row[data-i]");
+  if(row){ const x = WORDS[+row.dataset.i]; speak(`${x.a} ${x.w}`); }
+});
+
+/* ---------- 즐겨찾기 ---------- */
+function favItems(){ return S.favorites.map(w => WORD_IDX.get(w)).filter(Boolean); }
+function renderFavs(){
+  const items = favItems();
+  $("favCount").textContent = `${fmt(items.length)}개 단어`;
+  $("favQuiz").disabled = items.length < 1;
+  $("favList").innerHTML = items.length
+    ? `<ul class="list">${items.map(x => rowHTML(x)).join("")}</ul>`
+    : `<div class="emptybox">아직 즐겨찾기한 단어가 없어요. 게임 카드나 수록된 단어 목록에서 ★을 눌러 보세요.</div>`;
+}
+$("favQuiz").addEventListener("click", () => startGame(shuffle(favItems()).slice(0, roundSize), "favs"));
+
+/* ---------- 오답노트 ---------- */
+function wrongItems(){
+  return Object.entries(S.wrongs).map(([w,v]) => ({ x: WORD_IDX.get(w), v })).filter(o => o.x).sort((a,b) => (b.v.t||0) - (a.v.t||0));
+}
+function renderWrongs(){
+  const items = wrongItems();
+  $("wrongCount").textContent = `${fmt(items.length)}개 단어`;
+  $("wrongQuiz").disabled = items.length < 1;
+  $("wrongList").innerHTML = items.length
+    ? `<ul class="list">${items.map(o => rowHTML(o.x, `${o.v.n}번 틀림, 졸업까지 ${3 - (o.v.c||0)}번`)).join("")}</ul>`
+    : `<div class="emptybox">오답노트가 비어 있어요. 게임에서 틀린 단어가 여기에 자동으로 모여요.</div>`;
+}
+$("wrongQuiz").addEventListener("click", () => startGame(shuffle(wrongItems().map(o => o.x)).slice(0, roundSize), "wrongs"));
+
+/* ---------- 기록 ---------- */
+const pad = n => String(n).padStart(2, "0");
+const dayKey = t => { const d = new Date(t); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
+const WEEK = ["일","월","화","수","목","금","토"];
+function dayLabel(k){ const [y,m,d] = k.split("-").map(Number); const dt = new Date(y, m-1, d); return `${y}년 ${m}월 ${d}일 (${WEEK[dt.getDay()]})`; }
+let clearArmed = false;
+function recordsHTML(H){
+  const totalN = H.reduce((s,g) => s + g.n, 0), totalC = H.reduce((s,g) => s + g.c, 0);
+  const days = {};
+  H.forEach(g => (days[dayKey(g.t)] ||= []).push(g));
+  const today = new Date(); const pts = [];
+  for(let i = 13; i >= 0; i--){
+    const d = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+    const k = dayKey(d.getTime());
+    pts.push({ k, d, v: days[k] ? Math.max(...days[k].map(g => g.s)) : 0 });
+  }
+  const max = Math.max(...pts.map(p => p.v), 10);
+  const W = 560, Hh = 150, bw = W / 14;
+  const bars = pts.map((p,i) => {
+    const h = p.v ? Math.max(4, (p.v / max) * (Hh - 44)) : 0;
+    const x = i * bw + bw * .18, w = bw * .64, y = Hh - 22 - h;
+    return `${h ? `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="var(--der)"/><text x="${x + w/2}" y="${y - 5}" text-anchor="middle" font-size="11" fill="var(--ink)">${p.v}</text>` : `<rect x="${x}" y="${Hh-24}" width="${w}" height="2" fill="var(--line)"/>`}<text x="${x + w/2}" y="${Hh - 6}" text-anchor="middle" font-size="11" fill="var(--muted)">${p.d.getMonth()+1}/${p.d.getDate()}</text>`;
+  }).join("");
+  const dayHTML = Object.keys(days).sort().reverse().map(k => {
+    const gs = days[k].slice().sort((a,b) => b.t - a.t);
+    const dn = gs.reduce((s,g) => s + g.n, 0), dc = gs.reduce((s,g) => s + g.c, 0);
+    return `<div class="day"><div class="day-head"><h3>${dayLabel(k)}</h3><span>${gs.length}판, 최고 ${fmt(Math.max(...gs.map(g => g.s)))}점, 정답률 ${Math.round(dc/dn*100)}%</span></div>
+      <div class="tbl"><table><thead><tr><th>시간</th><th>점수</th><th>정답</th><th>최고 연속</th></tr></thead><tbody>${gs.map(g => { const d = new Date(g.t); return `<tr><td>${pad(d.getHours())}:${pad(d.getMinutes())}</td><td class="k">${fmt(g.s)}점</td><td>${g.c} / ${g.n}</td><td>${g.k}</td></tr>`; }).join("")}</tbody></table></div></div>`;
+  }).join("");
+  return `
+    <div class="summary">
+      <div><b>${fmt(H.length)}</b><span>게임 수</span></div>
+      <div><b>${fmt(Math.max(...H.map(g => g.s)))}</b><span>최고 점수</span></div>
+      <div><b>${totalN ? Math.round(totalC/totalN*100) : 0}%</b><span>전체 정답률</span></div>
+    </div>
+    <div class="chartbox"><p>최근 14일 하루 최고 점수</p><svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="최근 14일 하루 최고 점수 그래프">${bars}</svg></div>
+    ${dayHTML}`;
+}
+function renderRecords(){
+  const H = S.history;
+  if(!H.length){
+    $("recBody").innerHTML = `<div class="emptybox">아직 기록이 없어요. 게임을 끝까지 마치면 점수가 여기에 저장돼요.</div>`;
+    return;
+  }
+  $("recBody").innerHTML = recordsHTML(H) + `<button class="danger" id="clearRec">기록 모두 지우기</button>`;
+  clearArmed = false;
+  $("clearRec").addEventListener("click", e => {
+    if(!clearArmed){ clearArmed = true; e.target.classList.add("armed"); e.target.textContent = "한 번 더 누르면 모든 기록이 지워져요"; return; }
+    S.history = []; save("history"); lsDel("ddd-best");
+    renderRecords();
+  });
+}
+$("moreBtn").addEventListener("click", renderMore);
+if("IntersectionObserver" in window){
+  new IntersectionObserver(es => {
+    if(es[0].isIntersecting && $("words").classList.contains("on") && shown < filtered.length) renderMore();
+  }, {rootMargin:"400px"}).observe($("moreBtn"));
+}
+let tmr;
+$("search").addEventListener("input", e => { clearTimeout(tmr); tmr = setTimeout(() => { fQuery = e.target.value; applyFilter(); }, 150); });
+pick("words .seg", "f", v => { fArt = v; applyFilter(); });
+$("sort").addEventListener("change", e => { fSort = e.target.value; applyFilter(); });
+
+$("quizList").addEventListener("click", () => startGame(shuffle(filtered).slice(0, roundSize), "words"));
+
+let listReady = false;
+document.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => {
+  const id = b.dataset.go;
+  show(id);
+  if(id === "words" && !listReady){ applyFilter(); listReady = true; }
+}));
+document.addEventListener("click", e => {
+  const s = e.target.closest("[data-say]");
+  if(s) speak(s.dataset.say);
+});
+document.querySelectorAll(".toc a").forEach(a => a.addEventListener("click", e => {
+  e.preventDefault();
+  const el = document.querySelector(a.getAttribute("href"));
+  if(el) el.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+}));
+
+$("tileCount").textContent = `명사 ${fmt(WORDS.length)}개를 관사, 뜻과 함께`;
+renderBest(); updateCounts(); renderAcct();
+
+/* ---------- 메인 독일 국기 ---------- */
+(function flag(){
+  const W = 900, Hs = 90, N = 36, step = W / N;
+  const paths = [0,1,2].map(i => document.getElementById("fs" + i));
+  const shade = document.getElementById("fShade");
+  shade.innerHTML = Array.from({length:N}, (_,i) => `<rect x="${i*step - .5}" y="0" width="${step + 1}" height="270"/>`).join("");
+  const rects = shade.querySelectorAll("rect");
+  const reduce = !!window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const off = (x, t) => 9 * Math.sin(x / 150 - t) + 4 * Math.sin(x / 63 - t * 1.7);
+  function draw(t){
+    paths.forEach((p, i) => {
+      let top = "", bot = "";
+      for(let k = 0; k <= N; k++){ const x = k * step; top += `${k ? "L" : "M"}${x},${i*Hs + off(x,t) - (i ? .6 : 12)} `; }
+      for(let k = N; k >= 0; k--){ const x = k * step; bot += `L${x},${(i+1)*Hs + off(x,t) + (i === 2 ? 12 : .6)} `; }
+      p.setAttribute("d", top + bot + "Z");
+    });
+    rects.forEach((r, k) => {
+      const x = (k + .5) * step;
+      const slope = Math.cos(x / 150 - t) * 9 / 150 + Math.cos(x / 63 - t * 1.7) * 4 / 63;
+      const v = Math.max(-1, Math.min(1, slope * 9));
+      r.setAttribute("fill", v > 0 ? "#fff" : "#000");
+      r.setAttribute("opacity", (Math.abs(v) * .22).toFixed(3));
+    });
+  }
+  if(reduce){ draw(0); return; }
+  let start = null;
+  function loop(ts){
+    if(start === null) start = ts;
+    if($("start").classList.contains("on")) draw((ts - start) / 900);
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
+
+/* ---------- 로그인 없이 기록 옮기기 ---------- */
+function b64u(bytes){ let s = ""; bytes.forEach(b => s += String.fromCharCode(b)); return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,""); }
+function unb64u(str){ const s = atob(str.replace(/-/g,"+").replace(/_/g,"/")); return Uint8Array.from(s, c => c.charCodeAt(0)); }
+async function pipeBytes(bytes, stream){ return new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(stream)).arrayBuffer()); }
+async function makeBackup(){
+  const json = JSON.stringify({ v:1, h:S.history, f:S.favorites, w:Object.entries(S.wrongs) });
+  const raw = new TextEncoder().encode(json);
+  if(window.CompressionStream){ try{ return "D1." + b64u(await pipeBytes(raw, new CompressionStream("deflate-raw"))); }catch(e){} }
+  return "J1." + b64u(raw);
+}
+async function readBackup(code){
+  code = code.replace(/\s+/g, "");
+  const [tag, body] = [code.slice(0,3), code.slice(3)];
+  let bytes = unb64u(body);
+  if(tag === "D1."){ if(!window.DecompressionStream) throw new Error("unsupported"); bytes = await pipeBytes(bytes, new DecompressionStream("deflate-raw")); }
+  else if(tag !== "J1.") throw new Error("bad");
+  const d = JSON.parse(new TextDecoder().decode(bytes));
+  if(!d || d.v !== 1) throw new Error("bad");
+  return d;
+}
+function mergeBackup(d){
+  const seen = new Set(S.history.map(g => g.t));
+  (d.h || []).forEach(g => { if(g && typeof g.t === "number" && !seen.has(g.t)) S.history.push(g); });
+  S.history.sort((a,b) => a.t - b.t);
+  if(S.history.length > 500) S.history = S.history.slice(-500);
+  (d.f || []).forEach(w => { if(typeof w === "string" && !S.favorites.includes(w)) S.favorites.push(w); });
+  (d.w || []).forEach(([w,v]) => { if(typeof w !== "string" || !v) return; const l = S.wrongs[w]; if(!l || (v.t||0) > (l.t||0)) S.wrongs[w] = v; });
+  KINDS.forEach(save);
+}
+function bkMsg(text, ok){ const m = $("bkMsg"); m.textContent = text; m.className = "msg " + (ok ? "ok" : "err"); }
+$("bkMake").addEventListener("click", async () => {
+  const code = await makeBackup();
+  $("bkText").value = code;
+  let copied = false;
+  try{ await navigator.clipboard.writeText(code); copied = true; }catch(e){}
+  if(!copied){ $("bkText").focus(); $("bkText").select(); }
+  bkMsg(copied ? "코드를 복사했어요. 메모나 메신저에 붙여넣어 보관하세요." : "코드를 만들었어요. 위 칸을 길게 눌러 복사해 주세요.", true);
+});
+$("bkLoad").addEventListener("click", async () => {
+  const code = $("bkText").value.trim();
+  if(!code){ bkMsg("받은 코드를 위 칸에 붙여넣어 주세요.", false); return; }
+  try{
+    const d = await readBackup(code);
+    mergeBackup(d);
+    bkMsg(`불러왔어요. 게임 ${(d.h||[]).length}판, 즐겨찾기 ${(d.f||[]).length}개, 오답 ${(d.w||[]).length}개를 합쳤어요.`, true);
+    updateCounts(); renderBest();
+  }catch(e){ bkMsg(e.message === "unsupported" ? "이 브라우저에서는 이 코드를 읽을 수 없어요. 브라우저를 최신으로 업데이트해 주세요." : "올바른 코드가 아니에요. 처음부터 끝까지 빠짐없이 붙여넣었는지 확인해 주세요.", false); }
+});
+dbReady.then(db => {
+  $("noLoginNote").hidden = !!db;
+  if(db) return;
+  const err = String(window.FB_ERROR || "");
+  const why =
+    err === "no-config" ? "index.html의 FIREBASE_CONFIG 설정값이 비어 있어요. 설정값을 붙여넣은 파일을 다시 올려 주세요. (설치 3단계)" :
+    /operation-not-allowed|admin-restricted/.test(err) ? "Firebase에서 '익명' 로그인이 꺼져 있어요. Authentication → 로그인 방법에서 익명을 사용 설정해 주세요. (설치 4단계)" :
+    /api-key|invalid-api|API key/i.test(err) ? "설정값(apiKey 등)이 잘못 들어간 것 같아요. Firebase 콘솔에서 다시 복사해 붙여넣어 주세요. (설치 3단계)" :
+    /network|Failed to fetch|import/i.test(err) ? "서버에 연결하지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요." :
+    `서버 연결에 실패했어요. (오류 코드: ${err || "알 수 없음"})`;
+  $("noLoginNote").innerHTML = `<b>코드 로그인을 쓸 수 없는 상태예요.</b><br>${esc(why)}`;
+});
+
+/* ---------- 맨 위로 / 맨 아래로 / 검색 ---------- */
+const SEARCHABLE = ["words","favs","wrongs","pron","gram","records","info","admin"];
+const FILTER_MODE = ["favs","wrongs"];
+const smooth = () => (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth";
+const curScreen = () => { const s = document.querySelector(".screen.on"); return s ? s.id : "start"; };
+function updateFab(){
+  const id = curScreen();
+  const doc = document.documentElement;
+  const y = window.scrollY, max = doc.scrollHeight - window.innerHeight;
+  const off = id === "game";
+  $("fabTop").hidden = off || y < 300;
+  $("fabBottom").hidden = off || max < 300 || y > max - 120;
+  $("fabSearch").hidden = !SEARCHABLE.includes(id) || !$("findbar").hidden;
+}
+let fabRaf = 0;
+window.addEventListener("scroll", () => { if(!fabRaf) fabRaf = requestAnimationFrame(() => { fabRaf = 0; updateFab(); }); }, {passive:true});
+window.addEventListener("resize", updateFab);
+new MutationObserver(() => updateFab()).observe(document.querySelector("main"), {childList:true, subtree:true});
+$("fabTop").addEventListener("click", () => window.scrollTo({top:0, behavior:smooth()}));
+$("fabBottom").addEventListener("click", () => window.scrollTo({top:document.documentElement.scrollHeight, behavior:smooth()}));
+
+let hits = [], hitIdx = -1;
+function clearMarks(){
+  document.querySelectorAll("mark.hl").forEach(m => { const p = m.parentNode; p.replaceChild(document.createTextNode(m.textContent), m); p.normalize(); });
+  hits = []; hitIdx = -1;
+}
+function clearFilter(){ document.querySelectorAll(".screen li[data-hide]").forEach(li => { li.hidden = false; li.removeAttribute("data-hide"); }); }
+function runFind(){
+  const id = curScreen(), q = $("findInput").value.trim().toLowerCase();
+  clearMarks(); clearFilter();
+  const screen = $(id);
+  if(!q){ $("findCount").textContent = ""; $("findPrev").disabled = $("findNext").disabled = true; return; }
+  if(FILTER_MODE.includes(id)){
+    const lis = screen.querySelectorAll(".list li");
+    let n = 0;
+    lis.forEach(li => { const ok = li.textContent.toLowerCase().includes(q); if(!ok){ li.hidden = true; li.setAttribute("data-hide",""); } else n++; });
+    $("findCount").textContent = `${n}개`;
+    $("findPrev").disabled = $("findNext").disabled = true;
+    return;
+  }
+  const walker = document.createTreeWalker(screen, NodeFilter.SHOW_TEXT, { acceptNode: n =>
+    (!n.nodeValue.trim() || n.parentElement.closest("svg,script,style,.back,.toc,input,select")) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+  const nodes = []; while(walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node => {
+    const text = node.nodeValue, low = text.toLowerCase();
+    let i = low.indexOf(q); if(i < 0) return;
+    const frag = document.createDocumentFragment(); let last = 0;
+    while(i >= 0){
+      frag.appendChild(document.createTextNode(text.slice(last, i)));
+      const m = document.createElement("mark"); m.className = "hl"; m.textContent = text.slice(i, i + q.length);
+      frag.appendChild(m); hits.push(m);
+      last = i + q.length; i = low.indexOf(q, last);
+    }
+    frag.appendChild(document.createTextNode(text.slice(last)));
+    node.parentNode.replaceChild(frag, node);
+  });
+  $("findPrev").disabled = $("findNext").disabled = hits.length < 2;
+  if(hits.length) gotoHit(0); else $("findCount").textContent = "0개";
+}
+function gotoHit(i){
+  if(!hits.length) return;
+  if(hits[hitIdx]) hits[hitIdx].classList.remove("cur");
+  hitIdx = (i + hits.length) % hits.length;
+  const m = hits[hitIdx]; m.classList.add("cur");
+  const det = m.closest("details"); if(det) det.open = true;
+  const y = m.getBoundingClientRect().top + window.scrollY - $("findbar").offsetHeight - 40;
+  window.scrollTo({top: Math.max(0, y), behavior: smooth()});
+  $("findCount").textContent = `${hitIdx + 1}/${hits.length}`;
+}
+function openFind(){
+  const id = curScreen();
+  if(id === "words"){ const s = $("search"); s.scrollIntoView({block:"center", behavior:smooth()}); setTimeout(() => s.focus(), 250); return; }
+  $("findbar").hidden = false; $("fabSearch").hidden = true;
+  $("findInput").value = ""; $("findCount").textContent = "";
+  $("findPrev").disabled = $("findNext").disabled = true;
+  setTimeout(() => $("findInput").focus(), 30);
+}
+function closeFind(){
+  if($("findbar").hidden) return;
+  $("findbar").hidden = true; clearMarks(); clearFilter(); updateFab();
+}
+let findTmr;
+$("fabSearch").addEventListener("click", openFind);
+$("findInput").addEventListener("input", () => { clearTimeout(findTmr); findTmr = setTimeout(runFind, 200); });
+$("findInput").addEventListener("keydown", e => {
+  if(e.key === "Enter"){ e.preventDefault(); if(hits.length) gotoHit(hitIdx + (e.shiftKey ? -1 : 1)); else runFind(); }
+  else if(e.key === "Escape") closeFind();
+});
+$("findNext").addEventListener("click", () => gotoHit(hitIdx + 1));
+$("findPrev").addEventListener("click", () => gotoHit(hitIdx - 1));
+$("findClose").addEventListener("click", closeFind);
+updateFab();
+</script>
+</body>
+</html>
