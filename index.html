@@ -1700,5 +1700,25 @@ $("findPrev").addEventListener("click", () => gotoHit(hitIdx - 1));
 $("findClose").addEventListener("click", closeFind);
 updateFab();
 </script>
+  <script>
+/* ---------- 다크 모드 전환 버튼 ---------- */
+(function(){
+  const root = document.documentElement;
+  const saved = (() => { try{ return localStorage.getItem("ddd-theme"); }catch(e){ return null; } })();
+  if(saved) root.dataset.theme = saved;
+  const isDark = () => root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  const btn = document.createElement("button");
+  btn.setAttribute("aria-label", "다크 모드 전환");
+  const paint = () => { btn.textContent = isDark() ? "☀️" : "🌙"; };
+  btn.style.fontSize = "20px";
+  btn.addEventListener("click", () => {
+    root.dataset.theme = isDark() ? "light" : "dark";
+    try{ localStorage.setItem("ddd-theme", root.dataset.theme); }catch(e){}
+    paint();
+  });
+  paint();
+  document.getElementById("fab").prepend(btn);
+})();
+</script>
 </body>
 </html>
