@@ -1737,28 +1737,31 @@ updateFab();
 /* ---------- 게임 연출 ---------- */
 const REDUCE = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
 function playFx(ok, a){
+  // 이 함수는 연속 기록이 올라가기 직전에 불려서, 이번 정답까지 센 값을 따로 계산해요
+  const combo = ok ? streak + 1 : 0;
   const card = $("card");
   card.style.setProperty("--pc", `var(--${ok ? a : "die"})`);
   card.classList.remove("fx-hit","fx-miss"); void card.offsetWidth;
   card.classList.add(ok ? "fx-hit" : "fx-miss");
-  $("flame").hidden = streak < 5;
+  $("flame").hidden = combo < 5;
   if(!ok){ if(navigator.vibrate) try{ navigator.vibrate(40); }catch(e){} return; }
   if(REDUCE) return;
-  const n = streak >= 10 ? 28 : streak >= 5 ? 20 : 12;
+  const n = combo >= 10 ? 28 : combo >= 5 ? 20 : 12;
   for(let i = 0; i < n; i++){
     const s = document.createElement("i");
     s.className = "spark" + (i % 3 ? "" : " round");
-    const ang = Math.random() * Math.PI * 2, dist = 70 + Math.random() * (streak >= 5 ? 140 : 90);
+    const ang = Math.random() * Math.PI * 2, dist = 70 + Math.random() * (combo >= 5 ? 140 : 90);
     s.style.setProperty("--dx", `${Math.cos(ang) * dist}px`);
     s.style.setProperty("--dy", `${Math.sin(ang) * dist}px`);
     s.style.setProperty("--r", `${Math.random() * 540 - 270}deg`);
     card.appendChild(s);
     setTimeout(() => s.remove(), 900);
   }
-  if(streak >= 3 && (streak === 3 || streak % 5 === 0)){
+  if(combo >= 2){
+    document.querySelectorAll(".combo").forEach(el => el.remove());
     const c = document.createElement("div");
     c.className = "combo"; c.style.setProperty("--pc", `var(--${a})`);
-    c.textContent = streak >= 5 ? `${streak} COMBO 🔥` : `${streak} COMBO`;
+    c.textContent = combo >= 5 ? `${combo} COMBO 🔥` : `${combo} COMBO`;
     document.body.appendChild(c); setTimeout(() => c.remove(), 1000);
   }
 }
